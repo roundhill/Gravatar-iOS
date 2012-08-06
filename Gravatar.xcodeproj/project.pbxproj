@@ -1,0 +1,540 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CC6315FE15CF0F93007E8AFC /* response-complex.xml in Resources */ = {isa = PBXBuildFile; fileRef = CC6315FD15CF0F93007E8AFC /* response-complex.xml */; };
+		CC63160115CF0FB2007E8AFC /* response-fault.xml in Resources */ = {isa = PBXBuildFile; fileRef = CC63160015CF0FB2007E8AFC /* response-fault.xml */; };
+		CC63160415D01D8D007E8AFC /* RCXMLRPCParsingContext.m in Sources */ = {isa = PBXBuildFile; fileRef = CC63160315D01D8C007E8AFC /* RCXMLRPCParsingContext.m */; };
+		CC63160815D03E81007E8AFC /* GravatarRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = CC63160715D03E81007E8AFC /* GravatarRequest.m */; };
+		CC63160B15D04B6F007E8AFC /* MD5Hasher.m in Sources */ = {isa = PBXBuildFile; fileRef = CC63160A15D04B6F007E8AFC /* MD5Hasher.m */; };
+		CC63160E15D0555E007E8AFC /* GravatarClient.m in Sources */ = {isa = PBXBuildFile; fileRef = CC63160D15D0555E007E8AFC /* GravatarClient.m */; };
+		CCFD869415CC56AB001D8E25 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCFD869315CC56AB001D8E25 /* UIKit.framework */; };
+		CCFD869615CC56AB001D8E25 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCFD869515CC56AB001D8E25 /* Foundation.framework */; };
+		CCFD869815CC56AB001D8E25 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCFD869715CC56AB001D8E25 /* CoreGraphics.framework */; };
+		CCFD869E15CC56AB001D8E25 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CCFD869C15CC56AB001D8E25 /* InfoPlist.strings */; };
+		CCFD86A015CC56AB001D8E25 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFD869F15CC56AB001D8E25 /* main.m */; };
+		CCFD86A415CC56AB001D8E25 /* RCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFD86A315CC56AB001D8E25 /* RCAppDelegate.m */; };
+		CCFD86AC15CC56AB001D8E25 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCFD86AB15CC56AB001D8E25 /* SenTestingKit.framework */; };
+		CCFD86AD15CC56AB001D8E25 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCFD869315CC56AB001D8E25 /* UIKit.framework */; };
+		CCFD86AE15CC56AB001D8E25 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCFD869515CC56AB001D8E25 /* Foundation.framework */; };
+		CCFD86B615CC56AB001D8E25 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CCFD86B415CC56AB001D8E25 /* InfoPlist.strings */; };
+		CCFD86B915CC56AB001D8E25 /* GravatarTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFD86B815CC56AB001D8E25 /* GravatarTests.m */; };
+		CCFD86D415CC61DF001D8E25 /* RCXMLRPCEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFD86D315CC61DF001D8E25 /* RCXMLRPCEncoder.m */; };
+		CCFD86D715CC69E8001D8E25 /* RCXMLRPCEncoderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFD86D615CC69E8001D8E25 /* RCXMLRPCEncoderTests.m */; };
+		CCFD86DA15CC787E001D8E25 /* params.xml in Resources */ = {isa = PBXBuildFile; fileRef = CCFD86D915CC787E001D8E25 /* params.xml */; };
+		CCFD86DC15CC7C89001D8E25 /* array.xml in Resources */ = {isa = PBXBuildFile; fileRef = CCFD86DB15CC7C89001D8E25 /* array.xml */; };
+		CCFD86DE15CC80E0001D8E25 /* dict.xml in Resources */ = {isa = PBXBuildFile; fileRef = CCFD86DD15CC80E0001D8E25 /* dict.xml */; };
+		CCFD86E015CC829F001D8E25 /* request.xml in Resources */ = {isa = PBXBuildFile; fileRef = CCFD86DF15CC829F001D8E25 /* request.xml */; };
+		CCFD86EB15CCABB2001D8E25 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFD86E915CCABA1001D8E25 /* NSData+Base64.m */; };
+		CCFD86F115CCAFFC001D8E25 /* RCXMLRPCDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFD86F015CCAFFC001D8E25 /* RCXMLRPCDecoder.m */; };
+		CCFD86F415CCB023001D8E25 /* RCXMLRPCDecoderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFD86F315CCB023001D8E25 /* RCXMLRPCDecoderTests.m */; };
+		CCFD86F615CCB372001D8E25 /* response.xml in Resources */ = {isa = PBXBuildFile; fileRef = CCFD86F515CCB372001D8E25 /* response.xml */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CCFD86AF15CC56AB001D8E25 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CCFD868615CC56AA001D8E25 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CCFD868E15CC56AA001D8E25;
+			remoteInfo = Gravatar;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		CC6315FD15CF0F93007E8AFC /* response-complex.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "response-complex.xml"; sourceTree = "<group>"; };
+		CC63160015CF0FB2007E8AFC /* response-fault.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "response-fault.xml"; sourceTree = "<group>"; };
+		CC63160215D01D8C007E8AFC /* RCXMLRPCParsingContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCXMLRPCParsingContext.h; sourceTree = "<group>"; };
+		CC63160315D01D8C007E8AFC /* RCXMLRPCParsingContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCXMLRPCParsingContext.m; sourceTree = "<group>"; };
+		CC63160615D03E81007E8AFC /* GravatarRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GravatarRequest.h; sourceTree = "<group>"; };
+		CC63160715D03E81007E8AFC /* GravatarRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GravatarRequest.m; sourceTree = "<group>"; };
+		CC63160915D04B6F007E8AFC /* MD5Hasher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MD5Hasher.h; sourceTree = "<group>"; };
+		CC63160A15D04B6F007E8AFC /* MD5Hasher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MD5Hasher.m; sourceTree = "<group>"; };
+		CC63160C15D0555E007E8AFC /* GravatarClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GravatarClient.h; sourceTree = "<group>"; };
+		CC63160D15D0555E007E8AFC /* GravatarClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GravatarClient.m; sourceTree = "<group>"; };
+		CCFD868F15CC56AA001D8E25 /* Gravatar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gravatar.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CCFD869315CC56AB001D8E25 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		CCFD869515CC56AB001D8E25 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		CCFD869715CC56AB001D8E25 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		CCFD869B15CC56AB001D8E25 /* Gravatar-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Gravatar-Info.plist"; sourceTree = "<group>"; };
+		CCFD869D15CC56AB001D8E25 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CCFD869F15CC56AB001D8E25 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		CCFD86A115CC56AB001D8E25 /* Gravatar-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Gravatar-Prefix.pch"; sourceTree = "<group>"; };
+		CCFD86A215CC56AB001D8E25 /* RCAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCAppDelegate.h; sourceTree = "<group>"; };
+		CCFD86A315CC56AB001D8E25 /* RCAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCAppDelegate.m; sourceTree = "<group>"; };
+		CCFD86AA15CC56AB001D8E25 /* GravatarTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GravatarTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CCFD86AB15CC56AB001D8E25 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		CCFD86B315CC56AB001D8E25 /* GravatarTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GravatarTests-Info.plist"; sourceTree = "<group>"; };
+		CCFD86B515CC56AB001D8E25 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CCFD86B715CC56AB001D8E25 /* GravatarTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GravatarTests.h; sourceTree = "<group>"; };
+		CCFD86B815CC56AB001D8E25 /* GravatarTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GravatarTests.m; sourceTree = "<group>"; };
+		CCFD86D215CC61DF001D8E25 /* RCXMLRPCEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCXMLRPCEncoder.h; sourceTree = "<group>"; };
+		CCFD86D315CC61DF001D8E25 /* RCXMLRPCEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCXMLRPCEncoder.m; sourceTree = "<group>"; };
+		CCFD86D515CC69E8001D8E25 /* RCXMLRPCEncoderTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCXMLRPCEncoderTests.h; sourceTree = "<group>"; };
+		CCFD86D615CC69E8001D8E25 /* RCXMLRPCEncoderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCXMLRPCEncoderTests.m; sourceTree = "<group>"; };
+		CCFD86D915CC787E001D8E25 /* params.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = params.xml; sourceTree = "<group>"; };
+		CCFD86DB15CC7C89001D8E25 /* array.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = array.xml; sourceTree = "<group>"; };
+		CCFD86DD15CC80E0001D8E25 /* dict.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = dict.xml; sourceTree = "<group>"; };
+		CCFD86DF15CC829F001D8E25 /* request.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = request.xml; sourceTree = "<group>"; };
+		CCFD86E815CCABA1001D8E25 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		CCFD86E915CCABA1001D8E25 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		CCFD86EF15CCAFFC001D8E25 /* RCXMLRPCDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCXMLRPCDecoder.h; sourceTree = "<group>"; };
+		CCFD86F015CCAFFC001D8E25 /* RCXMLRPCDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCXMLRPCDecoder.m; sourceTree = "<group>"; };
+		CCFD86F215CCB022001D8E25 /* RCXMLRPCDecoderTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCXMLRPCDecoderTests.h; sourceTree = "<group>"; };
+		CCFD86F315CCB023001D8E25 /* RCXMLRPCDecoderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCXMLRPCDecoderTests.m; sourceTree = "<group>"; };
+		CCFD86F515CCB372001D8E25 /* response.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = response.xml; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CCFD868C15CC56AA001D8E25 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CCFD869415CC56AB001D8E25 /* UIKit.framework in Frameworks */,
+				CCFD869615CC56AB001D8E25 /* Foundation.framework in Frameworks */,
+				CCFD869815CC56AB001D8E25 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CCFD86A615CC56AB001D8E25 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CCFD86AC15CC56AB001D8E25 /* SenTestingKit.framework in Frameworks */,
+				CCFD86AD15CC56AB001D8E25 /* UIKit.framework in Frameworks */,
+				CCFD86AE15CC56AB001D8E25 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CC63160515D03E6C007E8AFC /* Gravatar */ = {
+			isa = PBXGroup;
+			children = (
+				CC63160C15D0555E007E8AFC /* GravatarClient.h */,
+				CC63160D15D0555E007E8AFC /* GravatarClient.m */,
+				CC63160615D03E81007E8AFC /* GravatarRequest.h */,
+				CC63160715D03E81007E8AFC /* GravatarRequest.m */,
+				CC63160915D04B6F007E8AFC /* MD5Hasher.h */,
+				CC63160A15D04B6F007E8AFC /* MD5Hasher.m */,
+			);
+			name = Gravatar;
+			sourceTree = "<group>";
+		};
+		CCFD868415CC56AA001D8E25 = {
+			isa = PBXGroup;
+			children = (
+				CCFD869915CC56AB001D8E25 /* Gravatar */,
+				CCFD86B115CC56AB001D8E25 /* GravatarTests */,
+				CCFD869215CC56AB001D8E25 /* Frameworks */,
+				CCFD869015CC56AA001D8E25 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CCFD869015CC56AA001D8E25 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CCFD868F15CC56AA001D8E25 /* Gravatar.app */,
+				CCFD86AA15CC56AB001D8E25 /* GravatarTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CCFD869215CC56AB001D8E25 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CCFD869315CC56AB001D8E25 /* UIKit.framework */,
+				CCFD869515CC56AB001D8E25 /* Foundation.framework */,
+				CCFD869715CC56AB001D8E25 /* CoreGraphics.framework */,
+				CCFD86AB15CC56AB001D8E25 /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CCFD869915CC56AB001D8E25 /* Gravatar */ = {
+			isa = PBXGroup;
+			children = (
+				CC63160515D03E6C007E8AFC /* Gravatar */,
+				CCFD86C215CC56C3001D8E25 /* XMLRPC */,
+				CCFD86A215CC56AB001D8E25 /* RCAppDelegate.h */,
+				CCFD86A315CC56AB001D8E25 /* RCAppDelegate.m */,
+				CCFD869A15CC56AB001D8E25 /* Supporting Files */,
+			);
+			path = Gravatar;
+			sourceTree = "<group>";
+		};
+		CCFD869A15CC56AB001D8E25 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				CCFD869B15CC56AB001D8E25 /* Gravatar-Info.plist */,
+				CCFD869C15CC56AB001D8E25 /* InfoPlist.strings */,
+				CCFD869F15CC56AB001D8E25 /* main.m */,
+				CCFD86A115CC56AB001D8E25 /* Gravatar-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CCFD86B115CC56AB001D8E25 /* GravatarTests */ = {
+			isa = PBXGroup;
+			children = (
+				CCFD86D815CC7865001D8E25 /* Fixtures */,
+				CCFD86B715CC56AB001D8E25 /* GravatarTests.h */,
+				CCFD86B815CC56AB001D8E25 /* GravatarTests.m */,
+				CCFD86D515CC69E8001D8E25 /* RCXMLRPCEncoderTests.h */,
+				CCFD86D615CC69E8001D8E25 /* RCXMLRPCEncoderTests.m */,
+				CCFD86F215CCB022001D8E25 /* RCXMLRPCDecoderTests.h */,
+				CCFD86F315CCB023001D8E25 /* RCXMLRPCDecoderTests.m */,
+				CCFD86B215CC56AB001D8E25 /* Supporting Files */,
+			);
+			path = GravatarTests;
+			sourceTree = "<group>";
+		};
+		CCFD86B215CC56AB001D8E25 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				CCFD86B315CC56AB001D8E25 /* GravatarTests-Info.plist */,
+				CCFD86B415CC56AB001D8E25 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CCFD86C215CC56C3001D8E25 /* XMLRPC */ = {
+			isa = PBXGroup;
+			children = (
+				CCFD86E815CCABA1001D8E25 /* NSData+Base64.h */,
+				CCFD86E915CCABA1001D8E25 /* NSData+Base64.m */,
+				CCFD86D215CC61DF001D8E25 /* RCXMLRPCEncoder.h */,
+				CCFD86D315CC61DF001D8E25 /* RCXMLRPCEncoder.m */,
+				CCFD86EF15CCAFFC001D8E25 /* RCXMLRPCDecoder.h */,
+				CCFD86F015CCAFFC001D8E25 /* RCXMLRPCDecoder.m */,
+				CC63160215D01D8C007E8AFC /* RCXMLRPCParsingContext.h */,
+				CC63160315D01D8C007E8AFC /* RCXMLRPCParsingContext.m */,
+			);
+			name = XMLRPC;
+			sourceTree = "<group>";
+		};
+		CCFD86D815CC7865001D8E25 /* Fixtures */ = {
+			isa = PBXGroup;
+			children = (
+				CCFD86D915CC787E001D8E25 /* params.xml */,
+				CCFD86DF15CC829F001D8E25 /* request.xml */,
+				CCFD86DB15CC7C89001D8E25 /* array.xml */,
+				CCFD86DD15CC80E0001D8E25 /* dict.xml */,
+				CCFD86F515CCB372001D8E25 /* response.xml */,
+				CC6315FD15CF0F93007E8AFC /* response-complex.xml */,
+				CC63160015CF0FB2007E8AFC /* response-fault.xml */,
+			);
+			name = Fixtures;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CCFD868E15CC56AA001D8E25 /* Gravatar */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CCFD86BC15CC56AB001D8E25 /* Build configuration list for PBXNativeTarget "Gravatar" */;
+			buildPhases = (
+				CCFD868B15CC56AA001D8E25 /* Sources */,
+				CCFD868C15CC56AA001D8E25 /* Frameworks */,
+				CCFD868D15CC56AA001D8E25 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Gravatar;
+			productName = Gravatar;
+			productReference = CCFD868F15CC56AA001D8E25 /* Gravatar.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CCFD86A915CC56AB001D8E25 /* GravatarTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CCFD86BF15CC56AB001D8E25 /* Build configuration list for PBXNativeTarget "GravatarTests" */;
+			buildPhases = (
+				CCFD86A515CC56AB001D8E25 /* Sources */,
+				CCFD86A615CC56AB001D8E25 /* Frameworks */,
+				CCFD86A715CC56AB001D8E25 /* Resources */,
+				CCFD86A815CC56AB001D8E25 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CCFD86B015CC56AB001D8E25 /* PBXTargetDependency */,
+			);
+			name = GravatarTests;
+			productName = GravatarTests;
+			productReference = CCFD86AA15CC56AB001D8E25 /* GravatarTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CCFD868615CC56AA001D8E25 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = RC;
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = "Beau Collins";
+			};
+			buildConfigurationList = CCFD868915CC56AA001D8E25 /* Build configuration list for PBXProject "Gravatar" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = CCFD868415CC56AA001D8E25;
+			productRefGroup = CCFD869015CC56AA001D8E25 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CCFD868E15CC56AA001D8E25 /* Gravatar */,
+				CCFD86A915CC56AB001D8E25 /* GravatarTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CCFD868D15CC56AA001D8E25 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CCFD869E15CC56AB001D8E25 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CCFD86A715CC56AB001D8E25 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CCFD86B615CC56AB001D8E25 /* InfoPlist.strings in Resources */,
+				CCFD86DA15CC787E001D8E25 /* params.xml in Resources */,
+				CCFD86DC15CC7C89001D8E25 /* array.xml in Resources */,
+				CCFD86DE15CC80E0001D8E25 /* dict.xml in Resources */,
+				CCFD86E015CC829F001D8E25 /* request.xml in Resources */,
+				CCFD86F615CCB372001D8E25 /* response.xml in Resources */,
+				CC6315FE15CF0F93007E8AFC /* response-complex.xml in Resources */,
+				CC63160115CF0FB2007E8AFC /* response-fault.xml in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		CCFD86A815CC56AB001D8E25 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CCFD868B15CC56AA001D8E25 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CCFD86A015CC56AB001D8E25 /* main.m in Sources */,
+				CCFD86A415CC56AB001D8E25 /* RCAppDelegate.m in Sources */,
+				CCFD86D415CC61DF001D8E25 /* RCXMLRPCEncoder.m in Sources */,
+				CCFD86EB15CCABB2001D8E25 /* NSData+Base64.m in Sources */,
+				CCFD86F115CCAFFC001D8E25 /* RCXMLRPCDecoder.m in Sources */,
+				CC63160415D01D8D007E8AFC /* RCXMLRPCParsingContext.m in Sources */,
+				CC63160815D03E81007E8AFC /* GravatarRequest.m in Sources */,
+				CC63160B15D04B6F007E8AFC /* MD5Hasher.m in Sources */,
+				CC63160E15D0555E007E8AFC /* GravatarClient.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CCFD86A515CC56AB001D8E25 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CCFD86B915CC56AB001D8E25 /* GravatarTests.m in Sources */,
+				CCFD86D715CC69E8001D8E25 /* RCXMLRPCEncoderTests.m in Sources */,
+				CCFD86F415CCB023001D8E25 /* RCXMLRPCDecoderTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CCFD86B015CC56AB001D8E25 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CCFD868E15CC56AA001D8E25 /* Gravatar */;
+			targetProxy = CCFD86AF15CC56AB001D8E25 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		CCFD869C15CC56AB001D8E25 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CCFD869D15CC56AB001D8E25 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		CCFD86B415CC56AB001D8E25 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CCFD86B515CC56AB001D8E25 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		CCFD86BA15CC56AB001D8E25 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CCFD86BB15CC56AB001D8E25 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CCFD86BD15CC56AB001D8E25 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Gravatar/Gravatar-Prefix.pch";
+				INFOPLIST_FILE = "Gravatar/Gravatar-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		CCFD86BE15CC56AB001D8E25 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Gravatar/Gravatar-Prefix.pch";
+				INFOPLIST_FILE = "Gravatar/Gravatar-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		CCFD86C015CC56AB001D8E25 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Gravatar.app/Gravatar";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Gravatar/Gravatar-Prefix.pch";
+				INFOPLIST_FILE = "GravatarTests/GravatarTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		CCFD86C115CC56AB001D8E25 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Gravatar.app/Gravatar";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Gravatar/Gravatar-Prefix.pch";
+				INFOPLIST_FILE = "GravatarTests/GravatarTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CCFD868915CC56AA001D8E25 /* Build configuration list for PBXProject "Gravatar" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CCFD86BA15CC56AB001D8E25 /* Debug */,
+				CCFD86BB15CC56AB001D8E25 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CCFD86BC15CC56AB001D8E25 /* Build configuration list for PBXNativeTarget "Gravatar" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CCFD86BD15CC56AB001D8E25 /* Debug */,
+				CCFD86BE15CC56AB001D8E25 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CCFD86BF15CC56AB001D8E25 /* Build configuration list for PBXNativeTarget "GravatarTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CCFD86C015CC56AB001D8E25 /* Debug */,
+				CCFD86C115CC56AB001D8E25 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CCFD868615CC56AA001D8E25 /* Project object */;
+}

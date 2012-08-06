@@ -1,0 +1,2 @@
+<?xml version="1.0"?>
+<methodCall><methodName>add</methodName><params><param><i4>2</i4></param><param><i4>2</i4></param><param><struct><member><name>hello</name><value><string>world</string></value></member></struct></param><param><array><data><value><i4>1</i4></value><value><double>2.5</double></value></data></array></param></params></methodCall>
