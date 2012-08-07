@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<methodResponse>
+    <params>
+        <param>
+            <value><i4>-9</i4></value>
+        </param>
+        <param>
+            <value><double>-10.25</double></value>
+        </param>
+    </params>
+</methodResponse>
+

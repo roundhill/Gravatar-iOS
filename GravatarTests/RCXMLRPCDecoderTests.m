@@ -45,6 +45,12 @@
     }];
 }
 
+-(void)testNegativeNumbers {
+    id expected = @[@-9, @-10.25];
+    [self.decoder decodeData:[self xml:@"response-numbers"]];
+    STAssertEqualObjects(self.decoder.params, expected, nil);
+}
+
 -(void)testFaultResponse {
     [self.decoder decodeData:[self xml:@"response-fault"]];
     id expected = @{ @"faultCode" : @4, @"faultString": @"Too many parameters." };
