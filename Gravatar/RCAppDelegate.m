@@ -9,6 +9,7 @@
 #import "RCAppDelegate.h"
 #import "GravatarClient.h"
 #import "GravatarRequest.h"
+#import "AddAccountViewController.h"
 
 @interface RCAppDelegate () <GravatarRequestDelegate>
 @property (nonatomic, strong) GravatarClient *client;
@@ -18,6 +19,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackOpaque;
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
@@ -67,12 +70,17 @@
 
 - (void)addAccount:(id)sender {
     
-    UIViewController *addAccount = [[UIViewController alloc] initWithNibName:nil bundle:nil];
+    AddAccountViewController *addAccount = [[AddAccountViewController alloc] initWithNibName:nil bundle:nil];
     addAccount.title = NSLocalizedString(@"Add Account", @"Add Account view title");
     
     addAccount.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self.window.rootViewController action:@selector(dismissModalViewControllerAnimated:)];
     UINavigationController *modal = [[UINavigationController alloc] initWithRootViewController:addAccount];
-        
+    
+    modal.navigationBar.shadowImage = nil;
+    UIImage *navBackground = [[UIImage imageNamed:@"unified-nav"] resizableImageWithCapInsets:UIEdgeInsetsMake(39, 1.f, 1.f, 1.f)];
+    [modal.navigationBar setBackgroundImage:navBackground forBarMetrics:UIBarMetricsDefault];
+    [modal.navigationBar setShadowImage:[UIImage imageNamed:@"no-shadow"]];
+    NSLog(@"Shadow: %@", modal.navigationBar.shadowImage);
     [self.window.rootViewController presentViewController:modal animated:YES completion:nil];
     
 }

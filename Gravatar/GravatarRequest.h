@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString * const GravatarURL;
+
 @protocol GravatarRequestDelegate;
 
 @interface GravatarRequest : NSObject

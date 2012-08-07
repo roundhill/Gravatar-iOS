@@ -11,6 +11,11 @@
 
 @implementation MD5Hasher
 
++(NSString *)hashForEmail:(NSString *)email {
+    email = [email stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    return [self hashForString:[email lowercaseString]];
+}
+
 +(NSString *)hashForString:(NSString *)string {
     // pointer to UTF8 chars
     const char *ptr = [string UTF8String];

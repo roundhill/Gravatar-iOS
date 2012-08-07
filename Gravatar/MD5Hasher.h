@@ -10,6 +10,7 @@
 
 @interface MD5Hasher : NSObject
 
++ (NSString *)hashForEmail:(NSString *)email;
 + (NSString *)hashForString:(NSString *)string;
 
 @end
