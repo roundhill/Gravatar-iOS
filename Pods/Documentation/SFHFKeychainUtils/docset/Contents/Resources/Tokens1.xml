@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/SFHFKeychainUtils.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/SFHFKeychainUtils</TokenIdentifier>
+			<Abstract></Abstract>
+			<DeclaredIn>SFHFKeychainUtils.h</DeclaredIn>
+			
+			<NodeRef refid="1"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/SFHFKeychainUtils/getPasswordForUsername:andServiceName:error:</TokenIdentifier>
+			<Abstract></Abstract>
+			<DeclaredIn>SFHFKeychainUtils.h</DeclaredIn>			
+			
+			<Declaration>+ (NSString *)getPasswordForUsername:(NSString *)username andServiceName:(NSString *)serviceName error:(NSError **)error</Declaration>
+			
+			
+			<Anchor>//api/name/getPasswordForUsername:andServiceName:error:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/SFHFKeychainUtils/storeUsername:andPassword:forServiceName:updateExisting:error:</TokenIdentifier>
+			<Abstract></Abstract>
+			<DeclaredIn>SFHFKeychainUtils.h</DeclaredIn>			
+			
+			<Declaration>+ (BOOL)storeUsername:(NSString *)username andPassword:(NSString *)password forServiceName:(NSString *)serviceName updateExisting:(BOOL)updateExisting error:(NSError **)error</Declaration>
+			
+			
+			<Anchor>//api/name/storeUsername:andPassword:forServiceName:updateExisting:error:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/SFHFKeychainUtils/deleteItemForUsername:andServiceName:error:</TokenIdentifier>
+			<Abstract></Abstract>
+			<DeclaredIn>SFHFKeychainUtils.h</DeclaredIn>			
+			
+			<Declaration>+ (BOOL)deleteItemForUsername:(NSString *)username andServiceName:(NSString *)serviceName error:(NSError **)error</Declaration>
+			
+			
+			<Anchor>//api/name/deleteItemForUsername:andServiceName:error:</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>
