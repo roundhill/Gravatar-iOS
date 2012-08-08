@@ -9,6 +9,23 @@
 #import <Foundation/Foundation.h>
 
 extern NSString * const GravatarURL;
+/*
+-7	Use secure.gravatar.com
+-8	Internal error
+-9	Authentication error
+-10	Method parameter missing
+-11	Method parameter incorrect
+-100	Misc error (see text)
+*/
+
+typedef enum GravatarErrorCode : NSInteger  {
+    GravatarErrorCodeUseSecure          = -7,
+    GravatarErrorCodeInternal           = -8,
+    GravatarErrorCodeAuthentication     = -9,
+    GravatarErrorCodeParameterMissing   = -10,
+    GravatarErrorCodeParameterIncorrect = -11,
+    GravatarErrorCodeMisc               = -100
+} GravatarErrorCode;
 
 @protocol GravatarRequestDelegate;
 
@@ -30,6 +47,7 @@ extern NSString * const GravatarURL;
 
 @optional
 
+-(void)request:(GravatarRequest *)request didFailWithError:(NSError *)error;
 -(void)request:(GravatarRequest *)request didFinishWithFault:(NSDictionary *)fault;
 -(void)request:(GravatarRequest *)request didFinishWithParams:(NSArray *)params;
 

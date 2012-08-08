@@ -7,7 +7,20 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "GravatarClient.h"
+
+extern NSString * const GravatarAccountSettingKey;
+extern NSString * const GravatarAccountKeychainServiceName;
 
 @interface GravatarAccount : NSObject
+
+@property (nonatomic, strong) NSString *email;
+@property (nonatomic, strong, readonly) GravatarClient *client;
+
++ (GravatarAccount *)defaultAccount;
+- (id)initWithEmail:(NSString *)email;
+- (void)setPassword:(NSString *)password;
+- (BOOL)isConfigured;
+- (void)logOut;
 
 @end

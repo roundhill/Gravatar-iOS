@@ -82,7 +82,6 @@
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    NSLog(@"We now have an image");
     self.imageView.image = [UIImage imageWithData:self.imageData];
     self.imageView.hidden = NO;
 }

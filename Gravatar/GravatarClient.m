@@ -7,7 +7,11 @@
 //
 
 #import "GravatarClient.h"
+#import "RCXMLRPCDecoder.h"
 
+NSString *const GravatarClientAuthenticationErrorNotification = @"Gravatar Authentication Error";
+NSString *const GravatarClientFaultInfoKey = @"Fault";
+NSString *const GravatarClientRequestInfoKey = @"Request";
 
 @protocol GravatarClientRequestDelegate;
 
@@ -15,6 +19,10 @@
 @property (nonatomic, copy) void(^successBlock)(GravatarRequest *request, NSArray *params);
 @property (nonatomic, copy) void(^failBlock)(GravatarRequest *request, NSDictionary *fault);
 @property (nonatomic, assign) id<GravatarClientRequestDelegate> delegate;
+@property (nonatomic, strong) GravatarClient *client;
+
++ (GravatarClientRequest *)requestWithClient:(GravatarClient *)client;
+
 @end
 
 @protocol GravatarClientRequestDelegate <NSObject>
@@ -26,7 +34,10 @@
 
 @interface GravatarClient () <GravatarClientRequestDelegate>
 @property (nonatomic, strong, readwrite) NSMutableSet *requests;
+
 @end
+
+#pragma mark - GravatarClient
 
 @implementation GravatarClient
 
@@ -41,6 +52,8 @@
     return self;
     
 }
+
+#pragma mark - GravatarRequest builder
 
 -(GravatarRequest *)requestForMethod:(NSString *)method withArguments:(NSDictionary *)arguments {
     
@@ -58,10 +71,12 @@
     
 }
 
+#pragma mark - Gravatar API Methods
+
 -(void)callMethod:(NSString *)method withArguments:(NSDictionary *)arguments onSucces:(void(^)(GravatarRequest* request, NSArray *params))successBlock onFailure:(void(^)(GravatarRequest* request, NSDictionary *fault))failureBlock {
     
     // create a delegate with the given blocks
-    GravatarClientRequest *clientRequest = [[GravatarClientRequest alloc] init];
+    GravatarClientRequest *clientRequest = [GravatarClientRequest requestWithClient:self];
     clientRequest.failBlock = failureBlock;
     clientRequest.successBlock = successBlock;
     clientRequest.delegate = self;
@@ -72,6 +87,36 @@
     [request sendWithDelegate:clientRequest];
 }
 
+- (void)addressesOnSuccess:(void (^)(GravatarRequest *, NSArray *))successBlock onFailure:(void (^)(GravatarRequest *, NSDictionary *))failureBlock {
+    
+    [self callMethod:@"addresses" withArguments:nil onSucces:successBlock onFailure:failureBlock];
+    
+}
+
+- (void)existsForHashes:(NSArray *)hashes onSuccess:(void (^)(GravatarRequest *, NSArray *))successBlock onFailure:(void (^)(GravatarRequest *, NSDictionary *))failureBlock {
+    
+    [self callMethod:@"exists" withArguments:@{ @"hashes": hashes } onSucces:successBlock onFailure:failureBlock];
+    
+}
+
+- (void)userimagesOnSuccess:(void (^)(GravatarRequest *, NSArray *))successBlock onFailure:(void (^)(GravatarRequest *, NSDictionary *))failureBlock {
+    [self callMethod:@"userimages" withArguments:nil onSucces:successBlock onFailure:failureBlock];
+}
+
+- (void)saveData:(NSData *)data withRating:(GravatarClientImageRating)rating onSucces:(void (^)(GravatarRequest *, NSArray *))successBlock onFailure:(void (^)(GravatarRequest *, NSDictionary *))failureBlock {
+    
+    NSNumber *gravatarRating = [NSNumber numberWithInt:rating];
+    NSDictionary *args = @{ @"data" : data, @"rating": gravatarRating };
+    [self callMethod:@"saveData" withArguments:args onSucces:successBlock onFailure:failureBlock];
+    
+}
+
+- (void)testOnSucces:(void (^)(GravatarRequest *, NSArray *))successBlock onFailure:(void (^)(GravatarRequest *, NSDictionary *))failureBlock {
+    [self callMethod:@"test" withArguments:nil onSucces:successBlock onFailure:failureBlock];
+}
+
+# pragma mark - Client Request management
+
 - (void)clientRequestDidFinish:(GravatarClientRequest *)clientRequest {
     [self.requests removeObject:clientRequest];
 }
@@ -81,11 +126,34 @@
 
 @implementation GravatarClientRequest
 
++ (GravatarClientRequest *)requestWithClient:(GravatarClient *)client {
+    GravatarClientRequest *request = [[GravatarClientRequest alloc] init];
+    request.client = client;
+    return request;
+}
+
+- (void)request:(GravatarRequest *)request didFailWithError:(NSError *)error {
+    self.client = nil;
+    [self.delegate clientRequestDidFinish:self];
+}
+
 - (void)request:(GravatarRequest *)request didFinishWithFault:(NSDictionary *)fault {
+    NSNumber *errorCode = [fault objectForKey:RCXMLRPCFaultErrorCodeKey];
+    if ([errorCode integerValue] == GravatarErrorCodeAuthentication) {
+        NSDictionary *userInfo = @{
+        GravatarClientFaultInfoKey: fault,
+        GravatarClientRequestInfoKey: request
+        };
+        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+        [nc postNotificationName:GravatarClientAuthenticationErrorNotification
+                          object:self.client
+                        userInfo:userInfo];
+    }
     if (self.failBlock) {
         self.failBlock(request, fault);
     }
     [self.delegate clientRequestDidFinish:self];
+    self.client = nil;
 }
 
 - (void)request:(GravatarRequest *)request didFinishWithParams:(NSArray *)params {
@@ -93,6 +161,7 @@
         self.successBlock(request, params);
     }
     [self.delegate clientRequestDidFinish:self];
+    self.client = nil;
 }
 
 @end
