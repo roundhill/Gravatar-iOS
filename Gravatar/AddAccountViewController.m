@@ -8,14 +8,13 @@
 
 #import "AddAccountViewController.h"
 #import "GravatarImageView.h"
-#import "GravatarClient.h"
 
 @interface AddAccountViewController () <UITextFieldDelegate>
 @property (nonatomic, strong) IBOutlet UITextField *emailField;
 @property (nonatomic, strong) IBOutlet UITextField *passwordField;
 @property (nonatomic, strong) IBOutlet UIButton *logInButton;
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *logInNavButton;
-@property (nonatomic, strong) GravatarClient *client;
+@property (nonatomic, strong) IBOutlet UIView *loginPanel;
 
 - (IBAction)logIn:(id)sender;
 
@@ -44,20 +43,6 @@
     
     self.emailField.rightView = [[GravatarImageView alloc] initWithFrame:CGRectMake(0.f, 0.f, 32.f, 32.f)];
     self.emailField.rightViewMode = UITextFieldViewModeAlways;
-    NSLog(@"RIght view: %@", self.emailField.rightView);
-    
-    CGRect panelFrame = CGRectUnion(self.emailField.frame, self.passwordField.frame);
-        
-    UIView *panel = [[UIView alloc] initWithFrame:panelFrame];
-    panel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-    panel.backgroundColor = [UIColor colorWithRed:245.f/255.f green:245.f/255.f blue:245.f/255.f alpha:1.f];
-    [self.view addSubview:panel];
-    [self.view sendSubviewToBack:panel];
-    panel.layer.cornerRadius = 2.f;
-    panel.layer.shadowColor = [[UIColor blackColor] CGColor];
-    panel.layer.shadowOffset = CGSizeMake(0.f,0.f);
-    panel.layer.shadowOpacity = 0.3f;
-    panel.layer.shadowRadius = 5.f;
     
     UIImage *buttonActive = [[UIImage imageNamed:@"blue-button-active"]
                              resizableImageWithCapInsets:UIEdgeInsetsMake(2.f, 4.f, 2.f, 4.f)];
@@ -128,7 +113,9 @@
 }
 
 - (void)logIn:(id)sender {
-    self.client = [[GravatarClient alloc] initWithEmail:self.emailField.text andPassword:self.passwordField.text];
+    self.account = [GravatarAccount defaultAccount];
+    self.account.email = self.emailField.text;
+    self.account.password = self.passwordField.text;
     
     [self disableInterface];
     
@@ -138,13 +125,11 @@
     frame.origin.y = floorf((self.logInButton.frame.size.height - frame.size.height) * 0.5f);
     activity.frame = frame;
     [activity startAnimating];
-    
-    NSLog(@"Frame: %@", NSStringFromCGRect(frame));
-    
+        
     [self.logInButton addSubview:activity];
     
-    [self.client callMethod:@"test" withArguments:nil onSucces:^(GravatarRequest *request, NSArray *params) {
-        NSLog(@"Success: %@", params);
+    [self.account.client callMethod:@"test" withArguments:nil onSucces:^(GravatarRequest *request, NSArray *params) {
+        [self.delegate addAccountViewControllerDidLogIn:self];
     } onFailure:^(GravatarRequest *request, NSDictionary *fault) {
         NSLog(@"Failed log in! %@", fault);
         [self enableInterface];
