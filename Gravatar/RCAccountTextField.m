@@ -46,13 +46,14 @@
 
 - (CGRect)clearButtonRectForBounds:(CGRect)bounds {
     bounds = [super clearButtonRectForBounds:bounds];
-    bounds.origin.x -= 5.f;
+    bounds.origin.x -= 0.f;
     return bounds;
 }
 
 - (CGRect)rightViewRectForBounds:(CGRect)bounds {
     CGRect rightBounds = [super rightViewRectForBounds:bounds];
-    rightBounds.origin.x -= 5.f;
+    rightBounds.origin.x -= 3.f;
+    rightBounds.origin.y = (self.bounds.size.height - rightBounds.size.height) * 0.5f;
     return rightBounds;
 }
 

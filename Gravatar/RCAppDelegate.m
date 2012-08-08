@@ -7,12 +7,15 @@
 //
 
 #import "RCAppDelegate.h"
-#import "GravatarClient.h"
-#import "GravatarRequest.h"
+#import "GravatarAccount.h"
 #import "AddAccountViewController.h"
+#import "EmailsViewController.h"
 
-@interface RCAppDelegate () <GravatarRequestDelegate>
-@property (nonatomic, strong) GravatarClient *client;
+@interface RCAppDelegate () <AddAccountViewControllerDelegate>
+@property (nonatomic, strong) GravatarAccount *account;
+- (void)applyAppearance;
+- (IBAction)logOut:(id)sender;
+- (IBAction)addAccount:(id)sender;
 @end
 
 @implementation RCAppDelegate
@@ -20,22 +23,38 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
+    [self applyAppearance];
+    
+    self.account = [GravatarAccount defaultAccount];
+    
+    
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackOpaque;
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
-    UITableViewController *accounts = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];
+    EmailsViewController *emails = [[EmailsViewController alloc] initWithStyle:UITableViewStylePlain];
     
-    accounts.title = NSLocalizedString(@"Accounts", @"Gravatar accounts list title");
+    emails.account = self.account;
+    emails.title = NSLocalizedString(@"Emails", @"Gravatar email list title");
     
-    UINavigationController *controller = [[UINavigationController alloc] initWithRootViewController:accounts];
+    UINavigationController *controller = [[UINavigationController alloc] initWithRootViewController:emails];
     
-    accounts.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addAccount:)];
+    emails.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Log Out"
+                                                                                  style:UIBarButtonItemStyleBordered
+                                                                                 target:self
+                                                                                 action:@selector(logOut:)];
     
     self.window.rootViewController = controller;
     
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self
+           selector:@selector(failedAuth:)
+               name:GravatarClientAuthenticationErrorNotification
+             object:nil];
+    
+
     return YES;
 }
 
@@ -68,33 +87,85 @@
 
 #pragma mark - Account Management
 
-- (void)addAccount:(id)sender {
+- (IBAction)addAccount:(id)sender {
     
     AddAccountViewController *addAccount = [[AddAccountViewController alloc] initWithNibName:nil bundle:nil];
-    addAccount.title = NSLocalizedString(@"Add Account", @"Add Account view title");
-    
-    addAccount.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self.window.rootViewController action:@selector(dismissModalViewControllerAnimated:)];
+    addAccount.title = NSLocalizedString(@"Log In", @"Log In view title");
+    addAccount.delegate = self;
     UINavigationController *modal = [[UINavigationController alloc] initWithRootViewController:addAccount];
     
-    modal.navigationBar.shadowImage = nil;
-    UIImage *navBackground = [[UIImage imageNamed:@"unified-nav"] resizableImageWithCapInsets:UIEdgeInsetsMake(39, 1.f, 1.f, 1.f)];
-    [modal.navigationBar setBackgroundImage:navBackground forBarMetrics:UIBarMetricsDefault];
-    [modal.navigationBar setShadowImage:[UIImage imageNamed:@"no-shadow"]];
-    NSLog(@"Shadow: %@", modal.navigationBar.shadowImage);
     [self.window.rootViewController presentViewController:modal animated:YES completion:nil];
     
 }
 
-#pragma mark - GravatarRequestDelegate methods
-
-- (void)request:(GravatarRequest *)request didFinishWithParams:(NSArray *)params {
-    NSLog(@"Response params");
-    NSLog(@"%@", params);
+- (void)logOut:(id)sender {
+    
+    [self.account logOut];
+    [self addAccount:sender];
+    
 }
 
-- (void)request:(GravatarRequest *)request didFinishWithFault:(NSDictionary *)fault {
-    NSLog(@"Fault!");
-    NSLog(@"%@", fault);
+- (void)failedAuth:(NSNotification *)notification {
+    NSLog(@"Auth failed: %@", notification);
+    [self addAccount:nil];
+}
+
+#pragma mark AddAccountViewControllerDelegate
+
+- (void)addAccountViewControllerDidLogIn:(AddAccountViewController *)viewController {
+    [self.window.rootViewController dismissViewControllerAnimated:YES completion:nil];
+    GravatarAccount *account = viewController.account;
+    
+    [account.client addressesOnSuccess:^(GravatarRequest *request, NSArray *params) {
+        NSLog(@"Look at my address: %@", params);
+    } onFailure:^(GravatarRequest *request, NSDictionary *fault) {
+        NSLog(@"Oops: %@", fault);
+    }];
+    
+}
+
+- (void)applyAppearance {
+    
+    
+    // navigation bar appearance
+    id navigationBar = [UINavigationBar appearance];
+    UIImage *shadowImage = [UIImage imageNamed:@"no-shadow"];
+    [navigationBar setShadowImage:shadowImage];
+    UIImage *unifiedImage = [[UIImage imageNamed:@"unified-nav"]
+                             resizableImageWithCapInsets:UIEdgeInsetsMake(4.f, 4.f, 4.f, 4.f)];
+    
+    [navigationBar setBackgroundImage:unifiedImage forBarMetrics:UIBarMetricsDefault];
+    UIImage *barButtonActiveImage = [[UIImage imageNamed:@"add-account-navbar-button-active"]
+                                     resizableImageWithCapInsets:UIEdgeInsetsMake(2.f, 2.f, 2.f, 2.f)];
+    UIImage *barButtonPressedImage = [[UIImage imageNamed:@"add-account-navbar-button-pressed"]
+                                      resizableImageWithCapInsets:UIEdgeInsetsMake(2.f, 2.f, 2.f, 2.f)];
+    UIImage *barButtonActiveLandscapeImage = [[UIImage imageNamed:@"add-account-navbar-button-active-landscape"]
+                                              resizableImageWithCapInsets:UIEdgeInsetsMake(2.f, 2.f, 2.f, 2.f)];
+    UIImage *barButtonPressedLandscapeImage = [[UIImage imageNamed:@"add-account-navbar-button-pressed-landscape"]
+                                               resizableImageWithCapInsets:UIEdgeInsetsMake(2.f, 2.f, 2.f, 2.f)];
+    
+    // bar button item appearance
+    id barButtonItem = [UIBarButtonItem appearance];
+    [barButtonItem setBackgroundImage:barButtonActiveImage
+                             forState:UIControlStateNormal
+                                style:UIBarButtonItemStyleBordered
+                           barMetrics:UIBarMetricsDefault];
+    
+    [barButtonItem setBackgroundImage:barButtonActiveLandscapeImage
+                             forState:UIControlStateNormal
+                                style:UIBarButtonItemStyleBordered
+                           barMetrics:UIBarMetricsLandscapePhone];
+    
+    [barButtonItem setBackgroundImage:barButtonPressedImage
+                             forState:UIControlStateHighlighted
+                                style:UIBarButtonItemStyleBordered
+                           barMetrics:UIBarMetricsDefault];
+    
+    [barButtonItem setBackgroundImage:barButtonPressedLandscapeImage
+                             forState:UIControlStateHighlighted
+                                style:UIBarButtonItemStyleBordered
+                           barMetrics:UIBarMetricsLandscapePhone];
+
 }
 
 @end

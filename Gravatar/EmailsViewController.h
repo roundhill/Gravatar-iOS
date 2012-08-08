@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GravatarAccount.h"
 
 @interface EmailsViewController : UITableViewController
+
+@property (nonatomic, strong) GravatarAccount *account;
+@property (nonatomic, strong) NSArray *emails;
 
 @end
