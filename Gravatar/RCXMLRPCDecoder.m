@@ -10,6 +10,8 @@
 #import "NSData+Base64.h"
 #import "RCXMLRPCParsingContext.h"
 
+NSString *const RCXMLRPCFaultErrorCodeKey = @"faultCode";
+
 NSString *const RCXMLRPCDecoderMethodResponseElement = @"methodResponse";
 NSString *const RCXMLRPCDecoderParamsElement         = @"params";
 NSString *const RCXMLRPCDecoderParamElement          = @"param";

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString * const RCXMLRPCFaultErrorCodeKey;
 extern NSString * const RCXMLRPCDecoderArrayElement;
 extern NSString * const RCXMLRPCDecoderParamsElement;
 extern NSString * const RCXMLRPCDecoderStructElement;
