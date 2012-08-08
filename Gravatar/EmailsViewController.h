@@ -14,4 +14,6 @@
 @property (nonatomic, strong) GravatarAccount *account;
 @property (nonatomic, strong) NSArray *emails;
 
+- (void)reloadAccount;
+
 @end

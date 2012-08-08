@@ -113,14 +113,11 @@
 #pragma mark AddAccountViewControllerDelegate
 
 - (void)addAccountViewControllerDidLogIn:(AddAccountViewController *)viewController {
+    UINavigationController *controller = (UINavigationController *)self.window.rootViewController;
+    EmailsViewController *emailsController = [controller.viewControllers objectAtIndex:0];
+    emailsController.account = viewController.account;
+    [emailsController reloadAccount];
     [self.window.rootViewController dismissViewControllerAnimated:YES completion:nil];
-    GravatarAccount *account = viewController.account;
-    
-    [account.client addressesOnSuccess:^(GravatarRequest *request, NSArray *params) {
-        NSLog(@"Look at my address: %@", params);
-    } onFailure:^(GravatarRequest *request, NSDictionary *fault) {
-        NSLog(@"Oops: %@", fault);
-    }];
     
 }
 

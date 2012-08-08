@@ -7,6 +7,7 @@
 //
 
 #import "EmailsViewController.h"
+#import "PhotoSelectionViewController.h"
 
 @interface EmailsViewController ()
 
@@ -30,14 +31,18 @@
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
     
     NSLog(@"Ask for the addresses: %@", self.account);
+    [self reloadAccount];
 
+}
+
+- (void)reloadAccount {
     [self.account.client addressesOnSuccess:^(GravatarRequest *request, NSArray *params) {
         NSDictionary *emailData = (NSDictionary *)[params objectAtIndex:0];
         NSMutableArray *emails = [NSMutableArray arrayWithCapacity:[[emailData allKeys] count]];
         [emailData enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
             [emails addObject:@{
-                @"email": key,
-                @"details": obj
+             @"email": key,
+             @"details": obj
              }];
         }];
         self.emails = emails;
@@ -46,6 +51,7 @@
     } onFailure:^(GravatarRequest *request, NSDictionary *fault) {
         NSLog(@"Some kind of failure! %@", fault);
     }];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -84,7 +90,16 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    layout.sectionInset = UIEdgeInsetsMake(3.f, 2.f, 3.f, 2.f);
+    layout.itemSize = CGSizeMake(76.f, 76.f);
+    layout.minimumInteritemSpacing = 3.f;
+    layout.minimumLineSpacing = 3.f;
     
+    PhotoSelectionViewController *controller = [[PhotoSelectionViewController alloc] initWithCollectionViewLayout:layout];
+    controller.title = NSLocalizedString(@"Photos", @"Title for photo selection view");
+    
+    [self.navigationController pushViewController:controller animated:YES];
     
     
 }
