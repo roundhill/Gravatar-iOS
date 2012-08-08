@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		915F5BABB35B48EB9BB2972D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4AABD77C5324CCD9F149023 /* libPods.a */; };
 		CC34EE3A15D1763F00820FC8 /* blue-button-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC34EE3815D1763F00820FC8 /* blue-button-active@2x.png */; };
 		CC34EE3B15D1763F00820FC8 /* blue-button-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC34EE3915D1763F00820FC8 /* blue-button-pressed@2x.png */; };
 		CC34EE3E15D1794300820FC8 /* login-navbar-button-active.png in Resources */ = {isa = PBXBuildFile; fileRef = CC34EE3D15D1794300820FC8 /* login-navbar-button-active.png */; };
@@ -26,6 +27,8 @@
 		CC34EE5A15D189A600820FC8 /* add-account-navbar-button-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC34EE5315D189A600820FC8 /* add-account-navbar-button-pressed@2x.png */; };
 		CC34EE5C15D189E600820FC8 /* add-account-navbar-button-active-landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = CC34EE5B15D189E600820FC8 /* add-account-navbar-button-active-landscape.png */; };
 		CC34EE6015D19C1100820FC8 /* response-numbers.xml in Resources */ = {isa = PBXBuildFile; fileRef = CC34EE5F15D19C1100820FC8 /* response-numbers.xml */; };
+		CC34EE6615D1AB6300820FC8 /* LoginPanelView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC34EE6515D1AB6300820FC8 /* LoginPanelView.m */; };
+		CC3CA27C15D22A49006E8B22 /* EmailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC3CA27B15D22A49006E8B22 /* EmailsViewController.m */; };
 		CC6315FE15CF0F93007E8AFC /* response-complex.xml in Resources */ = {isa = PBXBuildFile; fileRef = CC6315FD15CF0F93007E8AFC /* response-complex.xml */; };
 		CC63160115CF0FB2007E8AFC /* response-fault.xml in Resources */ = {isa = PBXBuildFile; fileRef = CC63160015CF0FB2007E8AFC /* response-fault.xml */; };
 		CC63160415D01D8D007E8AFC /* RCXMLRPCParsingContext.m in Sources */ = {isa = PBXBuildFile; fileRef = CC63160315D01D8C007E8AFC /* RCXMLRPCParsingContext.m */; };
@@ -45,6 +48,7 @@
 		CCA8E64D15D0F26400DE01AF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCA8E64715D0E12900DE01AF /* QuartzCore.framework */; };
 		CCA8E65015D0F82A00DE01AF /* blue-button-active.png in Resources */ = {isa = PBXBuildFile; fileRef = CCA8E64E15D0F82A00DE01AF /* blue-button-active.png */; };
 		CCA8E65115D0F82A00DE01AF /* blue-button-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = CCA8E64F15D0F82A00DE01AF /* blue-button-pressed.png */; };
+		CCDED47515D1D92B001C9CA7 /* GravatarAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = CCDED47415D1D92B001C9CA7 /* GravatarAccount.m */; };
 		CCFD869415CC56AB001D8E25 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCFD869315CC56AB001D8E25 /* UIKit.framework */; };
 		CCFD869615CC56AB001D8E25 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCFD869515CC56AB001D8E25 /* Foundation.framework */; };
 		CCFD869815CC56AB001D8E25 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCFD869715CC56AB001D8E25 /* CoreGraphics.framework */; };
@@ -66,6 +70,7 @@
 		CCFD86F115CCAFFC001D8E25 /* RCXMLRPCDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFD86F015CCAFFC001D8E25 /* RCXMLRPCDecoder.m */; };
 		CCFD86F415CCB023001D8E25 /* RCXMLRPCDecoderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFD86F315CCB023001D8E25 /* RCXMLRPCDecoderTests.m */; };
 		CCFD86F615CCB372001D8E25 /* response.xml in Resources */ = {isa = PBXBuildFile; fileRef = CCFD86F515CCB372001D8E25 /* response.xml */; };
+		DAA4F2B891E846D99F8B2B07 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4AABD77C5324CCD9F149023 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +84,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		80DC29DBD8E0496F99E7258E /* Pods.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		CC34EE3815D1763F00820FC8 /* blue-button-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blue-button-active@2x.png"; sourceTree = "<group>"; };
 		CC34EE3915D1763F00820FC8 /* blue-button-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blue-button-pressed@2x.png"; sourceTree = "<group>"; };
 		CC34EE3D15D1794300820FC8 /* login-navbar-button-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login-navbar-button-active.png"; sourceTree = "<group>"; };
@@ -98,6 +104,10 @@
 		CC34EE5315D189A600820FC8 /* add-account-navbar-button-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add-account-navbar-button-pressed@2x.png"; sourceTree = "<group>"; };
 		CC34EE5B15D189E600820FC8 /* add-account-navbar-button-active-landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add-account-navbar-button-active-landscape.png"; sourceTree = "<group>"; };
 		CC34EE5F15D19C1100820FC8 /* response-numbers.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "response-numbers.xml"; sourceTree = "<group>"; };
+		CC34EE6415D1AB6300820FC8 /* LoginPanelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginPanelView.h; sourceTree = "<group>"; };
+		CC34EE6515D1AB6300820FC8 /* LoginPanelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginPanelView.m; sourceTree = "<group>"; };
+		CC3CA27A15D22A49006E8B22 /* EmailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailsViewController.h; sourceTree = "<group>"; };
+		CC3CA27B15D22A49006E8B22 /* EmailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailsViewController.m; sourceTree = "<group>"; };
 		CC6315FD15CF0F93007E8AFC /* response-complex.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "response-complex.xml"; sourceTree = "<group>"; };
 		CC63160015CF0FB2007E8AFC /* response-fault.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "response-fault.xml"; sourceTree = "<group>"; };
 		CC63160215D01D8C007E8AFC /* RCXMLRPCParsingContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCXMLRPCParsingContext.h; sourceTree = "<group>"; };
@@ -123,6 +133,8 @@
 		CCA8E64A15D0E75700DE01AF /* GravatarImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GravatarImageView.m; sourceTree = "<group>"; };
 		CCA8E64E15D0F82A00DE01AF /* blue-button-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blue-button-active.png"; sourceTree = "<group>"; };
 		CCA8E64F15D0F82A00DE01AF /* blue-button-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blue-button-pressed.png"; sourceTree = "<group>"; };
+		CCDED47315D1D92B001C9CA7 /* GravatarAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GravatarAccount.h; sourceTree = "<group>"; };
+		CCDED47415D1D92B001C9CA7 /* GravatarAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GravatarAccount.m; sourceTree = "<group>"; };
 		CCFD868F15CC56AA001D8E25 /* Gravatar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gravatar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCFD869315CC56AB001D8E25 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CCFD869515CC56AB001D8E25 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -154,6 +166,7 @@
 		CCFD86F215CCB022001D8E25 /* RCXMLRPCDecoderTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCXMLRPCDecoderTests.h; sourceTree = "<group>"; };
 		CCFD86F315CCB023001D8E25 /* RCXMLRPCDecoderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCXMLRPCDecoderTests.m; sourceTree = "<group>"; };
 		CCFD86F515CCB372001D8E25 /* response.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = response.xml; sourceTree = "<group>"; };
+		D4AABD77C5324CCD9F149023 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +178,7 @@
 				CCFD869615CC56AB001D8E25 /* Foundation.framework in Frameworks */,
 				CCFD869815CC56AB001D8E25 /* CoreGraphics.framework in Frameworks */,
 				CCA8E64C15D0F25C00DE01AF /* QuartzCore.framework in Frameworks */,
+				DAA4F2B891E846D99F8B2B07 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,6 +190,7 @@
 				CCFD86AD15CC56AB001D8E25 /* UIKit.framework in Frameworks */,
 				CCFD86AE15CC56AB001D8E25 /* Foundation.framework in Frameworks */,
 				CCA8E64D15D0F26400DE01AF /* QuartzCore.framework in Frameworks */,
+				915F5BABB35B48EB9BB2972D /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -185,6 +200,8 @@
 		CC63160515D03E6C007E8AFC /* Gravatar */ = {
 			isa = PBXGroup;
 			children = (
+				CCDED47315D1D92B001C9CA7 /* GravatarAccount.h */,
+				CCDED47415D1D92B001C9CA7 /* GravatarAccount.m */,
 				CC63160C15D0555E007E8AFC /* GravatarClient.h */,
 				CC63160D15D0555E007E8AFC /* GravatarClient.m */,
 				CC63160615D03E81007E8AFC /* GravatarRequest.h */,
@@ -202,6 +219,8 @@
 				CCA8E62A15D087CE00DE01AF /* AddAccountViewController.h */,
 				CCA8E62B15D087CE00DE01AF /* AddAccountViewController.m */,
 				CCA8E62D15D088AF00DE01AF /* AddAccountView.xib */,
+				CC3CA27A15D22A49006E8B22 /* EmailsViewController.h */,
+				CC3CA27B15D22A49006E8B22 /* EmailsViewController.m */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -213,6 +232,8 @@
 				CCA8E63715D08A8B00DE01AF /* RCAccountTextField.m */,
 				CCA8E64915D0E75700DE01AF /* GravatarImageView.h */,
 				CCA8E64A15D0E75700DE01AF /* GravatarImageView.m */,
+				CC34EE6415D1AB6300820FC8 /* LoginPanelView.h */,
+				CC34EE6515D1AB6300820FC8 /* LoginPanelView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -256,6 +277,7 @@
 				CCFD86B115CC56AB001D8E25 /* GravatarTests */,
 				CCFD869215CC56AB001D8E25 /* Frameworks */,
 				CCFD869015CC56AA001D8E25 /* Products */,
+				80DC29DBD8E0496F99E7258E /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -276,6 +298,7 @@
 				CCFD869515CC56AB001D8E25 /* Foundation.framework */,
 				CCFD869715CC56AB001D8E25 /* CoreGraphics.framework */,
 				CCFD86AB15CC56AB001D8E25 /* SenTestingKit.framework */,
+				D4AABD77C5324CCD9F149023 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -369,6 +392,7 @@
 				CCFD868B15CC56AA001D8E25 /* Sources */,
 				CCFD868C15CC56AA001D8E25 /* Frameworks */,
 				CCFD868D15CC56AA001D8E25 /* Resources */,
+				FCDA26BBC1DB474ABF83E036 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -387,6 +411,7 @@
 				CCFD86A615CC56AB001D8E25 /* Frameworks */,
 				CCFD86A715CC56AB001D8E25 /* Resources */,
 				CCFD86A815CC56AB001D8E25 /* ShellScript */,
+				FCDA26BBC1DB474ABF83E036 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -493,6 +518,20 @@
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
+		FCDA26BBC1DB474ABF83E036 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -512,6 +551,9 @@
 				CCA8E62C15D087CE00DE01AF /* AddAccountViewController.m in Sources */,
 				CCA8E63915D08B5400DE01AF /* RCAccountTextField.m in Sources */,
 				CCA8E64B15D0E75700DE01AF /* GravatarImageView.m in Sources */,
+				CC34EE6615D1AB6300820FC8 /* LoginPanelView.m in Sources */,
+				CCDED47515D1D92B001C9CA7 /* GravatarAccount.m in Sources */,
+				CC3CA27C15D22A49006E8B22 /* EmailsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -606,38 +648,50 @@
 		};
 		CCFD86BD15CC56AB001D8E25 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 80DC29DBD8E0496F99E7258E /* Pods.xcconfig */;
 			buildSettings = {
+				DSTROOT = /tmp/xcodeproj.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Gravatar/Gravatar-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Gravatar/Gravatar-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
 		};
 		CCFD86BE15CC56AB001D8E25 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 80DC29DBD8E0496F99E7258E /* Pods.xcconfig */;
 			buildSettings = {
+				DSTROOT = /tmp/xcodeproj.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Gravatar/Gravatar-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Gravatar/Gravatar-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
 		};
 		CCFD86C015CC56AB001D8E25 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 80DC29DBD8E0496F99E7258E /* Pods.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Gravatar.app/Gravatar";
+				DSTROOT = /tmp/xcodeproj.dst;
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Gravatar/Gravatar-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "GravatarTests/GravatarTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -645,16 +699,20 @@
 		};
 		CCFD86C115CC56AB001D8E25 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 80DC29DBD8E0496F99E7258E /* Pods.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Gravatar.app/Gravatar";
+				DSTROOT = /tmp/xcodeproj.dst;
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Gravatar/Gravatar-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "GravatarTests/GravatarTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
