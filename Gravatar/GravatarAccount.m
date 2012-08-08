@@ -83,11 +83,14 @@ NSString * const GravatarAccountKeychainServiceName = @"GravatarService";
 
 - (void)setPassword:(NSString *)password {
     NSError *error;
+    self.client.password = password;
+    if (password == nil) {
+        return;
+    }
     [SFHFKeychainUtils storeUsername:self.emailHash andPassword:password forServiceName:GravatarAccountKeychainServiceName updateExisting:YES error:&error];
     // store password in keychain
     NSLog(@"Saved password: %@", error);
 
-    self.client.password = password;
 }
 
 

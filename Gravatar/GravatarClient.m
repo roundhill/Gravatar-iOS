@@ -61,7 +61,9 @@ NSString *const GravatarClientRequestInfoKey = @"Request";
     request.methodName = [NSString stringWithFormat:@"grav.%@", method];
     // new dictionary with a password
     NSMutableDictionary *args = [NSMutableDictionary dictionaryWithDictionary:arguments];
-    [args setObject:self.password forKey:@"password"];
+    if (self.password != nil) {
+        [args setObject:self.password forKey:@"password"];
+    }
     [args enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
        
     }];
