@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PhotoEditorViewController.h"
 
 @interface PhotoSelectionViewController : UICollectionViewController
 

@@ -46,7 +46,6 @@
              }];
         }];
         self.emails = emails;
-        NSLog(@"We've got emails: %@ %d", self.emails, [self.emails count]);
         [self.tableView reloadData];
     } onFailure:^(GravatarRequest *request, NSDictionary *fault) {
         NSLog(@"Some kind of failure! %@", fault);
@@ -83,18 +82,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    layout.sectionInset = UIEdgeInsetsMake(3.f, 2.f, 3.f, 2.f);
-    layout.itemSize = CGSizeMake(76.f, 76.f);
-    layout.minimumInteritemSpacing = 3.f;
-    layout.minimumLineSpacing = 3.f;
+    layout.sectionInset = UIEdgeInsetsMake(3.f, 3.f, 3.f, 3.f);
+    layout.itemSize = CGSizeMake(77.f, 77.f);
+    layout.minimumInteritemSpacing = 2.f;
+    layout.minimumLineSpacing = 2.f;
     
     PhotoSelectionViewController *controller = [[PhotoSelectionViewController alloc] initWithCollectionViewLayout:layout];
     controller.title = NSLocalizedString(@"Photos", @"Title for photo selection view");

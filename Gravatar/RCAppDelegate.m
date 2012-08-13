@@ -31,7 +31,7 @@
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackOpaque;
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
+    self.window.backgroundColor = [UIColor blackColor];
     [self.window makeKeyAndVisible];
     
     EmailsViewController *emails = [[EmailsViewController alloc] initWithStyle:UITableViewStylePlain];
@@ -53,7 +53,6 @@
            selector:@selector(failedAuth:)
                name:GravatarClientAuthenticationErrorNotification
              object:nil];
-    
 
     return YES;
 }
@@ -162,6 +161,7 @@
                              forState:UIControlStateHighlighted
                                 style:UIBarButtonItemStyleBordered
                            barMetrics:UIBarMetricsLandscapePhone];
+    
 
 }
 
