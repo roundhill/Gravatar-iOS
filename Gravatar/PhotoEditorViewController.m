@@ -10,7 +10,7 @@
 #import "CropView.h"
 
 const float PhotoEditorViewControllerBarHeight = 44.f;
-const float PhotoEditorViewControllerCropInset = 44.f;
+const float PhotoEditorViewControllerCropInset = 22.f;
 
 @interface PhotoEditorViewController () <UINavigationBarDelegate>
 @property (nonatomic, strong) UIImageView *imageView;
@@ -91,9 +91,11 @@ const float PhotoEditorViewControllerCropInset = 44.f;
 
     
     self.panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panned:)];
+    self.panGesture.maximumNumberOfTouches = 1;
     self.pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinched:)];
     self.doubleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapped:)];
     self.doubleTapGesture.numberOfTapsRequired = 2;
+    self.doubleTapGesture.numberOfTouchesRequired = 1;
     [self updateImageView];
     [self.editorView addGestureRecognizer:self.panGesture];
     [self.editorView addGestureRecognizer:self.pinchGesture];
@@ -161,7 +163,7 @@ const float PhotoEditorViewControllerCropInset = 44.f;
         }];
         return;
     }
-    
+        
     CGPoint delta = [pan translationInView:self.imageView];
     
     self.imageOrigin = CGPointMake(self.panAnchor.x + delta.x, self.panAnchor.y + delta.y);
@@ -244,8 +246,6 @@ const float PhotoEditorViewControllerCropInset = 44.f;
         self.imageScale = self.maxImageScale;
     }
     
-    CGFloat scale = [self scaleFloat:self.imageScale withinMin:self.minImageScale andMax:self.maxImageScale];
-    scale *= self.defaultImageScale;
     
     [self updateImageView];
         

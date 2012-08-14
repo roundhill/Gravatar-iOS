@@ -39,6 +39,9 @@
 		CC63160E15D0555E007E8AFC /* GravatarClient.m in Sources */ = {isa = PBXBuildFile; fileRef = CC63160D15D0555E007E8AFC /* GravatarClient.m */; };
 		CC81ED2015DAADB1000DA4F8 /* data.txt in Resources */ = {isa = PBXBuildFile; fileRef = CC81ED1F15DAADB1000DA4F8 /* data.txt */; };
 		CC830B1B15DAB12B008F5552 /* datadict.xml in Resources */ = {isa = PBXBuildFile; fileRef = CC830B1A15DAB12B008F5552 /* datadict.xml */; };
+		CC830B2315DABF90008F5552 /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC830B2215DABF90008F5552 /* AppController.m */; };
+		CC830B2615DAC455008F5552 /* gravatar-white.png in Resources */ = {isa = PBXBuildFile; fileRef = CC830B2415DAC455008F5552 /* gravatar-white.png */; };
+		CC830B2715DAC455008F5552 /* gravatar-white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC830B2515DAC455008F5552 /* gravatar-white@2x.png */; };
 		CCA8E62C15D087CE00DE01AF /* AddAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCA8E62B15D087CE00DE01AF /* AddAccountViewController.m */; };
 		CCA8E62E15D088AF00DE01AF /* AddAccountView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CCA8E62D15D088AF00DE01AF /* AddAccountView.xib */; };
 		CCA8E63915D08B5400DE01AF /* RCAccountTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = CCA8E63715D08A8B00DE01AF /* RCAccountTextField.m */; };
@@ -131,6 +134,10 @@
 		CC63160D15D0555E007E8AFC /* GravatarClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GravatarClient.m; sourceTree = "<group>"; };
 		CC81ED1F15DAADB1000DA4F8 /* data.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = data.txt; sourceTree = "<group>"; };
 		CC830B1A15DAB12B008F5552 /* datadict.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = datadict.xml; sourceTree = "<group>"; };
+		CC830B2115DABF90008F5552 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
+		CC830B2215DABF90008F5552 /* AppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppController.m; sourceTree = "<group>"; };
+		CC830B2415DAC455008F5552 /* gravatar-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gravatar-white.png"; sourceTree = "<group>"; };
+		CC830B2515DAC455008F5552 /* gravatar-white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gravatar-white@2x.png"; sourceTree = "<group>"; };
 		CCA8E62A15D087CE00DE01AF /* AddAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddAccountViewController.h; sourceTree = "<group>"; };
 		CCA8E62B15D087CE00DE01AF /* AddAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddAccountViewController.m; sourceTree = "<group>"; };
 		CCA8E62D15D088AF00DE01AF /* AddAccountView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddAccountView.xib; sourceTree = "<group>"; };
@@ -247,6 +254,8 @@
 				CC3CA27E15D234C4006E8B22 /* PhotoSelectionViewController.m */,
 				CCEF5DFC15D301D700761000 /* PhotoEditorViewController.h */,
 				CCEF5DFD15D301D700761000 /* PhotoEditorViewController.m */,
+				CC830B2115DABF90008F5552 /* AppController.h */,
+				CC830B2215DABF90008F5552 /* AppController.m */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -271,6 +280,8 @@
 		CCA8E63A15D0D83000DE01AF /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				CC830B2415DAC455008F5552 /* gravatar-white.png */,
+				CC830B2515DAC455008F5552 /* gravatar-white@2x.png */,
 				CCA8E64E15D0F82A00DE01AF /* blue-button-active.png */,
 				CC34EE3815D1763F00820FC8 /* blue-button-active@2x.png */,
 				CCA8E64F15D0F82A00DE01AF /* blue-button-pressed.png */,
@@ -517,6 +528,8 @@
 				CC34EE5915D189A600820FC8 /* add-account-navbar-button-pressed.png in Resources */,
 				CC34EE5A15D189A600820FC8 /* add-account-navbar-button-pressed@2x.png in Resources */,
 				CC34EE5C15D189E600820FC8 /* add-account-navbar-button-active-landscape.png in Resources */,
+				CC830B2615DAC455008F5552 /* gravatar-white.png in Resources */,
+				CC830B2715DAC455008F5552 /* gravatar-white@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -594,6 +607,7 @@
 				CCEF5DFE15D301D700761000 /* PhotoEditorViewController.m in Sources */,
 				CCEF5E0215D9542D00761000 /* ImageEditorView.m in Sources */,
 				CCEF5E0915D9861B00761000 /* CropView.m in Sources */,
+				CC830B2315DABF90008F5552 /* AppController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

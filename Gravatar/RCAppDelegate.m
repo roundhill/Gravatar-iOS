@@ -14,11 +14,14 @@
 #import "EmailsViewController.h"
 #import "PhotoSelectionViewController.h"
 #import "PhotoEditorViewController.h"
-#import "NSData+Base64.h"
+#import "AppController.h"
 
-@interface RCAppDelegate () <AddAccountViewControllerDelegate, EmailsViewControllerDelegate, PhotoSelectionViewControllerDelegate, PhotoEditorViewControllerDelegate>
+
+@interface RCAppDelegate () <AddAccountViewControllerDelegate, EmailsViewControllerDelegate>
 @property (nonatomic, strong) GravatarAccount *account;
 @property (nonatomic, strong) UINavigationController *navigationController;
+@property (nonatomic, strong) PhotoSelectionViewController *photosController;
+@property (nonatomic, strong) AppController *appController;
 - (void)applyAppearance;
 - (IBAction)logOut:(id)sender;
 - (IBAction)addAccount:(id)sender;
@@ -40,27 +43,27 @@
     self.window.backgroundColor = [UIColor blackColor];
     [self.window makeKeyAndVisible];
     
-    EmailsViewController *emails = [[EmailsViewController alloc] initWithStyle:UITableViewStylePlain];
+//    EmailsViewController *emails = [[EmailsViewController alloc] initWithStyle:UITableViewStylePlain];
+//    
+//    emails.account = self.account;
+//    emails.title = NSLocalizedString(@"Emails", @"Gravatar email list title");
+//    
+//    UINavigationController *controller = [[UINavigationController alloc] initWithRootViewController:emails];
+//    self.navigationController = controller;
+//    
+//    emails.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Log Out"
+//                                                                                  style:UIBarButtonItemStyleBordered
+//                                                                                 target:self
+//                                                                                 action:@selector(logOut:)];
+//    
+//    emails.delegate = self;
     
-    emails.account = self.account;
-    emails.title = NSLocalizedString(@"Emails", @"Gravatar email list title");
+    self.appController = [[AppController alloc] init];
+    self.appController.account = self.account;
     
-    UINavigationController *controller = [[UINavigationController alloc] initWithRootViewController:emails];
-    self.navigationController = controller;
+    self.window.rootViewController = self.appController;
     
-    emails.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Log Out"
-                                                                                  style:UIBarButtonItemStyleBordered
-                                                                                 target:self
-                                                                                 action:@selector(logOut:)];
     
-    emails.delegate = self;
-    self.window.rootViewController = controller;
-    
-    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    [nc addObserver:self
-           selector:@selector(failedAuth:)
-               name:GravatarClientAuthenticationErrorNotification
-             object:nil];
 
     return YES;
 }
@@ -137,33 +140,12 @@
     
     PhotoSelectionViewController *controller = [[PhotoSelectionViewController alloc] initWithCollectionViewLayout:layout];
     controller.title = NSLocalizedString(@"Photos", @"Title for photo selection view");
-    controller.delegate = self;
+//    controller.delegate = self;
     [self.navigationController pushViewController:controller animated:YES];
 
 }
 
-- (void)photoSelector:(PhotoSelectionViewController *)photoSelector didSelectAsset:(id)asset {
-    PhotoEditorViewController *editorController = [[PhotoEditorViewController alloc] init];
-    ALAssetRepresentation *rep = [asset defaultRepresentation];
-    UIImage *image = [UIImage imageWithCGImage:[rep fullResolutionImage] scale:rep.scale orientation:rep.orientation];
-    editorController.photo = image;
-    editorController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    editorController.delegate = self;
-    [self.navigationController presentViewController:editorController animated:YES completion:nil];
-}
 
-- (void)photoEditor:(PhotoEditorViewController *)photoEditor didFinishEditingImage:(CGImageRef)imageRef {
-    
-    UIImage *image = [UIImage imageWithCGImage:imageRef];
-    NSData *data = UIImageJPEGRepresentation(image, 0.9f);
-    [self.account.client saveData:data withRating:GravatarClientImageRatingG onSucces:^(GravatarRequest *request, NSArray *params) {
-        NSLog(@"Uploaded data: %@", params);
-    } onFailure:^(GravatarRequest *request, NSDictionary *fault) {
-        NSLog(@"Failed to upload data: %@", fault);
-    }];
-    
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-}
 
 #pragma mark - UIAppearance
 
@@ -188,7 +170,7 @@
                                                resizableImageWithCapInsets:UIEdgeInsetsMake(2.f, 2.f, 2.f, 2.f)];
     
     // bar button item appearance
-    id barButtonItem = [UIBarButtonItem appearance];
+    id barButtonItem = [UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil];
     [barButtonItem setBackgroundImage:barButtonActiveImage
                              forState:UIControlStateNormal
                                 style:UIBarButtonItemStyleBordered
@@ -208,6 +190,10 @@
                              forState:UIControlStateHighlighted
                                 style:UIBarButtonItemStyleBordered
                            barMetrics:UIBarMetricsLandscapePhone];
+    
+    // UIToolBarAppearanc
+    id toolbar = [UIToolbar appearance];
+    [toolbar setBackgroundImage:shadowImage forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
     
 
 }

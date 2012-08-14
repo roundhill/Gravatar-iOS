@@ -9,6 +9,8 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "PhotoSelectionViewController.h"
 
+float const PhotoSelectionViewControllerThumbSize = 76.f;
+
 @interface PhotoSelectionViewController ()
 @property (nonatomic, retain) NSMutableArray *photos;
 @property (nonatomic, retain) ALAssetsLibrary *library;
@@ -21,6 +23,19 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+    }
+    return self;
+}
+
+- (id)initWithCollectionViewLayout:(UICollectionViewLayout *)ignoreLayout {
+    
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    layout.sectionInset = UIEdgeInsetsMake(47.f, 4.f, 3.f, 3.f);
+    layout.itemSize = CGSizeMake(PhotoSelectionViewControllerThumbSize, PhotoSelectionViewControllerThumbSize);
+    layout.minimumInteritemSpacing = 2.f;
+    layout.minimumLineSpacing = 4.f;
+
+    if (self = [super initWithCollectionViewLayout:layout]) {
     }
     return self;
 }
@@ -80,8 +95,9 @@
     ALAsset *asset = [self.photos objectAtIndex:indexPath.row];
     CGImageRef image = [asset thumbnail];
     UIImageView *thumbView = [[UIImageView alloc] initWithImage:[UIImage imageWithCGImage:image]];
-    thumbView.frame = CGRectMake(0.f, 0.f, 77.f, 77.f);
+    thumbView.frame = CGRectMake(0.f, 0.f, PhotoSelectionViewControllerThumbSize, PhotoSelectionViewControllerThumbSize);
     [cell addSubview:thumbView];
+    cell.clipsToBounds = YES;
     return cell;
 }
 

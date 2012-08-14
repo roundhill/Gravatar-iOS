@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Beau Collins. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "LoginPanelView.h"
 
 @implementation LoginPanelView
