@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Beau Collins. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "RCAppDelegate.h"
 #import "GravatarAccount.h"
 #import "AddAccountViewController.h"
@@ -22,7 +23,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
+
     [self applyAppearance];
     
     self.account = [GravatarAccount defaultAccount];
@@ -164,5 +165,16 @@
     
 
 }
+
+-(void)logAllFilters {
+    NSArray *properties = [CIFilter filterNamesInCategory:
+                           kCICategoryBuiltIn];
+    NSLog(@"%@", properties);
+    for (NSString *filterName in properties) {
+        CIFilter *fltr = [CIFilter filterWithName:filterName];
+        NSLog(@"%@", [fltr attributes]);
+    }
+}
+
 
 @end

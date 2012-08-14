@@ -12,5 +12,4 @@
 @interface PhotoEditorViewController : UIViewController
 
 @property (nonatomic, strong) ALAsset *photo;
-
 @end

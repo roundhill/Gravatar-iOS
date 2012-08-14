@@ -53,6 +53,8 @@
 		CCDED47515D1D92B001C9CA7 /* GravatarAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = CCDED47415D1D92B001C9CA7 /* GravatarAccount.m */; };
 		CCEF5DFE15D301D700761000 /* PhotoEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCEF5DFD15D301D700761000 /* PhotoEditorViewController.m */; };
 		CCEF5E0215D9542D00761000 /* ImageEditorView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCEF5E0115D9542D00761000 /* ImageEditorView.m */; };
+		CCEF5E0915D9861B00761000 /* CropView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCEF5E0815D9861B00761000 /* CropView.m */; };
+		CCEF5E0B15D9AD5E00761000 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCEF5E0A15D9AD5E00761000 /* CoreImage.framework */; };
 		CCFD869415CC56AB001D8E25 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCFD869315CC56AB001D8E25 /* UIKit.framework */; };
 		CCFD869615CC56AB001D8E25 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCFD869515CC56AB001D8E25 /* Foundation.framework */; };
 		CCFD869815CC56AB001D8E25 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCFD869715CC56AB001D8E25 /* CoreGraphics.framework */; };
@@ -146,6 +148,9 @@
 		CCEF5DFD15D301D700761000 /* PhotoEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoEditorViewController.m; sourceTree = "<group>"; };
 		CCEF5E0015D9542D00761000 /* ImageEditorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageEditorView.h; sourceTree = "<group>"; };
 		CCEF5E0115D9542D00761000 /* ImageEditorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageEditorView.m; sourceTree = "<group>"; };
+		CCEF5E0715D9861B00761000 /* CropView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CropView.h; sourceTree = "<group>"; };
+		CCEF5E0815D9861B00761000 /* CropView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CropView.m; sourceTree = "<group>"; };
+		CCEF5E0A15D9AD5E00761000 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		CCFD868F15CC56AA001D8E25 /* Gravatar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gravatar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCFD869315CC56AB001D8E25 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CCFD869515CC56AB001D8E25 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -185,6 +190,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCEF5E0B15D9AD5E00761000 /* CoreImage.framework in Frameworks */,
 				CC3CA28115D236BC006E8B22 /* AssetsLibrary.framework in Frameworks */,
 				CCFD869415CC56AB001D8E25 /* UIKit.framework in Frameworks */,
 				CCFD869615CC56AB001D8E25 /* Foundation.framework in Frameworks */,
@@ -252,6 +258,8 @@
 				CC34EE6515D1AB6300820FC8 /* LoginPanelView.m */,
 				CCEF5E0015D9542D00761000 /* ImageEditorView.h */,
 				CCEF5E0115D9542D00761000 /* ImageEditorView.m */,
+				CCEF5E0715D9861B00761000 /* CropView.h */,
+				CCEF5E0815D9861B00761000 /* CropView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -291,6 +299,7 @@
 		CCFD868415CC56AA001D8E25 = {
 			isa = PBXGroup;
 			children = (
+				CCEF5E0A15D9AD5E00761000 /* CoreImage.framework */,
 				CC3CA28015D236BC006E8B22 /* AssetsLibrary.framework */,
 				CCFD869915CC56AB001D8E25 /* Gravatar */,
 				CCFD86B115CC56AB001D8E25 /* GravatarTests */,
@@ -576,6 +585,7 @@
 				CC3CA27F15D234C4006E8B22 /* PhotoSelectionViewController.m in Sources */,
 				CCEF5DFE15D301D700761000 /* PhotoEditorViewController.m in Sources */,
 				CCEF5E0215D9542D00761000 /* ImageEditorView.m in Sources */,
+				CCEF5E0915D9861B00761000 /* CropView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

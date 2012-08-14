@@ -11,5 +11,9 @@
 
 @interface ImageEditorView : UIView
 @property (nonatomic, strong) UIImage *image;
+@property (nonatomic) CGFloat imageScale;
+@property (nonatomic, readonly) CGFloat maxScale;
+@property (nonatomic, readonly) CGFloat minScale;
+
 -(void)setImageFromAsset:(ALAsset *)asset;
 @end
