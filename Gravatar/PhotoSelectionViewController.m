@@ -89,10 +89,9 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    PhotoEditorViewController *editorController = [[PhotoEditorViewController alloc] init];
-    editorController.photo = [self.photos objectAtIndex:indexPath.row];
-    editorController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    [self.navigationController presentViewController:editorController animated:YES completion:nil];
+    ALAsset *photo = [self.photos objectAtIndex:indexPath.row];
+    [self.delegate photoSelector:self didSelectAsset:photo];
+    
     
 }
 

@@ -7,13 +7,18 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
+#import <AssetsLibrary/AssetsLibrary.h>
 #import "RCAppDelegate.h"
 #import "GravatarAccount.h"
 #import "AddAccountViewController.h"
 #import "EmailsViewController.h"
+#import "PhotoSelectionViewController.h"
+#import "PhotoEditorViewController.h"
+#import "NSData+Base64.h"
 
-@interface RCAppDelegate () <AddAccountViewControllerDelegate>
+@interface RCAppDelegate () <AddAccountViewControllerDelegate, EmailsViewControllerDelegate, PhotoSelectionViewControllerDelegate, PhotoEditorViewControllerDelegate>
 @property (nonatomic, strong) GravatarAccount *account;
+@property (nonatomic, strong) UINavigationController *navigationController;
 - (void)applyAppearance;
 - (IBAction)logOut:(id)sender;
 - (IBAction)addAccount:(id)sender;
@@ -41,12 +46,14 @@
     emails.title = NSLocalizedString(@"Emails", @"Gravatar email list title");
     
     UINavigationController *controller = [[UINavigationController alloc] initWithRootViewController:emails];
+    self.navigationController = controller;
     
     emails.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Log Out"
                                                                                   style:UIBarButtonItemStyleBordered
                                                                                  target:self
                                                                                  action:@selector(logOut:)];
     
+    emails.delegate = self;
     self.window.rootViewController = controller;
     
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
@@ -94,7 +101,7 @@
     addAccount.delegate = self;
     UINavigationController *modal = [[UINavigationController alloc] initWithRootViewController:addAccount];
     
-    [self.window.rootViewController presentViewController:modal animated:YES completion:nil];
+    [self.navigationController presentViewController:modal animated:YES completion:nil];
     
 }
 
@@ -110,7 +117,7 @@
     [self addAccount:nil];
 }
 
-#pragma mark AddAccountViewControllerDelegate
+#pragma mark Delegate Methods
 
 - (void)addAccountViewControllerDidLogIn:(AddAccountViewController *)viewController {
     UINavigationController *controller = (UINavigationController *)self.window.rootViewController;
@@ -120,6 +127,45 @@
     [self.window.rootViewController dismissViewControllerAnimated:YES completion:nil];
     
 }
+
+- (void)emailViewController:(EmailsViewController *)emailsController didSelectEmail:(id)email {
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    layout.sectionInset = UIEdgeInsetsMake(3.f, 3.f, 3.f, 3.f);
+    layout.itemSize = CGSizeMake(77.f, 77.f);
+    layout.minimumInteritemSpacing = 2.f;
+    layout.minimumLineSpacing = 2.f;
+    
+    PhotoSelectionViewController *controller = [[PhotoSelectionViewController alloc] initWithCollectionViewLayout:layout];
+    controller.title = NSLocalizedString(@"Photos", @"Title for photo selection view");
+    controller.delegate = self;
+    [self.navigationController pushViewController:controller animated:YES];
+
+}
+
+- (void)photoSelector:(PhotoSelectionViewController *)photoSelector didSelectAsset:(id)asset {
+    PhotoEditorViewController *editorController = [[PhotoEditorViewController alloc] init];
+    ALAssetRepresentation *rep = [asset defaultRepresentation];
+    UIImage *image = [UIImage imageWithCGImage:[rep fullResolutionImage] scale:rep.scale orientation:rep.orientation];
+    editorController.photo = image;
+    editorController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    editorController.delegate = self;
+    [self.navigationController presentViewController:editorController animated:YES completion:nil];
+}
+
+- (void)photoEditor:(PhotoEditorViewController *)photoEditor didFinishEditingImage:(CGImageRef)imageRef {
+    
+    UIImage *image = [UIImage imageWithCGImage:imageRef];
+    NSData *data = UIImageJPEGRepresentation(image, 0.9f);
+    [self.account.client saveData:data withRating:GravatarClientImageRatingG onSucces:^(GravatarRequest *request, NSArray *params) {
+        NSLog(@"Uploaded data: %@", params);
+    } onFailure:^(GravatarRequest *request, NSDictionary *fault) {
+        NSLog(@"Failed to upload data: %@", fault);
+    }];
+    
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - UIAppearance
 
 - (void)applyAppearance {
     

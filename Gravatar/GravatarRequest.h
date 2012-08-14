@@ -35,6 +35,7 @@ typedef enum GravatarErrorCode : NSInteger  {
 @property (nonatomic, weak) id delegate;
 @property (nonatomic, strong) NSString *email;
 @property (nonatomic, strong, readonly) NSString *emailHash;
+@property (nonatomic, strong) NSNumber *expectedResponseLength;
 
 +(NSURL*)URLWithHash:(NSString *)emailHash;
 +(NSString *)hashForEmail:(NSString *)email;

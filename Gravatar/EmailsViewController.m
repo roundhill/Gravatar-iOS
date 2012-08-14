@@ -7,7 +7,6 @@
 //
 
 #import "EmailsViewController.h"
-#import "PhotoSelectionViewController.h"
 
 @interface EmailsViewController ()
 
@@ -82,16 +81,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    layout.sectionInset = UIEdgeInsetsMake(3.f, 3.f, 3.f, 3.f);
-    layout.itemSize = CGSizeMake(77.f, 77.f);
-    layout.minimumInteritemSpacing = 2.f;
-    layout.minimumLineSpacing = 2.f;
     
-    PhotoSelectionViewController *controller = [[PhotoSelectionViewController alloc] initWithCollectionViewLayout:layout];
-    controller.title = NSLocalizedString(@"Photos", @"Title for photo selection view");
-    
-    [self.navigationController pushViewController:controller animated:YES];
+    [self.delegate emailViewController:self didSelectEmail:@"hi"];
     
     
 }

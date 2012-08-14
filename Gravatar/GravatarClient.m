@@ -8,6 +8,7 @@
 
 #import "GravatarClient.h"
 #import "RCXMLRPCDecoder.h"
+#import "NSData+Base64.h"
 
 NSString *const GravatarClientAuthenticationErrorNotification = @"Gravatar Authentication Error";
 NSString *const GravatarClientFaultInfoKey = @"Fault";
@@ -75,7 +76,7 @@ NSString *const GravatarClientRequestInfoKey = @"Request";
 
 #pragma mark - Gravatar API Methods
 
--(void)callMethod:(NSString *)method withArguments:(NSDictionary *)arguments onSucces:(void(^)(GravatarRequest* request, NSArray *params))successBlock onFailure:(void(^)(GravatarRequest* request, NSDictionary *fault))failureBlock {
+-(GravatarRequest *)callMethod:(NSString *)method withArguments:(NSDictionary *)arguments onSucces:(void(^)(GravatarRequest* request, NSArray *params))successBlock onFailure:(void(^)(GravatarRequest* request, NSDictionary *fault))failureBlock {
     
     // create a delegate with the given blocks
     GravatarClientRequest *clientRequest = [GravatarClientRequest requestWithClient:self];
@@ -87,34 +88,34 @@ NSString *const GravatarClientRequestInfoKey = @"Request";
     
     [self.requests addObject:clientRequest];
     [request sendWithDelegate:clientRequest];
+    return request;
 }
 
-- (void)addressesOnSuccess:(void (^)(GravatarRequest *, NSArray *))successBlock onFailure:(void (^)(GravatarRequest *, NSDictionary *))failureBlock {
+- (GravatarRequest *)addressesOnSuccess:(void (^)(GravatarRequest *, NSArray *))successBlock onFailure:(void (^)(GravatarRequest *, NSDictionary *))failureBlock {
     
-    [self callMethod:@"addresses" withArguments:nil onSucces:successBlock onFailure:failureBlock];
-    
-}
-
-- (void)existsForHashes:(NSArray *)hashes onSuccess:(void (^)(GravatarRequest *, NSArray *))successBlock onFailure:(void (^)(GravatarRequest *, NSDictionary *))failureBlock {
-    
-    [self callMethod:@"exists" withArguments:@{ @"hashes": hashes } onSucces:successBlock onFailure:failureBlock];
+    return [self callMethod:@"addresses" withArguments:nil onSucces:successBlock onFailure:failureBlock];
     
 }
 
-- (void)userimagesOnSuccess:(void (^)(GravatarRequest *, NSArray *))successBlock onFailure:(void (^)(GravatarRequest *, NSDictionary *))failureBlock {
-    [self callMethod:@"userimages" withArguments:nil onSucces:successBlock onFailure:failureBlock];
+- (GravatarRequest *)existsForHashes:(NSArray *)hashes onSuccess:(void (^)(GravatarRequest *, NSArray *))successBlock onFailure:(void (^)(GravatarRequest *, NSDictionary *))failureBlock {
+    
+    return [self callMethod:@"exists" withArguments:@{ @"hashes": hashes } onSucces:successBlock onFailure:failureBlock];
+    
 }
 
-- (void)saveData:(NSData *)data withRating:(GravatarClientImageRating)rating onSucces:(void (^)(GravatarRequest *, NSArray *))successBlock onFailure:(void (^)(GravatarRequest *, NSDictionary *))failureBlock {
-    
+- (GravatarRequest *)userimagesOnSuccess:(void (^)(GravatarRequest *, NSArray *))successBlock onFailure:(void (^)(GravatarRequest *, NSDictionary *))failureBlock {
+    return [self callMethod:@"userimages" withArguments:nil onSucces:successBlock onFailure:failureBlock];
+}
+
+- (GravatarRequest *)saveData:(NSData *)data withRating:(GravatarClientImageRating)rating onSucces:(void (^)(GravatarRequest *, NSArray *))successBlock onFailure:(void (^)(GravatarRequest *, NSDictionary *))failureBlock {
     NSNumber *gravatarRating = [NSNumber numberWithInt:rating];
-    NSDictionary *args = @{ @"data" : data, @"rating": gravatarRating };
-    [self callMethod:@"saveData" withArguments:args onSucces:successBlock onFailure:failureBlock];
-    
+    NSString *dataString = [data base64EncodedString];
+    NSDictionary *args = @{ @"data" : dataString, @"rating": gravatarRating };
+    return [self callMethod:@"saveData" withArguments:args onSucces:successBlock onFailure:failureBlock];
 }
 
-- (void)testOnSucces:(void (^)(GravatarRequest *, NSArray *))successBlock onFailure:(void (^)(GravatarRequest *, NSDictionary *))failureBlock {
-    [self callMethod:@"test" withArguments:nil onSucces:successBlock onFailure:failureBlock];
+- (GravatarRequest *)testOnSucces:(void (^)(GravatarRequest *, NSArray *))successBlock onFailure:(void (^)(GravatarRequest *, NSDictionary *))failureBlock {
+    return [self callMethod:@"test" withArguments:nil onSucces:successBlock onFailure:failureBlock];
 }
 
 # pragma mark - Client Request management

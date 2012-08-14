@@ -7,9 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <AssetsLibrary/AssetsLibrary.h>
+
+@protocol PhotoEditorViewControllerDelegate;
 
 @interface PhotoEditorViewController : UIViewController
+@property (nonatomic, assign) id<PhotoEditorViewControllerDelegate> delegate;
+@property (nonatomic, strong) UIImage *photo;
+@end
 
-@property (nonatomic, strong) ALAsset *photo;
+@protocol PhotoEditorViewControllerDelegate <NSObject>
+
+-(void)photoEditor:(PhotoEditorViewController *)photoEditor didFinishEditingImage:(CGImageRef)image;
+
 @end

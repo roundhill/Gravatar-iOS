@@ -37,6 +37,8 @@
 		CC63160815D03E81007E8AFC /* GravatarRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = CC63160715D03E81007E8AFC /* GravatarRequest.m */; };
 		CC63160B15D04B6F007E8AFC /* MD5Hasher.m in Sources */ = {isa = PBXBuildFile; fileRef = CC63160A15D04B6F007E8AFC /* MD5Hasher.m */; };
 		CC63160E15D0555E007E8AFC /* GravatarClient.m in Sources */ = {isa = PBXBuildFile; fileRef = CC63160D15D0555E007E8AFC /* GravatarClient.m */; };
+		CC81ED2015DAADB1000DA4F8 /* data.txt in Resources */ = {isa = PBXBuildFile; fileRef = CC81ED1F15DAADB1000DA4F8 /* data.txt */; };
+		CC830B1B15DAB12B008F5552 /* datadict.xml in Resources */ = {isa = PBXBuildFile; fileRef = CC830B1A15DAB12B008F5552 /* datadict.xml */; };
 		CCA8E62C15D087CE00DE01AF /* AddAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCA8E62B15D087CE00DE01AF /* AddAccountViewController.m */; };
 		CCA8E62E15D088AF00DE01AF /* AddAccountView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CCA8E62D15D088AF00DE01AF /* AddAccountView.xib */; };
 		CCA8E63915D08B5400DE01AF /* RCAccountTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = CCA8E63715D08A8B00DE01AF /* RCAccountTextField.m */; };
@@ -127,6 +129,8 @@
 		CC63160A15D04B6F007E8AFC /* MD5Hasher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MD5Hasher.m; sourceTree = "<group>"; };
 		CC63160C15D0555E007E8AFC /* GravatarClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GravatarClient.h; sourceTree = "<group>"; };
 		CC63160D15D0555E007E8AFC /* GravatarClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GravatarClient.m; sourceTree = "<group>"; };
+		CC81ED1F15DAADB1000DA4F8 /* data.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = data.txt; sourceTree = "<group>"; };
+		CC830B1A15DAB12B008F5552 /* datadict.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = datadict.xml; sourceTree = "<group>"; };
 		CCA8E62A15D087CE00DE01AF /* AddAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddAccountViewController.h; sourceTree = "<group>"; };
 		CCA8E62B15D087CE00DE01AF /* AddAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddAccountViewController.m; sourceTree = "<group>"; };
 		CCA8E62D15D088AF00DE01AF /* AddAccountView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddAccountView.xib; sourceTree = "<group>"; };
@@ -400,12 +404,14 @@
 			children = (
 				CCFD86DB15CC7C89001D8E25 /* array.xml */,
 				CCFD86DD15CC80E0001D8E25 /* dict.xml */,
+				CC830B1A15DAB12B008F5552 /* datadict.xml */,
 				CCFD86D915CC787E001D8E25 /* params.xml */,
 				CCFD86DF15CC829F001D8E25 /* request.xml */,
 				CC6315FD15CF0F93007E8AFC /* response-complex.xml */,
 				CC63160015CF0FB2007E8AFC /* response-fault.xml */,
 				CC34EE5F15D19C1100820FC8 /* response-numbers.xml */,
 				CCFD86F515CCB372001D8E25 /* response.xml */,
+				CC81ED1F15DAADB1000DA4F8 /* data.txt */,
 			);
 			name = Fixtures;
 			sourceTree = "<group>";
@@ -527,6 +533,8 @@
 				CC6315FE15CF0F93007E8AFC /* response-complex.xml in Resources */,
 				CC63160115CF0FB2007E8AFC /* response-fault.xml in Resources */,
 				CC34EE6015D19C1100820FC8 /* response-numbers.xml in Resources */,
+				CC81ED2015DAADB1000DA4F8 /* data.txt in Resources */,
+				CC830B1B15DAB12B008F5552 /* datadict.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

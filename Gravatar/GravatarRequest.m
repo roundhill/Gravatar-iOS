@@ -56,21 +56,25 @@ NSString * const GravatarURL = @"https://secure.gravatar.com/xmlrpc";
     
     [request setHTTPBody:[RCXMLRPCEncoder dataForRequestMethod:self.methodName andParams:self.params]];
     NSURLConnection *connection = [NSURLConnection connectionWithRequest:request delegate:self];
-    NSLog(@"Sending request to: %@", request.URL);
-    NSLog(@"%@", [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding]);
+    NSLog(@"Sending request to: (%@) %@", self.methodName, request.URL);
     [connection start];
 }
 
 #pragma mark - NSURLConnectionDelegate Methods
 
+- (void)connection:(NSURLConnection *)connection didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
+    
+    float total = (float) totalBytesWritten;
+    float expected = (float) totalBytesExpectedToWrite;
+    
+}
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-    NSLog(@"Response received");
+    self.expectedResponseLength = [NSNumber numberWithLongLong:response.expectedContentLength];
     self.responseData = [[NSMutableData alloc] initWithCapacity:1024];
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    NSLog(@"Request failed: %@", error);
     [self.delegate request:self didFailWithError:error];
 }
 
@@ -93,9 +97,6 @@ NSString * const GravatarURL = @"https://secure.gravatar.com/xmlrpc";
         }
     }
     
-}
-
-- (void)connection:(NSURLConnection *)connection didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
 }
 
 @end

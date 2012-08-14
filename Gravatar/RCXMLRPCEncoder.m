@@ -83,6 +83,8 @@ NSString * const RCXMLRPCEncoderClosing = @"</methodCall>";
         return [self fragmentForString:object];
     } else if ([self object:object isKindOf:[NSNumber class]]){
         return [self fragmentForNumber:object];
+    } else if ([self object:object isKindOf:[NSData class]]){
+        return [self fragmentForData:object];
     } else if ([self object:object isKindOf:[NSDictionary class]]){
         return [self fragmentForDictionary:object];
     } else if ([self object:object isKindOf:[NSArray class]]){

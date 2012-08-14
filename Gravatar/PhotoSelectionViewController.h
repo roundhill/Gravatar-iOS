@@ -7,8 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PhotoEditorViewController.h"
+
+@protocol PhotoSelectionViewControllerDelegate;
 
 @interface PhotoSelectionViewController : UICollectionViewController
+
+@property (nonatomic, assign) id<PhotoSelectionViewControllerDelegate> delegate;
+
+@end
+
+@protocol PhotoSelectionViewControllerDelegate <NSObject>
+
+- (void)photoSelector:(PhotoSelectionViewController*)photoSelector didSelectAsset:(ALAsset *)asset;
 
 @end

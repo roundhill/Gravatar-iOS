@@ -73,6 +73,27 @@
     STAssertEqualObjects([RCXMLRPCEncoder fragmentForDictionary:dict], expected, nil);
 }
 
+- (void)testDataFragment {
+    NSBundle *fixtureBundle = [NSBundle bundleForClass:[self class]];
+    NSData *data = [NSData dataWithContentsOfFile:[fixtureBundle pathForResource:@"data" ofType:@"txt"  ]];
+    
+    NSString *fragment = [RCXMLRPCEncoder fragmentForData:data];
+    
+    STAssertEqualObjects(fragment, @"<base64>SGVsbG8gV29ybGQh</base64>", nil);
+    
+}
+
+- (void)testDataInStruct {
+    NSString *expected = [self xml:@"datadict"];
+    NSBundle *fixtureBundle = [NSBundle bundleForClass:[self class]];
+    NSData *data = [NSData dataWithContentsOfFile:[fixtureBundle pathForResource:@"data" ofType:@"txt"  ]];
+    NSDictionary *dict = @{ @"data" : data };
+    NSString *fragment = [RCXMLRPCEncoder fragmentForDictionary:dict];
+    
+    STAssertEqualObjects(fragment, expected, nil);
+
+}
+
 - (void)testMethodCall {
     NSString *request = [RCXMLRPCEncoder stringForRequestMethod:@"add" andParams:@[@2,@2, @{@"hello":@"world"}, @[@1,@2.5]]];
     
