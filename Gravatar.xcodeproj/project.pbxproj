@@ -299,8 +299,6 @@
 		CCFD868415CC56AA001D8E25 = {
 			isa = PBXGroup;
 			children = (
-				CCEF5E0A15D9AD5E00761000 /* CoreImage.framework */,
-				CC3CA28015D236BC006E8B22 /* AssetsLibrary.framework */,
 				CCFD869915CC56AB001D8E25 /* Gravatar */,
 				CCFD86B115CC56AB001D8E25 /* GravatarTests */,
 				CCFD869215CC56AB001D8E25 /* Frameworks */,
@@ -321,6 +319,8 @@
 		CCFD869215CC56AB001D8E25 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CCEF5E0A15D9AD5E00761000 /* CoreImage.framework */,
+				CC3CA28015D236BC006E8B22 /* AssetsLibrary.framework */,
 				CCA8E64715D0E12900DE01AF /* QuartzCore.framework */,
 				CCFD869315CC56AB001D8E25 /* UIKit.framework */,
 				CCFD869515CC56AB001D8E25 /* Foundation.framework */,

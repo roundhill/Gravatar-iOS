@@ -10,6 +10,5 @@
 
 @interface CropView : UIView
 
-@property (nonatomic) CGRect cropFrame;
-
+@property (nonatomic, readwrite) CGRect cropFrame;
 @end

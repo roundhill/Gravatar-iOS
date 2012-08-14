@@ -17,6 +17,8 @@
         // Initialization code
         self.cropFrame = CGRectZero;
         self.backgroundColor = [UIColor clearColor];
+        self.userInteractionEnabled = NO;
+        
     }
     return self;
 }
@@ -29,7 +31,7 @@
     // Drawing code
     if (!CGRectIsEmpty(self.cropFrame)) {
         CGContextRef ctx = UIGraphicsGetCurrentContext();
-        [[[UIColor blackColor] colorWithAlphaComponent:0.5f] setFill];
+        [[[UIColor blackColor] colorWithAlphaComponent:0.7f] setFill];
         CGContextFillRect(ctx, rect);
         CGContextClearRect(ctx, self.cropFrame);
         [[[UIColor whiteColor] colorWithAlphaComponent:0.9f] setStroke];
@@ -38,13 +40,6 @@
     }
 }
 
-- (void)sizeToFit {
-    if (self.superview) {
-        CGRect parentFrame = self.superview.frame;
-        CGRect viewFrame = CGRectMake(0.f, 0.f, parentFrame.size.width, parentFrame.size.height);
-        self.frame = viewFrame;
-    }
-}
 
 
 @end
