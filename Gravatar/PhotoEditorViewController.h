@@ -17,6 +17,6 @@
 
 @protocol PhotoEditorViewControllerDelegate <NSObject>
 
--(void)photoEditor:(PhotoEditorViewController *)photoEditor didFinishEditingImage:(CGImageRef)image;
+-(void)photoEditor:(PhotoEditorViewController *)photoEditor didFinishEditingImage:(UIImage *)image;
 
 @end

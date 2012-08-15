@@ -172,9 +172,24 @@
     [self presentViewController:editorController animated:YES completion:nil];
 }
 
-- (void)photoEditor:(PhotoEditorViewController *)photoEditor didFinishEditingImage:(CGImageRef)imageRef {
+- (void)photoEditor:(PhotoEditorViewController *)photoEditor didFinishEditingImage:(UIImage *)image {
     
-    UIImage *image = [UIImage imageWithCGImage:imageRef];
+    NSLog(@"Image Orientation: %d", image.imageOrientation);
+    UIImageView *tmpImage = [[UIImageView alloc] initWithImage:image];
+    tmpImage.backgroundColor = [UIColor greenColor];
+    
+    [self.view addSubview:tmpImage];
+    tmpImage.center = CGPointMake(self.view.bounds.size.width * 0.5f, self.view.bounds.size.height * 0.5f);
+    
+    [UIView animateWithDuration:1.f delay:3.f options:kNilOptions animations:^{
+        tmpImage.alpha = 0.f;
+    } completion:^(BOOL finished) {
+        [tmpImage removeFromSuperview];
+    }];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    return;
     NSData *data = UIImageJPEGRepresentation(image, 0.9f);
     [self.account.client saveData:data withRating:GravatarClientImageRatingG onSucces:^(GravatarRequest *request, NSArray *params) {
         NSLog(@"Uploaded data: %@", params);
@@ -182,7 +197,6 @@
         NSLog(@"Failed to upload data: %@", fault);
     }];
     
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)addAccountViewControllerDidLogIn:(AddAccountViewController *)viewController {
