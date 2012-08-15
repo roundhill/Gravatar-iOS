@@ -10,20 +10,19 @@
 #import "PhotoEditorViewController.h"
 #import "CropView.h"
 
-const float PhotoEditorViewControllerBarHeight = 44.f;
 const float PhotoEditorViewControllerCropInset = 22.f;
 
-@interface PhotoEditorViewController () <UINavigationBarDelegate>
+@interface PhotoEditorViewController ()
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UIPanGestureRecognizer *panGesture;
 @property (nonatomic, strong) UIPinchGestureRecognizer *pinchGesture;
 @property (nonatomic, strong) UITapGestureRecognizer *doubleTapGesture;
 @property (nonatomic) CGPoint imageOrigin, panAnchor;
-@property (nonatomic) CGFloat defaultImageScale, imageScale, pinchAnchor, maxImageScale, minImageScale;
-@property (nonatomic, strong) UINavigationBar *bar;
+@property (nonatomic) CGFloat defaultImageScale, imageScale, pinchAnchor;
+@property (nonatomic, readonly) CGFloat maxImageScale, minImageScale;
+@property (nonatomic, strong) UIView *editorView;
 
 @property (nonatomic) CropView *cropView;
-@property (nonatomic, strong) UIView *editorView;
 @end
 
 @implementation PhotoEditorViewController
@@ -33,63 +32,43 @@ const float PhotoEditorViewControllerCropInset = 22.f;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        _defaultImageScale = 1.f;
+        _imageScale = 1.f;
+        _imageOrigin = CGPointZero;
     }
     return self;
-}
-
-- (void)loadView {
-    [super loadView];
-    self.view.backgroundColor = [UIColor blackColor];
-    
-    self.editorView = [[UIView alloc] initWithFrame:CGRectZero];
-    self.editorView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [self.view addSubview:self.editorView];
-    self.editorView.backgroundColor = [UIColor blackColor];
-    
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    self.imageView = [[UIImageView alloc] initWithImage:self.photo];
-    self.imageView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin;
-        
-    CGRect editorFrame = self.view.bounds;
-    editorFrame.size.height -= PhotoEditorViewControllerBarHeight;
-    self.editorView.frame = editorFrame;
-    self.editorView.backgroundColor = [UIColor blackColor];
+    self.view.backgroundColor = [UIColor clearColor];
     
-
-    [self.editorView addSubview:self.imageView];
-
-
+    
     self.cropView = [[CropView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:self.cropView];
     
-    [self setImageConstraints];
     
-    CGRect barFrame = self.view.frame;
-    barFrame.size.height = PhotoEditorViewControllerBarHeight;
-    barFrame.origin.y = self.view.frame.size.height - PhotoEditorViewControllerBarHeight;
-    self.bar = [[UINavigationBar alloc] initWithFrame:barFrame];
-    [self.view addSubview:self.bar];
-    self.bar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    CGSize viewSize = self.view.bounds.size;
     
-    UINavigationItem *backItem = [[UINavigationItem alloc] initWithTitle:NSLocalizedString(@"Photos", @"Back Button")];
-    UINavigationItem *cropItem = [[UINavigationItem alloc] initWithTitle:NSLocalizedString(@"Crop", @"Crop Title")];
-    [self.bar pushNavigationItem:backItem animated:NO];
-    [self.bar pushNavigationItem:cropItem animated:NO];
+    CGRect cropFrame;
+    cropFrame.size.width = MIN(viewSize.width, viewSize.height) - PhotoEditorViewControllerCropInset;
+    cropFrame.size.height = cropFrame.size.width;
+    cropFrame.origin.x = (viewSize.width - cropFrame.size.width) * 0.5f;
+    cropFrame.origin.y = (viewSize.height - cropFrame.size.height) * 0.5f;
+    self.cropView.cropFrame = cropFrame;
+    self.cropView.alpha = 0.f;
     
-    cropItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Use Photo", @"Button to initiate cropping and uploading of the photo") style:UIBarButtonItemStyleBordered target:self action:@selector(cropPhoto:)];
+    self.editorView = [[UIView alloc] initWithFrame:self.cropView.cropFrame];
+    [self.view addSubview:self.editorView];
     
-    self.bar.delegate = self;
+    self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.f, 0.f, cropFrame.size.width, cropFrame.size.height)];
     
-    self.editorView.frame = self.cropView.cropFrame;
+    self.imageView.backgroundColor = [UIColor purpleColor];
     
-    self.imageScale = 1.f;
-    self.imageOrigin = CGPointZero;
-
+    [self.view addSubview:self.imageView];
+    
     
     self.panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panned:)];
     self.panGesture.maximumNumberOfTouches = 1;
@@ -101,6 +80,8 @@ const float PhotoEditorViewControllerCropInset = 22.f;
     [self.editorView addGestureRecognizer:self.panGesture];
     [self.editorView addGestureRecognizer:self.pinchGesture];
     [self.editorView addGestureRecognizer:self.doubleTapGesture];
+    
+    [self.view bringSubviewToFront:self.cropView];
 
 }
 
@@ -117,40 +98,80 @@ const float PhotoEditorViewControllerCropInset = 22.f;
     self.pinchGesture = nil;
     self.doubleTapGesture = nil;
     
+    self.editorView = nil;
     self.imageView = nil;
 
 }
 
-- (void)setImageConstraints {
-    
-    CGSize viewSize = self.view.bounds.size;
-    viewSize.height -= PhotoEditorViewControllerBarHeight;
-    CGSize imageSize = self.imageView.image.size;
 
-    self.imageView.center = CGPointMake(viewSize.width * 0.5f, viewSize.height * 0.5f);
+- (void)viewWillLayoutSubviews {
+    self.cropView.frame = self.view.bounds;
+    self.editorView.frame = self.cropView.cropFrame;
+}
 
-    CGRect cropFrame;
-    cropFrame.size.width = MIN(viewSize.width, viewSize.height) - PhotoEditorViewControllerCropInset;
-    cropFrame.size.height = cropFrame.size.width;
-    cropFrame.origin.x = (viewSize.width - cropFrame.size.width) * 0.5f;
-    cropFrame.origin.y = (viewSize.height - cropFrame.size.height) * 0.5f;
-    self.cropView.cropFrame = cropFrame;
-    
-    CGSize cropSize = cropFrame.size;
-    
-    CGFloat anchorScale;
-    if (imageSize.width < imageSize.height) {
-        anchorScale = cropSize.width / imageSize.width;
-    } else {
-        anchorScale = cropSize.height / imageSize.height;
+- (void)setAsset:(ALAsset *)asset {
+    [self setAsset:asset andAnimate:NO zoomFromRect:CGRectNull];
+}
+
+- (void)setAsset:(ALAsset *)asset andAnimate:(BOOL)animate zoomFromRect:(CGRect)rect {
+    if (asset != _asset) {
+        _asset = asset;
     }
     
-    self.minImageScale = 1.f;
-    self.maxImageScale = 1/anchorScale;
+    CGSize assetDimensions = asset.defaultRepresentation.dimensions;
+    CGRect imageFrame;
+    CGSize cropSize = self.cropView.cropFrame.size;
+    imageFrame.size = assetDimensions;
+    imageFrame.origin = CGPointMake(0.f, 0.f);
+    self.imageView.frame = imageFrame;
+    self.imageView.center = self.editorView.center;
+    self.imageView.image = [UIImage imageWithCGImage:asset.aspectRatioThumbnail];
     
-    self.defaultImageScale = anchorScale;
+    self.imageView.transform = CGAffineTransformIdentity;
+    
+    
+    self.defaultImageScale = [self scaleToFillDimensions:assetDimensions toSize:cropSize];
+    
+    _imageScale = 1.f;
+    _imageOrigin = CGPointZero;
+    
+    self.imageView.transform = [self transformForScale:1.f andPan:CGPointZero];
+    
+    if (animate == YES) {
+        if (CGRectIsEmpty(rect)) {
+            rect = CGRectMake(0.f, 0.f, 76.f, 76.f);
+        }
+        
+        
+        CGPoint startCenter = CGPointMake(rect.origin.x + rect.size.width * 0.5f, rect.origin.y + rect.size.height * 0.5f);
+        CGFloat startScale = [self scaleToFillDimensions:assetDimensions toSize:rect.size];
+        CGRect bounds = self.imageView.bounds;
+        CGRect startBounds = bounds;
+        startBounds.size.width *= startScale;
+        startBounds.size.height *= startScale;
+        
+        self.imageView.bounds = startBounds;
+        self.imageView.center = startCenter;
+        
+        
+        [UIView animateWithDuration:0.2f animations:^{
+            self.cropView.alpha = 1.f;
+            self.imageView.bounds = bounds;
+            self.imageView.center = self.editorView.center;
+        } completion:^(BOOL finished) {
+        }];
+    } else {
+        self.editorView.alpha = 1.f;
+  }
+    
+}
 
-
+- (CGAffineTransform)transformForScale:(CGFloat)scale andPan:(CGPoint)position {
+    CGFloat correctedScale = scale * self.defaultImageScale;
+    //scale, than translate
+    CGAffineTransform transform = CGAffineTransformScale(CGAffineTransformIdentity, correctedScale, correctedScale);
+    return CGAffineTransformTranslate(transform, position.x, position.y);
+    
 }
 
 - (void)panned:(UIPanGestureRecognizer *)pan {
@@ -213,6 +234,10 @@ const float PhotoEditorViewControllerCropInset = 22.f;
 
 - (void)updateImageView {
     
+    if (self.imageView == nil) {
+        return;
+    }
+    
     CGFloat scale = [self scaleFloat:self.imageScale withinMin:self.minImageScale andMax:self.maxImageScale];
         
     scale *= self.defaultImageScale;
@@ -240,6 +265,10 @@ const float PhotoEditorViewControllerCropInset = 22.f;
 }
 
 - (void)updateImageViewToNearestValidState {
+    
+    if (self.imageView == nil) {
+        return;
+    }
         
     if (self.imageScale < self.minImageScale) {
         self.imageScale = self.minImageScale;
@@ -249,7 +278,8 @@ const float PhotoEditorViewControllerCropInset = 22.f;
     
     
     [self updateImageView];
-        
+    
+    return;
         
     CGRect cropRect = [self.view convertRect:self.editorView.frame toView:self.imageView];
     CGRect imageRect = self.imageView.bounds;
@@ -310,13 +340,21 @@ const float PhotoEditorViewControllerCropInset = 22.f;
     [self.delegate photoEditor:self didFinishEditingImage:croppedImage];
 }
 
+- (CGFloat)maxImageScale {
+    return 1.f/self.defaultImageScale;
+}
 
+- (CGFloat)minImageScale {
+    return 1.f;
+}
 
-#pragma mark - UINavigationBarDelegate methods
-
-- (BOOL)navigationBar:(UINavigationBar *)navigationBar shouldPopItem:(UINavigationItem *)item {
-    [self closePhotoEditor:nil];
-    return NO;
+- (CGFloat)scaleToFillDimensions:(CGSize)dimensions toSize:(CGSize)size {
+    
+    CGFloat vertical = size.height/dimensions.height;
+    CGFloat horizontal = size.width/dimensions.width;
+    
+    return MAX(vertical, horizontal);
+    
 }
 
 

@@ -19,6 +19,6 @@
 
 @protocol PhotoSelectionViewControllerDelegate <NSObject>
 
-- (void)photoSelector:(PhotoSelectionViewController*)photoSelector didSelectAsset:(ALAsset *)asset;
+- (void)photoSelector:(PhotoSelectionViewController*)photoSelector didSelectAsset:(ALAsset *)asset atIndexPath:(NSIndexPath *)indexPath;
 
 @end

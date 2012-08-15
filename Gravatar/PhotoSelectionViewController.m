@@ -105,7 +105,7 @@ float const PhotoSelectionViewControllerThumbSize = 76.f;
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
     ALAsset *photo = [self.photos objectAtIndex:indexPath.row];
-    [self.delegate photoSelector:self didSelectAsset:photo];
+    [self.delegate photoSelector:self didSelectAsset:photo atIndexPath:indexPath];
     
     
 }

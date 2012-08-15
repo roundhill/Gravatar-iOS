@@ -9,7 +9,6 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "AppController.h"
 #import "AddAccountViewController.h"
-#import "PhotoEditorViewController.h"
 #import "GravatarImageView.h"
 
 @interface AppController () <PhotoSelectionViewControllerDelegate, PhotoEditorViewControllerDelegate, AddAccountViewControllerDelegate>
@@ -113,6 +112,9 @@
     self.photosController.view.frame = self.contentView.bounds;
     [self.contentView addSubview:self.photosController.view];
     
+    self.editorController = [[PhotoEditorViewController alloc] init];
+    self.editorController.delegate = self;
+        
     [self.view bringSubviewToFront:toolbar];
         
 }
@@ -162,17 +164,26 @@
 
 #pragma mark - Delegate Methods
 
-- (void)photoSelector:(PhotoSelectionViewController *)photoSelector didSelectAsset:(id)asset {
-    PhotoEditorViewController *editorController = [[PhotoEditorViewController alloc] init];
-    ALAssetRepresentation *rep = [asset defaultRepresentation];
-    UIImage *image = [UIImage imageWithCGImage:[rep fullResolutionImage] scale:rep.scale orientation:rep.orientation];
-    editorController.photo = image;
-    editorController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    editorController.delegate = self;
-    [self presentViewController:editorController animated:YES completion:nil];
+- (void)photoSelector:(PhotoSelectionViewController *)photoSelector didSelectAsset:(ALAsset *)asset atIndexPath:(NSIndexPath *)indexPath {
+    
+    [self.contentView addSubview:self.editorController.view];
+    self.editorController.view.frame = self.contentView.bounds;
+    
+    // Figure out the position of the selected item
+    UICollectionViewCell *cell = [photoSelector.collectionView cellForItemAtIndexPath:indexPath];
+    
+    // convert the rect to the photo editor's space
+    CGRect startingPosition = [self.editorController.view convertRect:cell.frame fromView:photoSelector.collectionView];
+    
+    // set the asset for the editor and give it a frame to animate from
+    [self.editorController setAsset:asset andAnimate:YES zoomFromRect:startingPosition];
+
+    
 }
 
 - (void)photoEditor:(PhotoEditorViewController *)photoEditor didFinishEditingImage:(UIImage *)image {
+    
+    [self.editorController.view removeFromSuperview];
     
     [self dismissViewControllerAnimated:YES completion:nil];
     

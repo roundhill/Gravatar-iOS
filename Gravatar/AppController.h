@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PhotoSelectionViewController.h"
 #import "GravatarAccount.h"
+#import "PhotoSelectionViewController.h"
+#import "PhotoEditorViewController.h"
 
 @interface AppController : UIViewController
 @property (nonatomic, strong) PhotoSelectionViewController *photosController;
+@property (nonatomic, strong) PhotoEditorViewController *editorController;
 @property (nonatomic, strong) GravatarAccount *account;
 @property (nonatomic, strong) UIView *contentView;
 @property (nonatomic, strong) UINavigationBar *navigationBar;
