@@ -116,6 +116,7 @@
     self.editorController.delegate = self;
         
     [self.view bringSubviewToFront:toolbar];
+    [self.view bringSubviewToFront:self.navigationBar];
         
 }
 
