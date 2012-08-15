@@ -6,7 +6,6 @@
 //  Copyright (c) 2012 Beau Collins. All rights reserved.
 //
 
-#import <AssetsLibrary/AssetsLibrary.h>
 #import "PhotoSelectionViewController.h"
 
 float const PhotoSelectionViewControllerThumbSize = 76.f;

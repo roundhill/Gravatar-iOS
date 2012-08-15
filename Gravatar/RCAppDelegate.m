@@ -6,25 +6,17 @@
 //  Copyright (c) 2012 Beau Collins. All rights reserved.
 //
 
-#import <QuartzCore/QuartzCore.h>
-#import <AssetsLibrary/AssetsLibrary.h>
 #import "RCAppDelegate.h"
 #import "GravatarAccount.h"
-#import "AddAccountViewController.h"
 #import "EmailsViewController.h"
-#import "PhotoSelectionViewController.h"
-#import "PhotoEditorViewController.h"
 #import "AppController.h"
 
 
-@interface RCAppDelegate () <AddAccountViewControllerDelegate, EmailsViewControllerDelegate>
+@interface RCAppDelegate () <EmailsViewControllerDelegate>
 @property (nonatomic, strong) GravatarAccount *account;
 @property (nonatomic, strong) UINavigationController *navigationController;
-@property (nonatomic, strong) PhotoSelectionViewController *photosController;
 @property (nonatomic, strong) AppController *appController;
 - (void)applyAppearance;
-- (IBAction)logOut:(id)sender;
-- (IBAction)addAccount:(id)sender;
 @end
 
 @implementation RCAppDelegate
@@ -41,28 +33,13 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor blackColor];
-    [self.window makeKeyAndVisible];
-    
-//    EmailsViewController *emails = [[EmailsViewController alloc] initWithStyle:UITableViewStylePlain];
-//    
-//    emails.account = self.account;
-//    emails.title = NSLocalizedString(@"Emails", @"Gravatar email list title");
-//    
-//    UINavigationController *controller = [[UINavigationController alloc] initWithRootViewController:emails];
-//    self.navigationController = controller;
-//    
-//    emails.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Log Out"
-//                                                                                  style:UIBarButtonItemStyleBordered
-//                                                                                 target:self
-//                                                                                 action:@selector(logOut:)];
-//    
-//    emails.delegate = self;
     
     self.appController = [[AppController alloc] init];
     self.appController.account = self.account;
     
     self.window.rootViewController = self.appController;
     
+    [self.window makeKeyAndVisible];
     
 
     return YES;
@@ -95,41 +72,9 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-#pragma mark - Account Management
-
-- (IBAction)addAccount:(id)sender {
-    
-    AddAccountViewController *addAccount = [[AddAccountViewController alloc] initWithNibName:nil bundle:nil];
-    addAccount.title = NSLocalizedString(@"Log In", @"Log In view title");
-    addAccount.delegate = self;
-    UINavigationController *modal = [[UINavigationController alloc] initWithRootViewController:addAccount];
-    
-    [self.navigationController presentViewController:modal animated:YES completion:nil];
-    
-}
-
-- (void)logOut:(id)sender {
-    
-    [self.account logOut];
-    [self addAccount:sender];
-    
-}
-
-- (void)failedAuth:(NSNotification *)notification {
-    NSLog(@"Auth failed: %@", notification);
-    [self addAccount:nil];
-}
 
 #pragma mark Delegate Methods
 
-- (void)addAccountViewControllerDidLogIn:(AddAccountViewController *)viewController {
-    UINavigationController *controller = (UINavigationController *)self.window.rootViewController;
-    EmailsViewController *emailsController = [controller.viewControllers objectAtIndex:0];
-    emailsController.account = viewController.account;
-    [emailsController reloadAccount];
-    [self.window.rootViewController dismissViewControllerAnimated:YES completion:nil];
-    
-}
 
 - (void)emailViewController:(EmailsViewController *)emailsController didSelectEmail:(id)email {
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
