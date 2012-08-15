@@ -11,7 +11,7 @@
 #import "AddAccountViewController.h"
 #import "GravatarImageView.h"
 
-@interface AppController () <PhotoSelectionViewControllerDelegate, PhotoEditorViewControllerDelegate, AddAccountViewControllerDelegate>
+@interface AppController () <PhotoSelectionViewControllerDelegate, PhotoEditorViewControllerDelegate, AddAccountViewControllerDelegate, UINavigationBarDelegate>
 @property (nonatomic, strong) GravatarImageView *gravatarImageView;
 @end
 
@@ -63,12 +63,13 @@
     UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:navFrame];
     navBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     self.navigationBar = navBar;
+    self.navigationBar.delegate = self;
     
     [self.view addSubview:navBar];
     
     UINavigationItem *appNavigationItem = [[UINavigationItem alloc] initWithTitle:nil];
     [navBar pushNavigationItem:appNavigationItem animated:NO];
-    
+        
     self.gravatarImageView = [[GravatarImageView alloc] initWithFrame:CGRectMake(0.f, 0.f, 30.f, 30.f)];
     self.gravatarImageView.email = self.account.email;
     UIView *navAccountButton = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, self.view.bounds.size.width * 0.75f, 30.f)];
@@ -163,9 +164,27 @@
 
 }
 
+-(void)stopEditing:(id)sender {
+    
+    // tell the photoEditor to stop using the editing interface
+    [UIView animateWithDuration:0.2f animations:^{
+        self.photosController.view.transform = CGAffineTransformIdentity;
+        self.photosController.view.alpha = 1.f;
+    }];
+
+    [self.editorController stopEditingOnComplete:^{
+        [self.editorController.view removeFromSuperview];
+    }];
+    
+}
+
 #pragma mark - Delegate Methods
 
 - (void)photoSelector:(PhotoSelectionViewController *)photoSelector didSelectAsset:(ALAsset *)asset atIndexPath:(NSIndexPath *)indexPath {
+    
+    UINavigationItem *editorNavItem = [[UINavigationItem alloc] initWithTitle:@"Edit"];
+    [self.navigationBar pushNavigationItem:editorNavItem animated:YES];
+
     
     [self.contentView addSubview:self.editorController.view];
     self.editorController.view.frame = self.contentView.bounds;
@@ -176,6 +195,11 @@
     // convert the rect to the photo editor's space
     CGRect startingPosition = [self.editorController.view convertRect:cell.frame fromView:photoSelector.collectionView];
     
+    [UIView animateWithDuration:0.3f animations:^{
+        self.photosController.view.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.9f, 0.9f);
+        self.photosController.view.alpha = 0.f;
+    }];
+    
     // set the asset for the editor and give it a frame to animate from
     [self.editorController setAsset:asset andAnimate:YES zoomFromRect:startingPosition];
 
@@ -184,9 +208,7 @@
 
 - (void)photoEditor:(PhotoEditorViewController *)photoEditor didFinishEditingImage:(UIImage *)image {
     
-    [self.editorController.view removeFromSuperview];
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self stopEditing:nil];
     
     NSData *data = UIImageJPEGRepresentation(image, 0.9f);
     [self.account.client saveData:data withRating:GravatarClientImageRatingG onSucces:^(GravatarRequest *request, NSArray *params) {
@@ -202,6 +224,12 @@
     self.account = viewController.account;
     self.gravatarImageView.email = self.account.email;
 }
+
+- (BOOL)navigationBar:(UINavigationBar *)navigationBar shouldPopItem:(UINavigationItem *)item {
+    [self stopEditing:nil];
+    return YES;
+}
+
 
 
 

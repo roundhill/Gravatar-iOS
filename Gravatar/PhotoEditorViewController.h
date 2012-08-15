@@ -17,6 +17,7 @@
 @property (nonatomic, strong) UIImage *photo;
 
 - (void)setAsset:(ALAsset *)asset andAnimate:(BOOL)animate zoomFromRect:(CGRect)rect;
+- (void)stopEditingOnComplete:(void(^)())completeBlock;
 @end
 
 @protocol PhotoEditorViewControllerDelegate <NSObject>
