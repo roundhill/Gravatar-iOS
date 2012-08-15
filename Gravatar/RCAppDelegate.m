@@ -104,15 +104,17 @@
     UIImage *unifiedImage = [[UIImage imageNamed:@"unified-nav"]
                              resizableImageWithCapInsets:UIEdgeInsetsMake(4.f, 4.f, 4.f, 4.f)];
     
+    UIEdgeInsets smallRadius = UIEdgeInsetsMake(2.f, 2.f, 2.f, 2.f);
+    
     [navigationBar setBackgroundImage:unifiedImage forBarMetrics:UIBarMetricsDefault];
     UIImage *barButtonActiveImage = [[UIImage imageNamed:@"add-account-navbar-button-active"]
-                                     resizableImageWithCapInsets:UIEdgeInsetsMake(2.f, 2.f, 2.f, 2.f)];
+                                     resizableImageWithCapInsets:smallRadius];
     UIImage *barButtonPressedImage = [[UIImage imageNamed:@"add-account-navbar-button-pressed"]
-                                      resizableImageWithCapInsets:UIEdgeInsetsMake(2.f, 2.f, 2.f, 2.f)];
+                                      resizableImageWithCapInsets:smallRadius];
     UIImage *barButtonActiveLandscapeImage = [[UIImage imageNamed:@"add-account-navbar-button-active-landscape"]
-                                              resizableImageWithCapInsets:UIEdgeInsetsMake(2.f, 2.f, 2.f, 2.f)];
+                                              resizableImageWithCapInsets:smallRadius];
     UIImage *barButtonPressedLandscapeImage = [[UIImage imageNamed:@"add-account-navbar-button-pressed-landscape"]
-                                               resizableImageWithCapInsets:UIEdgeInsetsMake(2.f, 2.f, 2.f, 2.f)];
+                                               resizableImageWithCapInsets:smallRadius];
     
     // bar button item appearance
     id barButtonItem = [UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil];
@@ -136,7 +138,39 @@
                                 style:UIBarButtonItemStyleBordered
                            barMetrics:UIBarMetricsLandscapePhone];
     
-    // UIToolBarAppearanc
+    
+    UIEdgeInsets backButtonInset = UIEdgeInsetsMake(2.f, 10.f, 2.f, 2.f);
+    UIImage *backButtonPressedImage = [[UIImage imageNamed:@"navbar-back-button-pressed"]
+                                       resizableImageWithCapInsets:backButtonInset];
+    
+    UIImage *backButtonActiveImage = [[UIImage imageNamed:@"navbar-back-button-active"]
+                                      resizableImageWithCapInsets:backButtonInset];
+    
+    UIImage *backButtonActiveLandscapeImage = [[UIImage imageNamed:@"navbar-back-button-active-landscape"]
+                                               resizableImageWithCapInsets:backButtonInset];
+    
+    UIImage *backButtonPressedLandscapeImage = [[UIImage imageNamed:@"navbar-back-button-pressed-landscape"]
+                                                resizableImageWithCapInsets:backButtonInset];
+    
+    [barButtonItem setBackButtonBackgroundImage:backButtonActiveImage
+                                       forState:UIControlStateNormal
+                                     barMetrics:UIBarMetricsDefault];
+    
+    [barButtonItem setBackButtonBackgroundImage:backButtonPressedImage
+                                       forState:UIControlStateHighlighted
+                                     barMetrics:UIBarMetricsDefault];
+    
+    [barButtonItem setBackButtonBackgroundImage:backButtonActiveLandscapeImage
+                                       forState:UIControlStateHighlighted
+                                     barMetrics:UIBarMetricsLandscapePhone];
+    
+    [barButtonItem setBackButtonBackgroundImage:backButtonPressedLandscapeImage
+                                       forState:UIControlStateHighlighted
+                                     barMetrics:UIBarMetricsLandscapePhone];
+    
+    
+    
+    // UIToolBarAppearance
     id toolbar = [UIToolbar appearance];
     [toolbar setBackgroundImage:shadowImage forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
     

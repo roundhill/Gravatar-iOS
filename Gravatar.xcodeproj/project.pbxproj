@@ -60,6 +60,14 @@
 		CCEF5E0215D9542D00761000 /* ImageEditorView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCEF5E0115D9542D00761000 /* ImageEditorView.m */; };
 		CCEF5E0915D9861B00761000 /* CropView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCEF5E0815D9861B00761000 /* CropView.m */; };
 		CCEF5E0B15D9AD5E00761000 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCEF5E0A15D9AD5E00761000 /* CoreImage.framework */; };
+		CCF72EAE15DC627C0055BA9A /* navbar-back-button-active-landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = CCF72EA615DC627C0055BA9A /* navbar-back-button-active-landscape.png */; };
+		CCF72EAF15DC627C0055BA9A /* navbar-back-button-active-landscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCF72EA715DC627C0055BA9A /* navbar-back-button-active-landscape@2x.png */; };
+		CCF72EB015DC627C0055BA9A /* navbar-back-button-active.png in Resources */ = {isa = PBXBuildFile; fileRef = CCF72EA815DC627C0055BA9A /* navbar-back-button-active.png */; };
+		CCF72EB115DC627C0055BA9A /* navbar-back-button-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCF72EA915DC627C0055BA9A /* navbar-back-button-active@2x.png */; };
+		CCF72EB215DC627C0055BA9A /* navbar-back-button-pressed-landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = CCF72EAA15DC627C0055BA9A /* navbar-back-button-pressed-landscape.png */; };
+		CCF72EB315DC627C0055BA9A /* navbar-back-button-pressed-landscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCF72EAB15DC627C0055BA9A /* navbar-back-button-pressed-landscape@2x.png */; };
+		CCF72EB415DC627C0055BA9A /* navbar-back-button-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = CCF72EAC15DC627C0055BA9A /* navbar-back-button-pressed.png */; };
+		CCF72EB515DC627C0055BA9A /* navbar-back-button-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCF72EAD15DC627C0055BA9A /* navbar-back-button-pressed@2x.png */; };
 		CCFD869415CC56AB001D8E25 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCFD869315CC56AB001D8E25 /* UIKit.framework */; };
 		CCFD869615CC56AB001D8E25 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCFD869515CC56AB001D8E25 /* Foundation.framework */; };
 		CCFD869815CC56AB001D8E25 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCFD869715CC56AB001D8E25 /* CoreGraphics.framework */; };
@@ -162,6 +170,14 @@
 		CCEF5E0715D9861B00761000 /* CropView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CropView.h; sourceTree = "<group>"; };
 		CCEF5E0815D9861B00761000 /* CropView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CropView.m; sourceTree = "<group>"; };
 		CCEF5E0A15D9AD5E00761000 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		CCF72EA615DC627C0055BA9A /* navbar-back-button-active-landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navbar-back-button-active-landscape.png"; sourceTree = "<group>"; };
+		CCF72EA715DC627C0055BA9A /* navbar-back-button-active-landscape@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navbar-back-button-active-landscape@2x.png"; sourceTree = "<group>"; };
+		CCF72EA815DC627C0055BA9A /* navbar-back-button-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navbar-back-button-active.png"; sourceTree = "<group>"; };
+		CCF72EA915DC627C0055BA9A /* navbar-back-button-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navbar-back-button-active@2x.png"; sourceTree = "<group>"; };
+		CCF72EAA15DC627C0055BA9A /* navbar-back-button-pressed-landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navbar-back-button-pressed-landscape.png"; sourceTree = "<group>"; };
+		CCF72EAB15DC627C0055BA9A /* navbar-back-button-pressed-landscape@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navbar-back-button-pressed-landscape@2x.png"; sourceTree = "<group>"; };
+		CCF72EAC15DC627C0055BA9A /* navbar-back-button-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navbar-back-button-pressed.png"; sourceTree = "<group>"; };
+		CCF72EAD15DC627C0055BA9A /* navbar-back-button-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navbar-back-button-pressed@2x.png"; sourceTree = "<group>"; };
 		CCFD868F15CC56AA001D8E25 /* Gravatar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gravatar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCFD869315CC56AB001D8E25 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CCFD869515CC56AB001D8E25 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -280,14 +296,6 @@
 		CCA8E63A15D0D83000DE01AF /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				CC830B2415DAC455008F5552 /* gravatar-white.png */,
-				CC830B2515DAC455008F5552 /* gravatar-white@2x.png */,
-				CCA8E64E15D0F82A00DE01AF /* blue-button-active.png */,
-				CC34EE3815D1763F00820FC8 /* blue-button-active@2x.png */,
-				CCA8E64F15D0F82A00DE01AF /* blue-button-pressed.png */,
-				CC34EE3915D1763F00820FC8 /* blue-button-pressed@2x.png */,
-				CCA8E64115D0DACE00DE01AF /* gravatar-blue-nav.png */,
-				CCA8E64215D0DACE00DE01AF /* gravatar-blue-nav@2x.png */,
 				CC34EE5B15D189E600820FC8 /* add-account-navbar-button-active-landscape.png */,
 				CC34EE4D15D189A600820FC8 /* add-account-navbar-button-active-landscape@2x.png */,
 				CC34EE4E15D189A600820FC8 /* add-account-navbar-button-active.png */,
@@ -296,6 +304,14 @@
 				CC34EE5115D189A600820FC8 /* add-account-navbar-button-pressed-landscape@2x.png */,
 				CC34EE5215D189A600820FC8 /* add-account-navbar-button-pressed.png */,
 				CC34EE5315D189A600820FC8 /* add-account-navbar-button-pressed@2x.png */,
+				CCA8E64E15D0F82A00DE01AF /* blue-button-active.png */,
+				CC34EE3815D1763F00820FC8 /* blue-button-active@2x.png */,
+				CCA8E64F15D0F82A00DE01AF /* blue-button-pressed.png */,
+				CC34EE3915D1763F00820FC8 /* blue-button-pressed@2x.png */,
+				CCA8E64115D0DACE00DE01AF /* gravatar-blue-nav.png */,
+				CCA8E64215D0DACE00DE01AF /* gravatar-blue-nav@2x.png */,
+				CC830B2415DAC455008F5552 /* gravatar-white.png */,
+				CC830B2515DAC455008F5552 /* gravatar-white@2x.png */,
 				CC34EE4915D1873A00820FC8 /* login-navbar-button-active-landscape.png */,
 				CC34EE4515D184A500820FC8 /* login-navbar-button-active-landscape@2x.png */,
 				CC34EE3D15D1794300820FC8 /* login-navbar-button-active.png */,
@@ -304,6 +320,14 @@
 				CC34EE4615D184A500820FC8 /* login-navbar-button-pressed-landscape@2x.png */,
 				CC34EE4315D1841800820FC8 /* login-navbar-button-pressed.png */,
 				CC34EE3F15D17D5400820FC8 /* login-navbar-button-pressed@2x.png */,
+				CCF72EA615DC627C0055BA9A /* navbar-back-button-active-landscape.png */,
+				CCF72EA715DC627C0055BA9A /* navbar-back-button-active-landscape@2x.png */,
+				CCF72EA815DC627C0055BA9A /* navbar-back-button-active.png */,
+				CCF72EA915DC627C0055BA9A /* navbar-back-button-active@2x.png */,
+				CCF72EAA15DC627C0055BA9A /* navbar-back-button-pressed-landscape.png */,
+				CCF72EAB15DC627C0055BA9A /* navbar-back-button-pressed-landscape@2x.png */,
+				CCF72EAC15DC627C0055BA9A /* navbar-back-button-pressed.png */,
+				CCF72EAD15DC627C0055BA9A /* navbar-back-button-pressed@2x.png */,
 				CCA8E63D15D0D98E00DE01AF /* no-shadow.png */,
 				CCA8E63B15D0D83000DE01AF /* unified-nav.png */,
 				CCA8E64515D0DBFB00DE01AF /* unified-nav@2x.png */,
@@ -530,6 +554,14 @@
 				CC34EE5C15D189E600820FC8 /* add-account-navbar-button-active-landscape.png in Resources */,
 				CC830B2615DAC455008F5552 /* gravatar-white.png in Resources */,
 				CC830B2715DAC455008F5552 /* gravatar-white@2x.png in Resources */,
+				CCF72EAE15DC627C0055BA9A /* navbar-back-button-active-landscape.png in Resources */,
+				CCF72EAF15DC627C0055BA9A /* navbar-back-button-active-landscape@2x.png in Resources */,
+				CCF72EB015DC627C0055BA9A /* navbar-back-button-active.png in Resources */,
+				CCF72EB115DC627C0055BA9A /* navbar-back-button-active@2x.png in Resources */,
+				CCF72EB215DC627C0055BA9A /* navbar-back-button-pressed-landscape.png in Resources */,
+				CCF72EB315DC627C0055BA9A /* navbar-back-button-pressed-landscape@2x.png in Resources */,
+				CCF72EB415DC627C0055BA9A /* navbar-back-button-pressed.png in Resources */,
+				CCF72EB515DC627C0055BA9A /* navbar-back-button-pressed@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
