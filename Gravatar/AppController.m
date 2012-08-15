@@ -96,7 +96,10 @@
     self.accountNavigationItem = appNavigationItem;
     
     CGRect contentFrame = self.view.bounds;
-    contentFrame.size.height -= navFrame.size.height;
+    CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
+
+    contentFrame.size.height += statusBarFrame.size.height - navFrame.size.height;
+    contentFrame.origin.y = -statusBarFrame.size.height;
     
     self.contentView = [[UIView alloc] initWithFrame:contentFrame];
     [self.view addSubview:self.contentView];

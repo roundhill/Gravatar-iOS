@@ -30,7 +30,7 @@ float const PhotoSelectionViewControllerThumbSize = 76.f;
 - (id)initWithCollectionViewLayout:(UICollectionViewLayout *)ignoreLayout {
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    layout.sectionInset = UIEdgeInsetsMake(47.f, 4.f, 3.f, 3.f);
+    layout.sectionInset = UIEdgeInsetsMake(67.f, 4.f, 3.f, 3.f);
     layout.itemSize = CGSizeMake(PhotoSelectionViewControllerThumbSize, PhotoSelectionViewControllerThumbSize);
     layout.minimumInteritemSpacing = 2.f;
     layout.minimumLineSpacing = 4.f;
