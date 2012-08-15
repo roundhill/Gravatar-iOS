@@ -202,6 +202,7 @@ const float PhotoEditorViewControllerCropInset = 22.f;
         
         [UIView animateWithDuration:0.2f animations:^{
             self.cropView.alpha = 0.f;
+            self.cropView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.05f, 1.05f);
             self.imageView.transform = transform;
             self.imageView.center = endCenter;
         } completion:^(BOOL finished) {

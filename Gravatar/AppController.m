@@ -183,7 +183,7 @@
 - (void)photoSelector:(PhotoSelectionViewController *)photoSelector didSelectAsset:(ALAsset *)asset atIndexPath:(NSIndexPath *)indexPath {
     
     UINavigationItem *editorNavItem = [[UINavigationItem alloc] initWithTitle:@"Edit"];
-    [self.navigationBar pushNavigationItem:editorNavItem animated:YES];
+    [self.navigationBar pushNavigationItem:editorNavItem animated:NO];
 
     
     [self.contentView addSubview:self.editorController.view];
@@ -195,8 +195,8 @@
     // convert the rect to the photo editor's space
     CGRect startingPosition = [self.editorController.view convertRect:cell.frame fromView:photoSelector.collectionView];
     
-    [UIView animateWithDuration:0.3f animations:^{
-        self.photosController.view.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.9f, 0.9f);
+    [UIView animateWithDuration:0.2f animations:^{
+        self.photosController.view.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.8f, 0.8f);
         self.photosController.view.alpha = 0.f;
     }];
     
