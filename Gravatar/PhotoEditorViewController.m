@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Beau Collins. All rights reserved.
 //
 
+#import <CoreImage/CoreImage.h>
 #import "PhotoEditorViewController.h"
 #import "CropView.h"
 
@@ -294,72 +295,19 @@ const float PhotoEditorViewControllerCropInset = 22.f;
 - (void)cropPhoto:(id)sender {
     // using the crop reference, crop the photo
     CGRect cropRect = [self.imageView convertRect:self.editorView.frame fromView:self.view];
-    CGSize cropSize = cropRect.size;
-    CGImageRef imageRef = self.photo.CGImage; //CGImageCreateWithImageInRect([self.photo CGImage], cropRect);
-    CGAffineTransform transform = CGAffineTransformIdentity;
-    NSLog(@"Identity: %@", NSStringFromCGAffineTransform(transform));
-    switch (self.photo.imageOrientation) {
-        case UIImageOrientationUpMirrored:
-            NSLog(@"Orientation is up mirrored");
-            transform = CGAffineTransformTranslate(transform, cropSize.width, 0);
-            transform = CGAffineTransformScale(transform, -1, 1);            
-            break;
-        case UIImageOrientationDown:
-            NSLog(@"UIImageOrientationDown");
-            transform = CGAffineTransformTranslate(transform, cropSize.width, cropSize.height);
-            transform = CGAffineTransformRotate(transform, M_PI);
-            break;
-        case UIImageOrientationDownMirrored:
-            NSLog(@"Orientation is Down mirrored");
-            transform = CGAffineTransformScale(transform, -1, -1);
-            break;
-        case UIImageOrientationLeft:
-            NSLog(@"Orientation is left");
-            transform = CGAffineTransformTranslate(transform, cropSize.width, 0.f);
-            transform = CGAffineTransformRotate(transform, M_PI_2);
-            break;
-        case UIImageOrientationLeftMirrored:
-            NSLog(@"Orientation is left mirrored");
-            transform = CGAffineTransformRotate(transform, M_PI_2);
-            transform = CGAffineTransformScale(transform, -1, 1);
-        case UIImageOrientationRight:
-            NSLog(@"Orientation is right");
-            transform = CGAffineTransformTranslate(transform, 0, cropSize.height);
-            transform = CGAffineTransformRotate(transform, -M_PI_2);
-            break;
-        case UIImageOrientationRightMirrored:
-            NSLog(@"Orientation is right mirrored");
-            transform = CGAffineTransformRotate(transform, -M_PI_2);
-            transform = CGAffineTransformScale(transform, -1, 1);
-            break;
-        case UIImageOrientationUp:
-            NSLog(@"Orientation is up");
-            break;
-    }
     
+    UIGraphicsBeginImageContextWithOptions(self.photo.size, YES, self.photo.scale);
+    [self.photo drawAtPoint:CGPointZero];
+    UIImage *source = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
     
-    CGContextRef bitmap = CGBitmapContextCreate(NULL,
-                                                cropRect.size.width,
-                                                cropRect.size.height,
-                                                CGImageGetBitsPerComponent(imageRef),
-                                                0,
-                                                CGImageGetColorSpace(imageRef),
-                                                CGImageGetBitmapInfo(imageRef)
-                                                );
+    CGImageRef cropped = CGImageCreateWithImageInRect(source.CGImage, cropRect);
     
-    if (self.photo.imageOrientation != UIImageOrientationUp) {
-    }
-    CGContextConcatCTM(bitmap, transform);
-    CGContextDrawImage(bitmap, cropRect, imageRef);
-    CGImageRef cropped = CGBitmapContextCreateImage(bitmap);
+    UIImage *croppedImage = [UIImage imageWithCGImage:cropped];
     
-    CGContextRelease(bitmap);
-    
-    UIImage *image = [UIImage imageWithCGImage:cropped];
     CGImageRelease(cropped);
     
-    [self.delegate photoEditor:self didFinishEditingImage:image];
-    
+    [self.delegate photoEditor:self didFinishEditingImage:croppedImage];
 }
 
 
