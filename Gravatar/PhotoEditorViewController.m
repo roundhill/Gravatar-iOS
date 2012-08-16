@@ -111,6 +111,7 @@ const float PhotoEditorViewControllerCropInset = 22.f;
 
 - (void)viewWillLayoutSubviews {
     self.cropView.frame = self.view.bounds;
+    [self.cropView setNeedsDisplay];
     self.editorView.frame = self.cropView.cropFrame;
 }
 
@@ -123,12 +124,13 @@ const float PhotoEditorViewControllerCropInset = 22.f;
         _asset = asset;
     }
     _closing = NO;
+    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         if (_closing == YES) {
             return;
         }
         ALAssetRepresentation *rep = asset.defaultRepresentation;
-        UIImage *fullImgae = [UIImage imageWithCGImage:rep.fullResolutionImage scale:rep.scale orientation:rep.orientation];
+        UIImage *fullImgae = [UIImage imageWithCGImage:rep.fullScreenImage];
         dispatch_async(dispatch_get_main_queue(), ^{
             if (_closing == YES) {
                 return;
@@ -136,6 +138,7 @@ const float PhotoEditorViewControllerCropInset = 22.f;
             self.imageView.image = fullImgae;
         });
     });
+
     [self.imageView removeFromSuperview];
     self.imageView = nil;
     CGSize assetDimensions = asset.defaultRepresentation.dimensions;
@@ -156,33 +159,30 @@ const float PhotoEditorViewControllerCropInset = 22.f;
     _imageScale = 1.f;
     _imageOrigin = CGPointZero;
     
-    
+    CGFloat duration;
     if (animate == YES) {
-        if (CGRectIsEmpty(rect)) {
-            rect = CGRectMake(0.f, 0.f, 76.f, 76.f);
-        }
-        
+        duration = 0.3f;
         self.transitionRect = rect;
-        
-        CGPoint startCenter = CGPointMake(rect.origin.x + rect.size.width * 0.5f, rect.origin.y + rect.size.height * 0.5f);
-        CGFloat startScale = [self scaleToFillDimensions:self.editorView.bounds.size toSize:rect.size];
-        
-        self.imageView.transform = [self transformForScale:startScale andPan:CGPointZero];
-        self.imageView.center = startCenter;
-        
-        
-        [UIView animateWithDuration:0.2f animations:^{
-            self.cropView.alpha = 1.f;
-            self.imageView.center = self.editorView.center;
-            self.imageView.transform = [self transformForScale:1.f andPan:CGPointZero];
-        } completion:^(BOOL finished) {
-            NSLog(@"Done");
-        }];
     } else {
-        self.editorView.alpha = 1.f;
+        duration = 0.f;
         self.transitionRect = CGRectNull;
+    }
+    
+    CGPoint startCenter = CGPointMake(rect.origin.x + rect.size.width * 0.5f, rect.origin.y + rect.size.height * 0.5f);
+    CGFloat startScale = [self scaleToFillDimensions:self.editorView.bounds.size toSize:rect.size];
+    
+    self.imageView.transform = [self transformForScale:startScale andPan:CGPointZero];
+    self.imageView.center = startCenter;
+    
+    self.cropView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.05f, 1.05f);
+
+    [UIView animateWithDuration:duration animations:^{
+        self.cropView.alpha = 1.f;
+        self.cropView.transform = CGAffineTransformIdentity;
+
+        self.imageView.center = self.editorView.center;
         self.imageView.transform = [self transformForScale:1.f andPan:CGPointZero];
- }
+    } completion:nil];
     
 }
 
@@ -200,9 +200,8 @@ const float PhotoEditorViewControllerCropInset = 22.f;
         CGAffineTransform transform = [self transformForScale:endScale andPan:CGPointZero];
         
         
-        [UIView animateWithDuration:0.2f animations:^{
+        [UIView animateWithDuration:0.3f animations:^{
             self.cropView.alpha = 0.f;
-            self.cropView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.05f, 1.05f);
             self.imageView.transform = transform;
             self.imageView.center = endCenter;
         } completion:^(BOOL finished) {
