@@ -130,12 +130,12 @@ const float PhotoEditorViewControllerCropInset = 22.f;
             return;
         }
         ALAssetRepresentation *rep = asset.defaultRepresentation;
-        UIImage *fullImgae = [UIImage imageWithCGImage:rep.fullScreenImage];
+        UIImage *fullImage = [UIImage imageWithCGImage:rep.fullScreenImage];
         dispatch_async(dispatch_get_main_queue(), ^{
             if (_closing == YES) {
                 return;
             }
-            self.imageView.image = fullImgae;
+            self.imageView.image = fullImage;
         });
     });
 
