@@ -90,12 +90,11 @@ float const PhotoSelectionViewControllerThumbSize = 76.f;
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     
-    cell.backgroundColor = [UIColor blackColor];
     ALAsset *asset = [self.photos objectAtIndex:indexPath.row];
-    CGImageRef image = [asset thumbnail];
-    UIImageView *thumbView = [[UIImageView alloc] initWithImage:[UIImage imageWithCGImage:image]];
-    thumbView.frame = CGRectMake(0.f, 0.f, PhotoSelectionViewControllerThumbSize, PhotoSelectionViewControllerThumbSize);
-    [cell addSubview:thumbView];
+    UIImage *image = [UIImage imageWithCGImage:asset.thumbnail];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+    imageView.frame = CGRectMake(0.f,0.f, PhotoSelectionViewControllerThumbSize, PhotoSelectionViewControllerThumbSize);
+    [cell.contentView addSubview:imageView];
     cell.clipsToBounds = YES;
     return cell;
 }
