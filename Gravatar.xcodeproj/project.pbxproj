@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		915F5BABB35B48EB9BB2972D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4AABD77C5324CCD9F149023 /* libPods.a */; };
+		CC2410D915DCD82200C680E1 /* back-grid.png in Resources */ = {isa = PBXBuildFile; fileRef = CC2410D715DCD82200C680E1 /* back-grid.png */; };
+		CC2410DA15DCD82200C680E1 /* back-grid@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC2410D815DCD82200C680E1 /* back-grid@2x.png */; };
 		CC34EE3A15D1763F00820FC8 /* blue-button-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC34EE3815D1763F00820FC8 /* blue-button-active@2x.png */; };
 		CC34EE3B15D1763F00820FC8 /* blue-button-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC34EE3915D1763F00820FC8 /* blue-button-pressed@2x.png */; };
 		CC34EE3E15D1794300820FC8 /* login-navbar-button-active.png in Resources */ = {isa = PBXBuildFile; fileRef = CC34EE3D15D1794300820FC8 /* login-navbar-button-active.png */; };
@@ -104,6 +106,8 @@
 
 /* Begin PBXFileReference section */
 		80DC29DBD8E0496F99E7258E /* Pods.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		CC2410D715DCD82200C680E1 /* back-grid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back-grid.png"; sourceTree = "<group>"; };
+		CC2410D815DCD82200C680E1 /* back-grid@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back-grid@2x.png"; sourceTree = "<group>"; };
 		CC34EE3815D1763F00820FC8 /* blue-button-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blue-button-active@2x.png"; sourceTree = "<group>"; };
 		CC34EE3915D1763F00820FC8 /* blue-button-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blue-button-pressed@2x.png"; sourceTree = "<group>"; };
 		CC34EE3D15D1794300820FC8 /* login-navbar-button-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login-navbar-button-active.png"; sourceTree = "<group>"; };
@@ -296,6 +300,8 @@
 		CCA8E63A15D0D83000DE01AF /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				CC2410D715DCD82200C680E1 /* back-grid.png */,
+				CC2410D815DCD82200C680E1 /* back-grid@2x.png */,
 				CC34EE5B15D189E600820FC8 /* add-account-navbar-button-active-landscape.png */,
 				CC34EE4D15D189A600820FC8 /* add-account-navbar-button-active-landscape@2x.png */,
 				CC34EE4E15D189A600820FC8 /* add-account-navbar-button-active.png */,
@@ -562,6 +568,8 @@
 				CCF72EB315DC627C0055BA9A /* navbar-back-button-pressed-landscape@2x.png in Resources */,
 				CCF72EB415DC627C0055BA9A /* navbar-back-button-pressed.png in Resources */,
 				CCF72EB515DC627C0055BA9A /* navbar-back-button-pressed@2x.png in Resources */,
+				CC2410D915DCD82200C680E1 /* back-grid.png in Resources */,
+				CC2410DA15DCD82200C680E1 /* back-grid@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

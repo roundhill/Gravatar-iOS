@@ -269,14 +269,6 @@ const float PhotoEditorViewControllerCropInset = 22.f;
 }
 
 
-- (void)finished:(UITapGestureRecognizer *)tap {
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)closePhotoEditor:(id)sender {
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-}
-
 - (void)updateImageView {
     
     if (self.imageView == nil) {
@@ -369,10 +361,15 @@ const float PhotoEditorViewControllerCropInset = 22.f;
 
 - (void)cropPhoto:(id)sender {
     // using the crop reference, crop the photo
+    
+    NSLog(@"Cropping photo");
     CGRect cropRect = [self.imageView convertRect:self.editorView.frame fromView:self.view];
     
-    UIGraphicsBeginImageContextWithOptions(self.photo.size, YES, self.photo.scale);
-    [self.photo drawAtPoint:CGPointZero];
+    ALAssetRepresentation *rep = self.asset.defaultRepresentation;
+    UIImage *image = [UIImage imageWithCGImage:rep.fullResolutionImage scale:rep.scale orientation:rep.orientation];
+    
+    UIGraphicsBeginImageContextWithOptions(image.size, YES, image.scale);
+    [image drawAtPoint:CGPointZero];
     UIImage *source = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
@@ -381,6 +378,7 @@ const float PhotoEditorViewControllerCropInset = 22.f;
     UIImage *croppedImage = [UIImage imageWithCGImage:cropped];
     
     CGImageRelease(cropped);
+    
     
     [self.delegate photoEditor:self didFinishEditingImage:croppedImage];
 }

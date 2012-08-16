@@ -92,6 +92,7 @@
     
     appNavigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:navAccountButton];
     appNavigationItem.titleView.hidden = YES;
+    appNavigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-grid"] style:UIBarButtonItemStyleBordered target:nil action:nil];
     
     self.accountNavigationItem = appNavigationItem;
     
@@ -183,6 +184,9 @@
 - (void)photoSelector:(PhotoSelectionViewController *)photoSelector didSelectAsset:(ALAsset *)asset atIndexPath:(NSIndexPath *)indexPath {
     
     UINavigationItem *editorNavItem = [[UINavigationItem alloc] initWithTitle:@"Edit"];
+    editorNavItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Use" style:UIBarButtonItemStyleBordered target:self.editorController action:@selector(cropPhoto:)];
+    
+    
     [self.navigationBar pushNavigationItem:editorNavItem animated:NO];
 
     
@@ -210,6 +214,8 @@
     
     [self stopEditing:nil];
     
+    [self.navigationBar popNavigationItemAnimated:NO];
+    
     NSData *data = UIImageJPEGRepresentation(image, 0.9f);
     [self.account.client saveData:data withRating:GravatarClientImageRatingG onSucces:^(GravatarRequest *request, NSArray *params) {
         NSLog(@"Uploaded data: %@", params);
@@ -227,7 +233,8 @@
 
 - (BOOL)navigationBar:(UINavigationBar *)navigationBar shouldPopItem:(UINavigationItem *)item {
     [self stopEditing:nil];
-    return YES;
+    [navigationBar setItems:@[self.accountNavigationItem] animated:NO];
+    return NO;
 }
 
 
