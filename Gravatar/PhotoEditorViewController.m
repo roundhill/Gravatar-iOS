@@ -80,22 +80,18 @@ const float PhotoEditorViewControllerCropInset = 22.f;
     self.doubleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapped:)];
     self.doubleTapGesture.numberOfTapsRequired = 2;
     self.doubleTapGesture.numberOfTouchesRequired = 1;
-    [self updateImageView];
-    [self.editorView addGestureRecognizer:self.panGesture];
-    [self.editorView addGestureRecognizer:self.pinchGesture];
-    [self.editorView addGestureRecognizer:self.doubleTapGesture];
-    
+
     [self.view bringSubviewToFront:self.cropView];
     
-
+    
+    self.imageOrigin = self.editorView.center;
+        
 }
 
 - (void)didReceiveMemoryWarning {
     
     [super didReceiveMemoryWarning];
-    [self.editorView removeGestureRecognizer:self.panGesture];
-    [self.editorView removeGestureRecognizer:self.pinchGesture];
-    [self.editorView removeGestureRecognizer:self.doubleTapGesture];
+    [self removeGestures];
     
     self.cropView = nil;
     
@@ -108,6 +104,18 @@ const float PhotoEditorViewControllerCropInset = 22.f;
 
 }
 
+- (void)addGestures {
+    [self.editorView addGestureRecognizer:self.panGesture];
+    [self.editorView addGestureRecognizer:self.pinchGesture];
+    [self.editorView addGestureRecognizer:self.doubleTapGesture];
+}
+
+- (void)removeGestures {
+    [self.editorView removeGestureRecognizer:self.panGesture];
+    [self.editorView removeGestureRecognizer:self.pinchGesture];
+    [self.editorView removeGestureRecognizer:self.doubleTapGesture];
+
+}
 
 - (void)viewWillLayoutSubviews {
     self.cropView.frame = self.view.bounds;
@@ -156,8 +164,8 @@ const float PhotoEditorViewControllerCropInset = 22.f;
     
     self.defaultImageScale = [self scaleToFillDimensions:assetDimensions toSize:cropSize];
         
-    _imageScale = 1.f;
-    _imageOrigin = CGPointZero;
+    self.imageScale = 1.f;
+    self.imageOrigin = self.editorView.center;
     
     CGFloat duration;
     if (animate == YES) {
@@ -171,7 +179,7 @@ const float PhotoEditorViewControllerCropInset = 22.f;
     CGPoint startCenter = CGPointMake(rect.origin.x + rect.size.width * 0.5f, rect.origin.y + rect.size.height * 0.5f);
     CGFloat startScale = [self scaleToFillDimensions:self.editorView.bounds.size toSize:rect.size];
     
-    self.imageView.transform = [self transformForScale:startScale andPan:CGPointZero];
+    self.imageView.transform = [self transformForScale:startScale];
     self.imageView.center = startCenter;
     
     self.cropView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.05f, 1.05f);
@@ -181,8 +189,10 @@ const float PhotoEditorViewControllerCropInset = 22.f;
         self.cropView.transform = CGAffineTransformIdentity;
 
         self.imageView.center = self.editorView.center;
-        self.imageView.transform = [self transformForScale:1.f andPan:CGPointZero];
-    } completion:nil];
+        self.imageView.transform = [self transformForScale:1.f];
+    } completion:^(BOOL completed){
+        [self addGestures];
+    }];
     
 }
 
@@ -197,14 +207,25 @@ const float PhotoEditorViewControllerCropInset = 22.f;
         CGFloat endScale = [self scaleToFillDimensions:self.editorView.bounds.size toSize:self.transitionRect.size];
         CGPoint endCenter = CGPointMake(self.transitionRect.origin.x + self.transitionRect.size.width * 0.5f, self.transitionRect.origin.y + self.transitionRect.size.height * 0.5f);
         
-        CGAffineTransform transform = [self transformForScale:endScale andPan:CGPointZero];
+        CGAffineTransform transform = [self transformForScale:endScale];
+        // account for anchorPoint
+        CGSize startSize = CGSizeApplyAffineTransform(self.imageView.bounds.size, self.imageView.transform);
+        CGPoint anchor = self.imageView.layer.anchorPoint;
+        CGPoint offset = CGPointMake((0.5f - anchor.x) * startSize.width, (0.5f - anchor.y) * startSize.height);
+        self.imageView.layer.anchorPoint = CGPointMake(0.5f, 0.5f);
+        CGPoint startPoint = self.imageView.center;
+        startPoint.x += offset.x;
+        startPoint.y += offset.y;
         
+        self.imageView.center = startPoint;
+        
+        [self removeGestures];
         
         [UIView animateWithDuration:0.3f animations:^{
             self.cropView.alpha = 0.f;
             self.imageView.transform = transform;
             self.imageView.center = endCenter;
-        } completion:^(BOOL finished) {
+        } completion:^(BOOL completed) {
             if(completeBlock != nil) completeBlock();
         }];
         
@@ -212,157 +233,171 @@ const float PhotoEditorViewControllerCropInset = 22.f;
     }
 }
 
-- (CGAffineTransform)transformForScale:(CGFloat)scale andPan:(CGPoint)position {
+- (CGAffineTransform)transformForScale:(CGFloat)scale {
     CGFloat correctedScale = scale * self.defaultImageScale;
-    //scale, than translate
+    
     CGAffineTransform transform = CGAffineTransformScale(CGAffineTransformIdentity, correctedScale, correctedScale);
-    return CGAffineTransformTranslate(transform, position.x, position.y);
+    return transform;
+}
+
+- (CGPoint)centerPointForOrigin:(CGPoint)origin andSize:(CGSize)size andAnchorPoint:(CGPoint)anchor {
+    
+    
+    return origin;
+}
+
+- (void)animateToValidPosition {
+    CGAffineTransform transform;
+    // first determine if we need to scale the image
+    
+    self.imageScale = MAX(MIN(self.imageScale, self.maxImageScale), self.minImageScale);
+    transform = [self transformForScale:self.imageScale];
+
+    CGSize endSize = CGSizeApplyAffineTransform(self.imageView.bounds.size, transform);
+    CGRect endRect = CGRectZero;
+    CGRect cropRect = [self.view convertRect:self.cropView.cropFrame fromView:self.cropView];
+    CGPoint anchor = self.imageView.layer.anchorPoint;
+    
+    endRect.size = endSize;
+    endRect.origin = CGPointMake(self.imageOrigin.x - endSize.width * 0.5f, self.imageOrigin.y - endSize.height * 0.5f);
+    // we need to factor in the anchor point as well
+    endRect.origin.x += (0.5f - anchor.x) * endSize.width;
+    endRect.origin.y += (0.5f - anchor.y) * endSize.height;
+        
+    CGFloat minXBound = CGRectGetMinX(endRect) - CGRectGetMinX(cropRect);
+    CGFloat maxXBound = CGRectGetMaxX(cropRect) - CGRectGetMaxX(endRect);
+    CGPoint origin = self.imageOrigin;
+    if (minXBound > 0.f) {
+        origin.x += -minXBound;
+    } else if(maxXBound > 0.f){
+        origin.x += maxXBound;
+    }
+    
+    CGFloat minYBound = CGRectGetMinY(endRect) - CGRectGetMinY(cropRect);
+    CGFloat maxYBound = CGRectGetMaxY(cropRect) - CGRectGetMaxY(endRect);
+    
+    if (minYBound > 0.f) {
+        origin.y += -minYBound;
+    } else if(maxYBound > 0.f){
+        origin.y += maxYBound;
+    }
+    
+    self.imageOrigin = origin;
+    
+    [UIView animateWithDuration:0.2f animations:^{
+        self.imageView.transform = transform;
+        self.imageView.center = self.imageOrigin;
+    }];
+    
     
 }
 
 - (void)panned:(UIPanGestureRecognizer *)pan {
-    if (pan.state == UIGestureRecognizerStateBegan) {
-        self.panAnchor = self.imageOrigin;
+        
+    CGPoint delta = [pan translationInView:self.editorView];
+    CGPoint center = CGPointMake(self.imageOrigin.x + delta.x, self.imageOrigin.y + delta.y);
+    self.imageView.center = center;
+    
+    CGRect frame = self.imageView.frame;
+    CGRect cropFrame = self.editorView.frame;
+    
+    // make adjustments if the cropFrame is beyond the possible bounds
+    CGFloat minXBound = CGRectGetMinX(frame) - CGRectGetMinX(cropFrame);
+    CGFloat maxXBound = CGRectGetMaxX(cropFrame) - CGRectGetMaxX(frame);
+    
+    if (minXBound > 0.f) {
+        center.x -= minXBound - powf(minXBound, 0.75f);
+    } else if(maxXBound > 0.f){
+        center.x += maxXBound - powf(maxXBound, 0.75f);
     }
+    
+    CGFloat minYBound = CGRectGetMinY(frame) - CGRectGetMinY(cropFrame);
+    CGFloat maxYBound = CGRectGetMaxY(cropFrame) - CGRectGetMaxY(frame);
+    if (minYBound > 0.f) {
+        center.y -= minYBound - powf(minYBound, 0.75f);
+    } else if(maxYBound > 0.f){
+        center.y += maxYBound - powf(maxYBound, 0.75f);
+    }
+    
+    self.imageView.center = center;
     
     if (pan.state == UIGestureRecognizerStateEnded) {
-        [UIView animateWithDuration:0.1f animations:^{
-            [self updateImageViewToNearestValidState];
-        }];
-        return;
-    }
-        
-    CGPoint delta = [pan translationInView:self.imageView];
-    
-    self.imageOrigin = CGPointMake(self.panAnchor.x + delta.x, self.panAnchor.y + delta.y);
-    
-    [self updateImageView];
+        self.imageOrigin = center;
+        [self animateToValidPosition];
+    }    
     
 }
 
 - (void)pinched:(UIPinchGestureRecognizer *)pinch {
     
     if (pinch.state == UIGestureRecognizerStateBegan) {
-        self.pinchAnchor = self.imageScale;
+        CGPoint pinchOrigin = [pinch locationInView:self.imageView];
+        CGSize imageSize = self.imageView.bounds.size;
+        self.imageView.layer.anchorPoint = CGPointMake(pinchOrigin.x/imageSize.width, pinchOrigin.y/imageSize.height);
+        self.imageView.center = [pinch locationInView:self.imageView.superview];
     }
+    
+    CGFloat scale = self.imageScale * pinch.scale;
+    CGFloat over = 1.f;
+    
+    // make sure the scale is within bounds
+    if (scale > self.maxImageScale) {
+        over = scale/self.maxImageScale;
+        scale = self.maxImageScale;
+    } else if (scale < self.minImageScale){
+        over = scale/self.minImageScale;
+        scale = self.minImageScale;
+    }
+    
+    over = sqrtf(over);
+    
+    scale *= over;
+        
+    self.imageView.transform = [self transformForScale:scale];
     
     if (pinch.state == UIGestureRecognizerStateEnded) {
-        [UIView animateWithDuration:0.1f animations:^{
-            [self updateImageViewToNearestValidState];
-        }];
-        return;
+        
+        
+        self.imageScale = scale;
+        self.imageOrigin = self.imageView.center;
+        
+        [self animateToValidPosition];
     }
-    
-    self.imageScale = self.pinchAnchor * pinch.scale;
-    
-    [self updateImageView];
+
 
 }
 
 - (void)doubleTapped:(UITapGestureRecognizer *)tap {
     
     self.imageScale = 1.f;
-    self.imageOrigin = CGPointZero;
+    self.imageOrigin = self.editorView.center;
+    
+    // we're going to scale it down to original size
+    CGAffineTransform transform = [self transformForScale:self.imageScale];
+    // Size of image at new transform
+    CGSize size = CGSizeApplyAffineTransform(self.imageView.bounds.size, transform);
+    CGPoint anchor = self.imageView.layer.anchorPoint;
+    // Figure out the offset created by the anchor point
+    CGPoint offset = CGPointMake((0.5f - anchor.x) * size.width, (0.5f - anchor.y) * size.height);
+    CGPoint endPoint = self.imageOrigin;
+    endPoint.x -= offset.x;
+    endPoint.y -= offset.y;
+    
     [UIView animateWithDuration:0.2f animations:^{
-        [self updateImageViewToNearestValidState];        
+        self.imageView.transform = transform;
+        self.imageView.center = endPoint;
+    } completion:^(BOOL finished) {
+        // now that we're all done, reset the anchor point
+        self.imageView.layer.anchorPoint = CGPointMake(0.5f, 0.5f);
+        // set the image to the true center
+        self.imageView.center = self.imageOrigin;
     }];
-}
-
-
-- (void)updateImageView {
-    
-    if (self.imageView == nil) {
-        return;
-    }
-    
-    CGFloat scale = [self scaleFloat:self.imageScale withinMin:self.minImageScale andMax:self.maxImageScale];
-        
-    scale *= self.defaultImageScale;
-    
-    CGAffineTransform scaleTransform = CGAffineTransformScale(CGAffineTransformIdentity, scale, scale);
-    
-    
-//    CGRect cropRect = [self.view convertRect:self.editorView.frame toView:self.imageView];
-//    CGRect imageRect = self.imageView.bounds;
-    
-//    CGFloat minX = (cropRect.size.width - imageRect.size.width) * 0.5f;
-//    CGFloat maxX = (imageRect.size.width - cropRect.size.width) * 0.5f;
-//    CGFloat minY = (cropRect.size.height - imageRect.size.height) * 0.5f;
-//    CGFloat maxY = (imageRect.size.height - cropRect.size.height) * 0.5f;
-    
-    CGPoint origin = self.imageOrigin;
-    
-//    if (self.imageScale >= 1.f) {
-//        origin.x = [self scaleFloat:origin.x withinMin:minX andMax:maxX andScale:1/scale];
-//        origin.y = [self scaleFloat:origin.y withinMin:minY andMax:maxY andScale:1/scale];
-//    }
-
-    self.imageView.transform = CGAffineTransformTranslate(scaleTransform, origin.x, origin.y);
-    
-}
-
-- (void)updateImageViewToNearestValidState {
-    
-    if (self.imageView == nil) {
-        return;
-    }
-        
-    if (self.imageScale < self.minImageScale) {
-        self.imageScale = self.minImageScale;
-    } else if (self.imageScale > self.maxImageScale){
-        self.imageScale = self.maxImageScale;
-    }
-    
-    
-    [self updateImageView];
-    
-    return;
-        
-//    CGRect cropRect = [self.view convertRect:self.editorView.frame toView:self.imageView];
-//    CGRect imageRect = self.imageView.bounds;
-    
-//    CGFloat minX = (cropRect.size.width - imageRect.size.width) * 0.5f;
-//    CGFloat maxX = (imageRect.size.width - cropRect.size.width) * 0.5f;
-//    CGFloat minY = (cropRect.size.height - imageRect.size.height) * 0.5f;
-//    CGFloat maxY = (imageRect.size.height - cropRect.size.height) * 0.5f;
-    
-    CGPoint origin = self.imageOrigin;
-//    origin.x = MIN(MAX(origin.x, minX), maxX);
-//    origin.y = MIN(MAX(origin.y, minY), maxY);
-    
-    self.imageOrigin = origin;
-    
-    [self updateImageView];
-    
-    // if it's translated outside the cropping area on the x/y axis, move it
-    
-}
-
-- (CGFloat)scaleFloat:(CGFloat)number withinMin:(CGFloat)min andMax:(CGFloat)max {
-    return [self scaleFloat:number withinMin:min andMax:max andScale:1.f];
-}
-
-- (CGFloat)scaleFloat:(CGFloat)number withinMin:(CGFloat)min andMax:(CGFloat)max andScale:(CGFloat)scale {
-    CGFloat over = 0.f;
-    CGFloat scaled = 0.f;
-    if (number < min) {
-        over = fabs(number - min);
-        scaled = min - log1pf(over) * scale;
-    } else if (number > max){
-        over = fabs(number - max);
-        scaled = max + log1pf(over) * scale;
-    } else {
-        scaled = number;
-    }
-    
-    return scaled;
     
 }
 
 - (void)cropPhoto:(id)sender {
     // using the crop reference, crop the photo
     
-    NSLog(@"Cropping photo");
     CGRect cropRect = [self.imageView convertRect:self.editorView.frame fromView:self.view];
     
     ALAssetRepresentation *rep = self.asset.defaultRepresentation;
@@ -404,6 +439,11 @@ const float PhotoEditorViewControllerCropInset = 22.f;
     
 }
 
-
+- (CGPoint)centerWithAnchor {
+    CGSize size = self.imageView.frame.size;
+    CGPoint anchor = self.imageView.layer.anchorPoint;
+    CGPoint offset = CGPointMake((anchor.x - 0.5f) * size.width , (anchor.y - 0.5f) * size.height);
+    return CGPointMake(self.imageOrigin.x + offset.x, self.imageOrigin.y + offset.y);
+}
 
 @end
