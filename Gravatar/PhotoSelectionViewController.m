@@ -48,12 +48,12 @@ float const PhotoSelectionViewControllerThumbSize = 76.f;
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"Cell"];
     
     self.library = [[ALAssetsLibrary alloc] init];
-    
-    [self refreshPhotos];
-    
+        
 }
 
 - (void)refreshPhotos {
+    
+    self.photos = nil;
     
     self.photos = [NSMutableArray array];
 	// Do any additional setup after loading the view.
@@ -68,6 +68,7 @@ float const PhotoSelectionViewControllerThumbSize = 76.f;
                 }
             }];
             
+            NSLog(@"Loading photos");
             [self.collectionView reloadData];
             
             *stop = YES;

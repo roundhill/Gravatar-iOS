@@ -25,6 +25,7 @@ const float PhotoEditorViewControllerCropInset = 22.f;
 @property (nonatomic, readonly) CGFloat maxImageScale, minImageScale;
 @property (nonatomic, strong) UIView *editorView;
 @property (nonatomic) CGRect transitionRect;
+@property (nonatomic) UIView *backgroundView;
 
 @property (nonatomic) CropView *cropView;
 @end
@@ -47,8 +48,7 @@ const float PhotoEditorViewControllerCropInset = 22.f;
 {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor clearColor];
-    
+    self.view.backgroundColor = [UIColor blackColor];
     
     self.cropView = [[CropView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:self.cropView];
@@ -91,16 +91,20 @@ const float PhotoEditorViewControllerCropInset = 22.f;
 - (void)didReceiveMemoryWarning {
     
     [super didReceiveMemoryWarning];
-    [self removeGestures];
+//    [self removeGestures];
     
-    self.cropView = nil;
+//    [self.imageView removeFromSuperview];
+//    [self.cropView removeFromSuperview];
+//    [self.editorView removeFromSuperview];
     
-    self.panGesture = nil;
-    self.pinchGesture = nil;
-    self.doubleTapGesture = nil;
+//    self.cropView = nil;
+//    self.editorView = nil;
+//    self.imageView = nil;
     
-    self.editorView = nil;
-    self.imageView = nil;
+//    self.panGesture = nil;
+//    self.pinchGesture = nil;
+//    self.doubleTapGesture = nil;
+    
 
 }
 
@@ -146,26 +150,24 @@ const float PhotoEditorViewControllerCropInset = 22.f;
             self.imageView.image = fullImage;
         });
     });
-
-    [self.imageView removeFromSuperview];
-    self.imageView = nil;
+    
     CGSize assetDimensions = asset.defaultRepresentation.dimensions;
     CGRect imageFrame;
     CGSize cropSize = self.cropView.cropFrame.size;
     imageFrame.size = assetDimensions;
     imageFrame.origin = CGPointMake(0.f, 0.f);
-    self.imageView = [[UIImageView alloc] initWithFrame:imageFrame];
-    [self.view insertSubview:self.imageView belowSubview:self.cropView];
+    self.imageView.transform = CGAffineTransformIdentity;
+    self.imageView.frame = imageFrame;
     self.imageView.center = self.editorView.center;
     self.imageView.image = [UIImage imageWithCGImage:asset.aspectRatioThumbnail];
-    
-    self.imageView.transform = CGAffineTransformIdentity;
+    self.imageView.layer.anchorPoint = CGPointMake(0.5f, 0.5f);
     
     
     self.defaultImageScale = [self scaleToFillDimensions:assetDimensions toSize:cropSize];
         
     self.imageScale = 1.f;
     self.imageOrigin = self.editorView.center;
+    
     
     CGFloat duration;
     if (animate == YES) {
@@ -182,12 +184,12 @@ const float PhotoEditorViewControllerCropInset = 22.f;
     self.imageView.transform = [self transformForScale:startScale];
     self.imageView.center = startCenter;
     
-    self.cropView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.05f, 1.05f);
+    self.view.alpha = 0.f;
 
     [UIView animateWithDuration:duration animations:^{
+        
+        self.view.alpha = 1.f;        
         self.cropView.alpha = 1.f;
-        self.cropView.transform = CGAffineTransformIdentity;
-
         self.imageView.center = self.editorView.center;
         self.imageView.transform = [self transformForScale:1.f];
     } completion:^(BOOL completed){
@@ -222,10 +224,12 @@ const float PhotoEditorViewControllerCropInset = 22.f;
         [self removeGestures];
         
         [UIView animateWithDuration:0.3f animations:^{
+            self.view.alpha = 0.f;
             self.cropView.alpha = 0.f;
             self.imageView.transform = transform;
             self.imageView.center = endCenter;
         } completion:^(BOOL completed) {
+            self.imageView.image = nil;
             if(completeBlock != nil) completeBlock();
         }];
         
