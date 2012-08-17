@@ -143,6 +143,10 @@
     
 }
 
+- (void)refreshPhotos {
+    [self.photosController refreshPhotos];
+}
+
 - (void)failedAuth:(NSNotification *)notification {
     [self showLoginForm:nil];
 }

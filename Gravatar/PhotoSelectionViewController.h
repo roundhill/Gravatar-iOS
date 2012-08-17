@@ -15,6 +15,8 @@
 
 @property (nonatomic, assign) id<PhotoSelectionViewControllerDelegate> delegate;
 
+- (void)refreshPhotos;
+
 @end
 
 @protocol PhotoSelectionViewControllerDelegate <NSObject>

@@ -47,26 +47,37 @@ float const PhotoSelectionViewControllerThumbSize = 76.f;
     
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"Cell"];
     
+    self.library = [[ALAssetsLibrary alloc] init];
+    
+    [self refreshPhotos];
+    
+}
+
+- (void)refreshPhotos {
+    
     self.photos = [NSMutableArray array];
 	// Do any additional setup after loading the view.
-
-    self.library = [[ALAssetsLibrary alloc] init];
+    
     [self.library enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
         if (group != nil) {
-
+            
             [group setAssetsFilter:[ALAssetsFilter allPhotos]];
             [group enumerateAssetsWithOptions:NSEnumerationReverse usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
                 if (result != nil) {
                     [self.photos addObject:result];
                 }
             }];
+            
             [self.collectionView reloadData];
+            
             *stop = YES;
         }
         
     } failureBlock:^(NSError *error) {
         NSLog(@"Failed to load photos: %@", error);
     }];
+    
+
     
 }
 

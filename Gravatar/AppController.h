@@ -18,4 +18,6 @@
 @property (nonatomic, strong) UIView *contentView;
 @property (nonatomic, strong) UINavigationBar *navigationBar;
 @property (nonatomic, strong) UINavigationItem *accountNavigationItem;
+
+- (void) refreshPhotos;
 @end
