@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Beau Collins. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "PhotoSelectionViewController.h"
 
 float const PhotoSelectionViewControllerThumbSize = 76.f;
@@ -13,6 +14,7 @@ float const PhotoSelectionViewControllerThumbSize = 76.f;
 @interface PhotoSelectionViewController ()
 @property (nonatomic, retain) NSMutableArray *photos;
 @property (nonatomic, retain) ALAssetsLibrary *library;
+@property (nonatomic, retain) UIView *errorView;
 @end
 
 @implementation PhotoSelectionViewController
@@ -68,14 +70,15 @@ float const PhotoSelectionViewControllerThumbSize = 76.f;
                 }
             }];
             
-            NSLog(@"Loading photos");
+            [self removeLibraryErrorView];
             [self.collectionView reloadData];
             
             *stop = YES;
         }
         
     } failureBlock:^(NSError *error) {
-        NSLog(@"Failed to load photos: %@", error);
+        [self displayLibraryErrorView:error];
+        
     }];
     
 
@@ -88,6 +91,37 @@ float const PhotoSelectionViewControllerThumbSize = 76.f;
     // Dispose of any resources that can be recreated.
 }
 
+- (void)removeLibraryErrorView {
+    if (self.errorView != nil) {
+        [self.errorView removeFromSuperview];
+        self.errorView = nil;
+    }
+}
+
+- (void)displayLibraryErrorView:(NSError *)error {
+    [self removeLibraryErrorView];
+    self.errorView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0., 200.f, 160.f)];
+    self.errorView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.95f];
+    [self.view addSubview:self.errorView];
+    
+    self.errorView.center = CGPointMake(CGRectGetMidX(self.view.bounds), CGRectGetMidY(self.view.bounds));
+    self.errorView.layer.cornerRadius = 2.f;
+    self.errorView.layer.borderColor = [[[UIColor whiteColor] colorWithAlphaComponent:0.25f] CGColor];
+    self.errorView.layer.borderWidth = 1.f;
+    
+    UILabel *errorLabel = [[UILabel alloc] initWithFrame:CGRectInset(self.errorView.bounds, 10.f, 10.f) ];
+    errorLabel.text = NSLocalizedString(@"Sad robot :(\n\nPhotos are inaccessible.", @"Error message when library couldn't be loaded");
+    errorLabel.backgroundColor = [UIColor clearColor];
+    errorLabel.textColor = [UIColor whiteColor];
+    errorLabel.numberOfLines = 0;
+    errorLabel.textAlignment = NSTextAlignmentCenter;
+    [self.errorView addSubview:errorLabel];
+    self.errorView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.01f, 0.01f);
+    [UIView animateWithDuration:0.2f animations:^{
+        self.errorView.transform = CGAffineTransformIdentity;
+    }];
+    
+}
 
 #pragma mark - UICollectionViewDataSource Methods
 
