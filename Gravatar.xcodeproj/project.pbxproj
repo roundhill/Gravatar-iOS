@@ -61,7 +61,6 @@
 		CCAC733C15E0021F00B88F7E /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCAC733B15E0021F00B88F7E /* Icon@2x.png */; };
 		CCDED47515D1D92B001C9CA7 /* GravatarAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = CCDED47415D1D92B001C9CA7 /* GravatarAccount.m */; };
 		CCEF5DFE15D301D700761000 /* PhotoEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCEF5DFD15D301D700761000 /* PhotoEditorViewController.m */; };
-		CCEF5E0215D9542D00761000 /* ImageEditorView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCEF5E0115D9542D00761000 /* ImageEditorView.m */; };
 		CCEF5E0915D9861B00761000 /* CropView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCEF5E0815D9861B00761000 /* CropView.m */; };
 		CCEF5E0B15D9AD5E00761000 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCEF5E0A15D9AD5E00761000 /* CoreImage.framework */; };
 		CCF72EAE15DC627C0055BA9A /* navbar-back-button-active-landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = CCF72EA615DC627C0055BA9A /* navbar-back-button-active-landscape.png */; };
@@ -173,8 +172,6 @@
 		CCDED47415D1D92B001C9CA7 /* GravatarAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GravatarAccount.m; sourceTree = "<group>"; };
 		CCEF5DFC15D301D700761000 /* PhotoEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoEditorViewController.h; sourceTree = "<group>"; };
 		CCEF5DFD15D301D700761000 /* PhotoEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoEditorViewController.m; sourceTree = "<group>"; };
-		CCEF5E0015D9542D00761000 /* ImageEditorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageEditorView.h; sourceTree = "<group>"; };
-		CCEF5E0115D9542D00761000 /* ImageEditorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageEditorView.m; sourceTree = "<group>"; };
 		CCEF5E0715D9861B00761000 /* CropView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CropView.h; sourceTree = "<group>"; };
 		CCEF5E0815D9861B00761000 /* CropView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CropView.m; sourceTree = "<group>"; };
 		CCEF5E0A15D9AD5E00761000 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
@@ -293,8 +290,6 @@
 				CCA8E64A15D0E75700DE01AF /* GravatarImageView.m */,
 				CC34EE6415D1AB6300820FC8 /* LoginPanelView.h */,
 				CC34EE6515D1AB6300820FC8 /* LoginPanelView.m */,
-				CCEF5E0015D9542D00761000 /* ImageEditorView.h */,
-				CCEF5E0115D9542D00761000 /* ImageEditorView.m */,
 				CCEF5E0715D9861B00761000 /* CropView.h */,
 				CCEF5E0815D9861B00761000 /* CropView.m */,
 			);
@@ -653,7 +648,6 @@
 				CC3CA27C15D22A49006E8B22 /* EmailsViewController.m in Sources */,
 				CC3CA27F15D234C4006E8B22 /* PhotoSelectionViewController.m in Sources */,
 				CCEF5DFE15D301D700761000 /* PhotoEditorViewController.m in Sources */,
-				CCEF5E0215D9542D00761000 /* ImageEditorView.m in Sources */,
 				CCEF5E0915D9861B00761000 /* CropView.m in Sources */,
 				CC830B2315DABF90008F5552 /* AppController.m in Sources */,
 			);
