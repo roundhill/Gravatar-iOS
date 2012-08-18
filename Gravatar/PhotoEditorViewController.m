@@ -68,9 +68,7 @@ const float PhotoEditorViewControllerCropInset = 22.f;
     [self.view addSubview:self.editorView];
     
     self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.f, 0.f, cropFrame.size.width, cropFrame.size.height)];
-    
-    self.imageView.backgroundColor = [UIColor purpleColor];
-    
+        
     [self.view addSubview:self.imageView];
     
     
