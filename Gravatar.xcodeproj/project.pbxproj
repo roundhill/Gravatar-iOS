@@ -57,6 +57,8 @@
 		CCA8E64D15D0F26400DE01AF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCA8E64715D0E12900DE01AF /* QuartzCore.framework */; };
 		CCA8E65015D0F82A00DE01AF /* blue-button-active.png in Resources */ = {isa = PBXBuildFile; fileRef = CCA8E64E15D0F82A00DE01AF /* blue-button-active.png */; };
 		CCA8E65115D0F82A00DE01AF /* blue-button-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = CCA8E64F15D0F82A00DE01AF /* blue-button-pressed.png */; };
+		CCAC733A15E0018200B88F7E /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CCAC733915E0018200B88F7E /* Icon.png */; };
+		CCAC733C15E0021F00B88F7E /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCAC733B15E0021F00B88F7E /* Icon@2x.png */; };
 		CCDED47515D1D92B001C9CA7 /* GravatarAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = CCDED47415D1D92B001C9CA7 /* GravatarAccount.m */; };
 		CCEF5DFE15D301D700761000 /* PhotoEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCEF5DFD15D301D700761000 /* PhotoEditorViewController.m */; };
 		CCEF5E0215D9542D00761000 /* ImageEditorView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCEF5E0115D9542D00761000 /* ImageEditorView.m */; };
@@ -165,6 +167,8 @@
 		CCA8E64A15D0E75700DE01AF /* GravatarImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GravatarImageView.m; sourceTree = "<group>"; };
 		CCA8E64E15D0F82A00DE01AF /* blue-button-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blue-button-active.png"; sourceTree = "<group>"; };
 		CCA8E64F15D0F82A00DE01AF /* blue-button-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blue-button-pressed.png"; sourceTree = "<group>"; };
+		CCAC733915E0018200B88F7E /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Gravatar/Images/Icon.png; sourceTree = "<group>"; };
+		CCAC733B15E0021F00B88F7E /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "Gravatar/Images/Icon@2x.png"; sourceTree = "<group>"; };
 		CCDED47315D1D92B001C9CA7 /* GravatarAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GravatarAccount.h; sourceTree = "<group>"; };
 		CCDED47415D1D92B001C9CA7 /* GravatarAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GravatarAccount.m; sourceTree = "<group>"; };
 		CCEF5DFC15D301D700761000 /* PhotoEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoEditorViewController.h; sourceTree = "<group>"; };
@@ -344,6 +348,8 @@
 		CCFD868415CC56AA001D8E25 = {
 			isa = PBXGroup;
 			children = (
+				CCAC733915E0018200B88F7E /* Icon.png */,
+				CCAC733B15E0021F00B88F7E /* Icon@2x.png */,
 				CCFD869915CC56AB001D8E25 /* Gravatar */,
 				CCFD86B115CC56AB001D8E25 /* GravatarTests */,
 				CCFD869215CC56AB001D8E25 /* Frameworks */,
@@ -570,6 +576,8 @@
 				CCF72EB515DC627C0055BA9A /* navbar-back-button-pressed@2x.png in Resources */,
 				CC2410D915DCD82200C680E1 /* back-grid.png in Resources */,
 				CC2410DA15DCD82200C680E1 /* back-grid@2x.png in Resources */,
+				CCAC733A15E0018200B88F7E /* Icon.png in Resources */,
+				CCAC733C15E0021F00B88F7E /* Icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
