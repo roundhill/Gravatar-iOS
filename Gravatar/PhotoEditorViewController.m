@@ -308,17 +308,17 @@ const float PhotoEditorViewControllerCropInset = 22.f;
     CGFloat maxXBound = CGRectGetMaxX(cropFrame) - CGRectGetMaxX(frame);
     
     if (minXBound > 0.f) {
-        center.x -= minXBound - powf(minXBound, 0.75f);
+        center.x -= minXBound - powf(minXBound, 0.8f);
     } else if(maxXBound > 0.f){
-        center.x += maxXBound - powf(maxXBound, 0.75f);
+        center.x += maxXBound - powf(maxXBound, 0.8f);
     }
     
     CGFloat minYBound = CGRectGetMinY(frame) - CGRectGetMinY(cropFrame);
     CGFloat maxYBound = CGRectGetMaxY(cropFrame) - CGRectGetMaxY(frame);
     if (minYBound > 0.f) {
-        center.y -= minYBound - powf(minYBound, 0.75f);
+        center.y -= minYBound - powf(minYBound, 0.8f);
     } else if(maxYBound > 0.f){
-        center.y += maxYBound - powf(maxYBound, 0.75f);
+        center.y += maxYBound - powf(maxYBound, 0.8f);
     }
     
     self.imageView.center = center;
@@ -358,7 +358,6 @@ const float PhotoEditorViewControllerCropInset = 22.f;
     self.imageView.transform = [self transformForScale:scale];
     
     if (pinch.state == UIGestureRecognizerStateEnded) {
-        
         
         self.imageScale = scale;
         self.imageOrigin = self.imageView.center;
