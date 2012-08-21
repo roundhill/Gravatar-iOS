@@ -36,6 +36,15 @@
     STAssertEqualObjects(fragment, @"<i4>1024</i4>", nil);
 }
 
+- (void)testBooleanFragment {
+    NSString *trueFragment = [RCXMLRPCEncoder fragmentForBool:YES];
+    STAssertEqualObjects(trueFragment, @"<boolean>1</boolean>", nil);
+
+    NSString *falseFragment = [RCXMLRPCEncoder fragmentForBool:NO];
+    STAssertEqualObjects(falseFragment, @"<boolean>0</boolean>", nil);
+
+}
+
 - (void)testDateFragment {
     // 2001-01-01 00:39:05 +0000
     NSDate *date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:2345];

@@ -146,6 +146,7 @@ NSString * const RCXMLRPCEncoderClosing = @"</methodCall>";
     } else if( strcmp(@encode(double), [number objCType]) == 0) {
         fragment = [self fragmentForFloat: [number floatValue]];
     }
+    
     return fragment;
 }
 

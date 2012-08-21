@@ -38,6 +38,10 @@
                         <name>Name</name>
                         <value><string>Finn</string></value>
                     </member>
+                    <member>
+                        <name>OK</name>
+                        <value><boolean>1</boolean></value>
+                    </member>
                 </struct>
             </value>
         </param>

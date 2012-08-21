@@ -38,7 +38,7 @@
     NSDate *date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:2345];
     NSData *data = [@"you can't read this!" dataUsingEncoding:NSUTF8StringEncoding];
     [self.decoder decodeData:[self xml:@"response-complex"]];
-    NSArray *expected = @[@5, date, data, @[@"Hello", @{@"Test":@3.4}], @{ @"Name":@"Finn", @"Age": @5 }];
+    NSArray *expected = @[@5, date, data, @[@"Hello", @{@"Test":@3.4}], @{ @"Name":@"Finn", @"Age": @5, @"OK":@YES }];
     __block NSArray *params = self.decoder.params;
     [expected enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         STAssertEqualObjects([params objectAtIndex:idx], obj, nil);

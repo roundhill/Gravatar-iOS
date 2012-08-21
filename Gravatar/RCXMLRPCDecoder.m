@@ -20,6 +20,7 @@ NSString *const RCXMLRPCDecoderI4Element             = @"i4";
 NSString *const RCXMLRPCDecoderDoubleElement         = @"double";
 NSString *const RCXMLRPCDecoderDateElement           = @"dateTime.iso8601";
 NSString *const RCXMLRPCDecoderIntElement            = @"int";
+NSString *const RCXMLRPCDecoderBooleanElement        = @"boolean";
 NSString *const RCXMLRPCDecoderStructElement         = @"struct";
 NSString *const RCXMLRPCDecoderMemberElement         = @"member";
 NSString *const RCXMLRPCDecoderNameElement           = @"name";
@@ -59,6 +60,7 @@ NSString *const RCXMLRPCDecoderDateFormat            = @"yyyyMMdd'T'HH:mm:ss";
     RCXMLRPCDecoderDoubleElement,
     RCXMLRPCDecoderDateElement,
     RCXMLRPCDecoderBase64Element,
+    RCXMLRPCDecoderBooleanElement
     ];
 }
 
@@ -114,6 +116,8 @@ NSString *const RCXMLRPCDecoderDateFormat            = @"yyyyMMdd'T'HH:mm:ss";
         NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
         formatter.numberStyle = NSNumberFormatterDecimalStyle;
         val = [formatter numberFromString:string];
+    } else if([currentContext isEqualToString:RCXMLRPCDecoderBooleanElement]){
+        val = [NSNumber numberWithBool:[string isEqualToString:@"1"]];
     } else if([currentContext isEqualToString:RCXMLRPCDecoderDateElement]){
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         formatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
