@@ -51,9 +51,7 @@ const float PhotoEditorViewControllerCropInset = 22.f;
 - (UINavigationItem *)navigationItem {
     
     UINavigationItem *editorNavItem = super.navigationItem;
-    
-    NSLog(@"Nav item: %@", editorNavItem);
-    
+        
     editorNavItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Use" style:UIBarButtonItemStyleBordered target:self action:@selector(cropPhoto:)];
 
     return [super navigationItem];

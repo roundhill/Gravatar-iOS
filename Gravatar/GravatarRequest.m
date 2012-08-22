@@ -71,6 +71,8 @@ NSString * const GravatarURL = @"https://secure.gravatar.com/xmlrpc";
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+    NSLog(@"Received response from server: %d (%@)", httpResponse.statusCode, self.methodName);
     self.expectedResponseLength = [NSNumber numberWithLongLong:response.expectedContentLength];
     self.responseData = [[NSMutableData alloc] initWithCapacity:1024];
 }

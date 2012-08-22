@@ -98,6 +98,10 @@ NSString *const GravatarClientRequestInfoKey = @"Request";
     return request;
 }
 
+- (GravatarRequest *)existsForHashes:(NSArray *)hashes onSuccess:(GravatarSuccessBlock)successBlock onFailure:(GravatarFailureBlock)failureBlock {
+    return [self callMethod:@"exists" withArguments:@{ @"hashes": hashes } onSuccess:successBlock onFailure:failureBlock];
+    
+}
 
 - (GravatarRequest *)addressesOnSuccess:(GravatarSuccessBlock)successBlock onFailure:(GravatarFailureBlock)failureBlock {
     
@@ -105,20 +109,32 @@ NSString *const GravatarClientRequestInfoKey = @"Request";
     
 }
 
-- (GravatarRequest *)existsForHashes:(NSArray *)hashes onSuccess:(GravatarSuccessBlock)successBlock onFailure:(GravatarFailureBlock)failureBlock {
-    return [self callMethod:@"exists" withArguments:@{ @"hashes": hashes } onSuccess:successBlock onFailure:failureBlock];
-    
-}
-
 - (GravatarRequest *)userimagesOnSuccess:(GravatarSuccessBlock)successBlock onFailure:(GravatarFailureBlock)failureBlock {
     return [self callMethod:@"userimages" withArguments:nil onSuccess:successBlock onFailure:failureBlock];
 }
 
-- (GravatarRequest *)saveData:(NSData *)data withRating:(GravatarClientImageRating)rating onSuccess:(GravatarSuccessBlock)successBlock onProgress:(GravatarProgressBlock)progressBlock onFailure:(GravatarFailureBlock)failureBlock {
+- (GravatarRequest *)saveData:(NSData *)data withRating:(GravatarClientImageRating)rating onProgress:(GravatarProgressBlock)progressBlock onSuccess:(GravatarSuccessBlock)successBlock onFailure:(GravatarFailureBlock)failureBlock {
     NSNumber *gravatarRating = [NSNumber numberWithInt:rating];
     NSString *dataString = [data base64EncodedString];
     NSDictionary *args = @{ @"data" : dataString, @"rating": gravatarRating };
     return [self callMethod:@"saveData" withArguments:args onSuccess:successBlock onProgress:progressBlock onFailure:failureBlock];
+}
+
+- (GravatarRequest *)saveUrl:(NSString *)url withRating:(GravatarClientImageRating)rating onSuccess:(GravatarSuccessBlock)successBlock onFailure:(GravatarFailureBlock)failureBlock {
+    NSNumber *gravatarRating = [NSNumber numberWithInt:rating];
+    return [self callMethod:@"saveUrl" withArguments:@{@"url":url, @"rating":gravatarRating} onSuccess:successBlock onFailure:failureBlock];
+}
+
+- (GravatarRequest *)useUserimage:(NSString *)userimage forAddresses:(NSArray *)addresses onSuccess:(GravatarSuccessBlock)successBlock onFailure:(GravatarFailureBlock)failureBlock {
+    return [self callMethod:@"useUserimage" withArguments:@{@"userimage":userimage, @"addresses":addresses} onSuccess:successBlock onFailure:failureBlock];
+}
+
+- (GravatarRequest *)removeImageForAddresses:(NSArray *)addresses onSuccess:(GravatarSuccessBlock)successBlock onFailure:(GravatarFailureBlock)failureBlock {
+    return [self callMethod:@"removeUserimage" withArguments:@{@"addresses":addresses} onSuccess:successBlock onFailure:failureBlock];
+}
+
+- (GravatarRequest *)deleteUserimage:(NSString *)userimage onSuccess:(GravatarSuccessBlock)successBlock onFailure:(GravatarFailureBlock)failureBlock {
+    return [self callMethod:@"deleteUserimage" withArguments:@{@"userimage":userimage} onSuccess:successBlock onFailure:failureBlock];
 }
 
 - (GravatarRequest *)testOnSuccess:(GravatarSuccessBlock)successBlock onFailure:(GravatarFailureBlock)failureBlock {

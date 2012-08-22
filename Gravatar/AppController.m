@@ -15,6 +15,7 @@
 @interface AppController () <PhotoSelectionViewControllerDelegate, PhotoEditorViewControllerDelegate, AddAccountViewControllerDelegate, UINavigationBarDelegate>
 @property (nonatomic, strong) GravatarImageView *gravatarImageView;
 @property (nonatomic, strong) GravatarTitleView *appTitleView;
+@property (nonatomic, strong) id accountStatusListener;
 @end
 
 @implementation AppController
@@ -28,20 +29,32 @@
         self.navigationItem.titleView = self.appTitleView;
         self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-grid"] style:UIBarButtonItemStyleBordered target:nil action:nil];
 
+        void (^statusChangeBLock)(NSNotification *notification) = ^(NSNotification *notification){
+            GravatarAccount *account = (GravatarAccount *)notification.object;
+            if (account.accountState == GravatarAccountStateLoggedOut) {
+                [self failedAuth:notification];
+            }
+        };
+        
+        self.accountStatusListener = [[NSNotificationCenter defaultCenter]
+                                      addObserverForName:GravatarAccountStateChangeNotification
+                                      object:nil
+                                      queue:[NSOperationQueue mainQueue]
+                                      usingBlock:statusChangeBLock];
+        
+        self.account = [GravatarAccount defaultAccount];
+
     }
     return self;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self.accountStatusListener];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    [nc addObserver:self
-           selector:@selector(failedAuth:)
-               name:GravatarClientAuthenticationErrorNotification
-             object:nil];
-
     
     // we're going to have a toolbar at the top
     CGRect toolbarFrame = self.view.bounds;
@@ -106,9 +119,6 @@
 - (void)viewDidAppear:(BOOL)animated {
     if (!self.account.isConfigured) {
         [self showLoginForm:nil];
-    } else {
-        
-        
     }
 }
 
@@ -123,37 +133,28 @@
 //    return (GravatarTitleView *)self.navigationItem.titleView;
 //}
 
+
 - (void)setAccount:(GravatarAccount *)account {
     if (account != _account) {
         _account = account;
-        self.emails = [NSArray array];
+        self.emails = account.emails;
         self.selectedEmailIndexes = [NSIndexSet indexSet];
         self.appTitleView.account = account;
         
-        [self refreshEmails];
+        [self.account loadEmails];
         
     }
 }
+
 
 - (void)refreshPhotos {
     [self.photosController refreshPhotos];
 }
 
-- (void)refreshEmails {
-    self.appTitleView.descriptionLabel.text = @"Loading emails";
-    [self.account.client addressesOnSuccess:^(GravatarRequest *request, NSArray *params) {
-        NSLog(@"We've got ourselves some emails: %@", [params objectAtIndex:0]);
-        // auto select all emails unless we have a selection already
-        NSDictionary *addressSettings = (NSDictionary *)[params objectAtIndex:0];
-        self.emails = [addressSettings allKeys];
-        
-        self.appTitleView.descriptionLabel.text = [NSString stringWithFormat:@"%d emails selected", [self.emails count]];
-    } onFailure:^(GravatarRequest *request, NSDictionary *fault) {
-    }];
-}
-
 - (void)failedAuth:(NSNotification *)notification {
-    [self showLoginForm:nil];
+    if ([self isViewLoaded]) {
+        [self showLoginForm:nil];
+    }
 }
 
 - (void)logout:(id)sender {
@@ -165,6 +166,7 @@
 - (void)showLoginForm:(id)sender {
     
     AddAccountViewController *addAccount = [[AddAccountViewController alloc] initWithNibName:nil bundle:nil];
+    addAccount.account = self.account;
     addAccount.title = NSLocalizedString(@"Log In", @"Log In view title");
     addAccount.delegate = self;
     UINavigationController *modal = [[UINavigationController alloc] initWithRootViewController:addAccount];
@@ -222,19 +224,12 @@
     
     [self.navigationBar popNavigationItemAnimated:NO];
     
-    NSData *data = UIImageJPEGRepresentation(image, 0.9f);
-    [self.account.client saveData:data withRating:GravatarClientImageRatingG onProgress:^(GravatarRequest *request, float progress) {
-        NSLog(@"Uploading: %f", progress);
-    } onSuccess:^(GravatarRequest *request, NSArray *params) {
-        NSLog(@"Uploaded data: %@", params);
-    } onFailure:^(GravatarRequest *request, NSDictionary *fault) {
-        NSLog(@"Failed to upload data: %@", fault);
-    }];
+    [self.account saveImage:image forEmails:[NSArray array]];
     
 }
 
 - (void)addAccountViewControllerDidLogIn:(AddAccountViewController *)viewController {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [viewController dismissViewControllerAnimated:YES completion:nil];
     self.account = viewController.account;
     self.gravatarImageView.email = self.account.email;
 }

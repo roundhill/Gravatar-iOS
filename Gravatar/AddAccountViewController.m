@@ -15,6 +15,8 @@
 @property (nonatomic, strong) IBOutlet UIButton *logInButton;
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *logInNavButton;
 @property (nonatomic, strong) IBOutlet UIView *loginPanel;
+@property (nonatomic, strong) UIActivityIndicatorView *activityIndicatorView;
+@property (nonatomic, strong) id accountStateListener;
 
 - (IBAction)logIn:(id)sender;
 
@@ -22,27 +24,19 @@
 
 @implementation AddAccountViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    [nc addObserver:self selector:@selector(emailChanged:) name:UITextFieldTextDidChangeNotification object:self.emailField];
-
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"gravatar-blue-nav"]];
     self.view.backgroundColor = [UIColor colorWithRed:48.f/255.f green:139.f/255.f blue:192.f/255.f alpha:1.f];
     
-    self.emailField.rightView = [[GravatarImageView alloc] initWithFrame:CGRectMake(0.f, 0.f, 32.f, 32.f)];
+    GravatarImageView *gravatarImageView = [[GravatarImageView alloc] initWithFrame:CGRectMake(0.f, 0.f, 32.f, 32.f)];
+    self.emailField.rightView = gravatarImageView;
     self.emailField.rightViewMode = UITextFieldViewModeAlways;
+    self.emailField.text = self.account.email;
+    
+    gravatarImageView.email = self.account.email;
     
     UIImage *buttonActive = [[UIImage imageNamed:@"blue-button-active"]
                              resizableImageWithCapInsets:UIEdgeInsetsMake(2.f, 4.f, 2.f, 4.f)];
@@ -53,7 +47,6 @@
     [self.logInButton setBackgroundImage:buttonActive forState:UIControlStateNormal];
     [self.logInButton setBackgroundImage:buttonPressed forState:UIControlStateHighlighted];
     
-    [self.emailField becomeFirstResponder];
     
     UIBarButtonItem *cancelButton = self.navigationItem.leftBarButtonItem;
     UIImage *barButtonActiveImage = [[UIImage imageNamed:@"add-account-navbar-button-active"]
@@ -79,7 +72,49 @@
     if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation)) {
         self.navigationItem.rightBarButtonItem = self.logInNavButton;
     }
+    
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self selector:@selector(emailChanged:) name:UITextFieldTextDidChangeNotification object:self.emailField];
+    
+    void (^accountChangeBlock)(NSNotification*) = ^(NSNotification *notification){
+        if (notification.object == self.account) {
+            switch (self.account.accountState) {
+                case GravatarAccountStateLoggedOut:
+                    
+                    [self enableInterface];
+                    [self.activityIndicatorView removeFromSuperview];
+                    [self.passwordField becomeFirstResponder];
+                    
+                    break;
+                    
+                case GravatarAccountStateIdle:
+                    [self.delegate addAccountViewControllerDidLogIn:self];
+                    break;
+                    
+                default:
+                    NSLog(@"Unhandled account state: %d", self.account.accountState);
+                    break;
+            }
+        }
+    };
+    
+    self.accountStateListener = [nc addObserverForName:GravatarAccountStateChangeNotification
+                                                object:nil
+                                                 queue:[NSOperationQueue mainQueue]
+                                            usingBlock:accountChangeBlock];
 
+
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [self.emailField becomeFirstResponder];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self selector:@selector(emailChanged:) name:UITextFieldTextDidChangeNotification object:self.emailField];
+    [nc removeObserver:self];
+    [nc removeObserver:self.accountStateListener];
 }
 
 - (UIBarButtonItem *)barButtonItemForLogIn {
@@ -113,7 +148,7 @@
 }
 
 - (void)logIn:(id)sender {
-    self.account = [GravatarAccount defaultAccount];
+//    self.account = [GravatarAccount defaultAccount];
     self.account.email = self.emailField.text;
     self.account.password = self.passwordField.text;
     
@@ -128,15 +163,8 @@
         
     [self.logInButton addSubview:activity];
     
-    [self.account.client callMethod:@"test" withArguments:nil onSuccess:^(GravatarRequest *request, NSArray *params) {
-        [self.delegate addAccountViewControllerDidLogIn:self];
-    } onFailure:^(GravatarRequest *request, NSDictionary *fault) {
-        NSLog(@"Failed log in! %@", fault);
-        [self enableInterface];
-        [activity removeFromSuperview];
-        [self.emailField becomeFirstResponder];
-
-    }];
+    [self.account loadEmails];
+    self.activityIndicatorView = activity;
     
 }
 
@@ -178,4 +206,18 @@
     }
     
 }
+
+#pragma mark- UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+
+    if (textField == self.emailField) {
+        [self.passwordField becomeFirstResponder];
+    } else if(textField == self.passwordField){
+        // activate login
+        [self logIn:textField];
+    }
+    return YES;
+}
+
 @end

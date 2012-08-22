@@ -13,7 +13,6 @@
 
 
 @interface RCAppDelegate () <EmailsViewControllerDelegate>
-@property (nonatomic, strong) GravatarAccount *account;
 @property (nonatomic, strong) UINavigationController *navigationController;
 @property (nonatomic, strong) AppController *appController;
 - (void)applyAppearance;
@@ -26,7 +25,6 @@
 
     [self applyAppearance];
     
-    self.account = [GravatarAccount defaultAccount];
     
     
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackTranslucent;
@@ -35,7 +33,6 @@
     self.window.backgroundColor = [UIColor blackColor];
     
     self.appController = [[AppController alloc] init];
-    self.appController.account = self.account;
     
     self.window.rootViewController = self.appController;
     
@@ -174,6 +171,7 @@
     id toolbar = [UIToolbar appearance];
     [toolbar setBackgroundImage:shadowImage forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
     
+    NSLog(@"Info: %@", [[NSBundle mainBundle] infoDictionary]);
 
 }
 

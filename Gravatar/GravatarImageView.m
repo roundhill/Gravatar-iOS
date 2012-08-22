@@ -26,11 +26,17 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        self.imageView = [[UIImageView alloc] initWithFrame:frame];
-        self.imageView.hidden = YES;
+        self.imageView = [[UIImageView alloc] initWithFrame:self.bounds];
+        self.imageView.alpha = 0.f;
+        self.backgroundColor = [UIColor clearColor];
         [self addSubview:self.imageView];
     }
     return self;
+}
+
+- (void)drawRect:(CGRect)rect {
+    self.layer.cornerRadius = 2.f;
+    self.layer.masksToBounds = YES;
 }
 
 - (NSURL *)gravatarURL {
@@ -45,35 +51,30 @@
 - (void)requestGravatar {
     NSURLRequest *request = [NSURLRequest requestWithURL:self.gravatarURL];
     NSURLConnection *connection = [NSURLConnection connectionWithRequest:request delegate:self];
+    [UIView animateWithDuration:0.2f animations:^{
+        self.imageView.alpha = 0.f;
+    }];
     [connection start];
 }
 
 - (void)setEmail:(NSString *)email {
     if (_email != email) {
         _email = email;
-        self.imageView.hidden = YES;
         [self requestGravatar];
     }
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-    self.layer.cornerRadius = 10.f;
+- (void)layoutSubviews {
+    self.imageView.frame = self.bounds;
 }
-*/
 
 #pragma mark - NSURLConnectionDataDelegate
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    self.imageView.hidden = YES;
+    self.imageView.alpha = 0.f;
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-    self.imageView.hidden = YES;
     self.imageData = [NSMutableData data];
 }
 
@@ -83,7 +84,9 @@
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
     self.imageView.image = [UIImage imageWithData:self.imageData];
-    self.imageView.hidden = NO;
+    [UIView animateWithDuration:0.2f animations:^{
+        self.imageView.alpha = 1.f;
+    }];
 }
 
 @end
