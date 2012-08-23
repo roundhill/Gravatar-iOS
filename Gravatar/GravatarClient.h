@@ -20,6 +20,9 @@ extern NSString *const GravatarClientAuthenticationErrorNotification;
 extern NSString *const GravatarClientFaultInfoKey;
 extern NSString *const GravatarClientRequestInfoKey;
 
+typedef void (^GravatarSuccessBlock)(GravatarRequest *request, NSArray *params);
+typedef void (^GravatarFailureBlock)(GravatarRequest *request, NSDictionary *fault);
+typedef void (^GravatarProgressBlock)(GravatarRequest *request, float progressPercent);
 
 @interface GravatarClient : NSObject
 
@@ -32,33 +35,33 @@ extern NSString *const GravatarClientRequestInfoKey;
 
 #pragma mark - Gravatar API Methods
 // Base API methods for making Gravatar XML-RPC calls
--(GravatarRequest *)callMethod:(NSString *)method withArguments:(NSDictionary *)arguments onSucces:(void(^)(GravatarRequest* request, NSArray *params))successBlock onFailure:(void(^)(GravatarRequest* request, NSDictionary *fault))failureBlock;
+-(GravatarRequest *)callMethod:(NSString *)method withArguments:(NSDictionary *)arguments onSuccess:(GravatarSuccessBlock)successBlock onFailure:(GravatarFailureBlock)failureBlock;
 
 // grav.exists check whether a hash has a gravatar
--(GravatarRequest *)existsForHashes:(NSArray *)hashes onSuccess:(void(^)(GravatarRequest *request, NSArray *params))successBlock onFailure:(void(^)(GravatarRequest *request, NSDictionary *fault))failureBlock;
+-(GravatarRequest *)existsForHashes:(NSArray *)hashes onSuccess:(GravatarSuccessBlock)successBlock onFailure:(GravatarFailureBlock)failureBlock;
 
 // grav.addresses get a list of addresses for this account
--(GravatarRequest *)addressesOnSuccess:(void(^)(GravatarRequest *request, NSArray *params))successBlock onFailure:(void(^)(GravatarRequest *request, NSDictionary *fault))failureBlock;
+-(GravatarRequest *)addressesOnSuccess:(GravatarSuccessBlock)successBlock onFailure:(GravatarFailureBlock)failureBlock;
 
 // grav.userimages - return an array of userimages for this account
--(GravatarRequest *)userimagesOnSuccess:(void(^)(GravatarRequest *request, NSArray *params))successBlock onFailure:(void(^)(GravatarRequest *request, NSDictionary *fault))failureBlock;
+-(GravatarRequest *)userimagesOnSuccess:(GravatarSuccessBlock)successBlock onFailure:(GravatarFailureBlock)failureBlock;
 
 // grav.saveData - Save binary image data as a userimage for this account
--(GravatarRequest *)saveData:(NSData *)data withRating:(GravatarClientImageRating)rating onSucces:(void(^)(GravatarRequest* request, NSArray *params))successBlock onFailure:(void(^)(GravatarRequest* request, NSDictionary *fault))failureBlock;
+-(GravatarRequest *)saveData:(NSData *)data withRating:(GravatarClientImageRating)rating onProgress:(GravatarProgressBlock)progressBlock onSuccess:(GravatarSuccessBlock)successBlock onFailure:(GravatarFailureBlock)failureBlock;
 
 // grav.saveURL - Read an image via its URL and save that as a userimage for this account
--(GravatarRequest *)saveUrl:(NSString *)url withRating:(GravatarClientImageRating)rating onSucces:(void(^)(GravatarRequest* request, NSArray *params))successBlock onFailure:(void(^)(GravatarRequest* request, NSDictionary *fault))failureBlock;
+-(GravatarRequest *)saveUrl:(NSString *)url withRating:(GravatarClientImageRating)rating onSuccess:(GravatarSuccessBlock)successBlock onFailure:(GravatarFailureBlock)failureBlock;
 
 // grav.saveUserimage - use a userimage as a gravatar for one of more addresses on this account
--(GravatarRequest *)saveUserimage:(NSString *)userimage forAddress:(NSArray *)addresses onSucces:(void(^)(GravatarRequest* request, NSArray *params))successBlock onFailure:(void(^)(GravatarRequest* request, NSDictionary *fault))failureBlock;
+-(GravatarRequest *)saveUserimage:(NSString *)userimage forAddress:(NSArray *)addresses onSuccess:(GravatarSuccessBlock)successBlock onFailure:(GravatarFailureBlock)failureBlock;
 
 // grav.removeImage - remove the userimage associated with one or more email addresses
--(GravatarRequest *)removeImageForAddresses:(NSArray *)addresses onSucces:(void(^)(GravatarRequest* request, NSArray *params))successBlock onFailure:(void(^)(GravatarRequest* request, NSDictionary *fault))failureBlock;
+-(GravatarRequest *)removeImageForAddresses:(NSArray *)addresses onSuccess:(GravatarSuccessBlock)successBlock onFailure:(GravatarFailureBlock)failureBlock;
 
 // grav.deleteUserimage - remove a userimage from the account and any email addresses with which it is associated
--(GravatarRequest *)deleteUserimage:(NSString *)userimage onSucces:(void(^)(GravatarRequest* request, NSArray *params))successBlock onFailure:(void(^)(GravatarRequest* request, NSDictionary *fault))failureBlock;
+-(GravatarRequest *)deleteUserimage:(NSString *)userimage onSuccess:(GravatarSuccessBlock)successBlock onFailure:(GravatarFailureBlock)failureBlock;
 
 // grav.test - a test function
--(GravatarRequest *)testOnSucces:(void(^)(GravatarRequest* request, NSArray *params))successBlock onFailure:(void(^)(GravatarRequest* request, NSDictionary *fault))failureBlock;
+-(GravatarRequest *)testOnSuccess:(GravatarSuccessBlock)successBlock onFailure:(GravatarFailureBlock)failureBlock;
 
 @end

@@ -51,5 +51,6 @@ typedef enum GravatarErrorCode : NSInteger  {
 -(void)request:(GravatarRequest *)request didFailWithError:(NSError *)error;
 -(void)request:(GravatarRequest *)request didFinishWithFault:(NSDictionary *)fault;
 -(void)request:(GravatarRequest *)request didFinishWithParams:(NSArray *)params;
+-(void)request:(GravatarRequest *)request didSendBodyData:(NSInteger)totalBytesWritten ofExpected:(NSInteger)expectedTotalBytes;
 
 @end

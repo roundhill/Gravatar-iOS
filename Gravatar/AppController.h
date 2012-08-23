@@ -17,7 +17,8 @@
 @property (nonatomic, strong) GravatarAccount *account;
 @property (nonatomic, strong) UIView *contentView;
 @property (nonatomic, strong) UINavigationBar *navigationBar;
-@property (nonatomic, strong) UINavigationItem *accountNavigationItem;
+@property (nonatomic, strong) NSArray *emails;
+@property (nonatomic, strong) NSIndexSet *selectedEmailIndexes;
 
 - (void) refreshPhotos;
 @end

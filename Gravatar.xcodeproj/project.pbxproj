@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		915F5BABB35B48EB9BB2972D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4AABD77C5324CCD9F149023 /* libPods.a */; };
+		CC11A7DD15E2AFF5006A3C2A /* grip.png in Resources */ = {isa = PBXBuildFile; fileRef = CC11A7DB15E2AFF5006A3C2A /* grip.png */; };
+		CC11A7DE15E2AFF5006A3C2A /* grip@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC11A7DC15E2AFF5006A3C2A /* grip@2x.png */; };
+		CC11A7E215E2B014006A3C2A /* GravatarTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC11A7E115E2B014006A3C2A /* GravatarTitleView.m */; };
 		CC2410D915DCD82200C680E1 /* back-grid.png in Resources */ = {isa = PBXBuildFile; fileRef = CC2410D715DCD82200C680E1 /* back-grid.png */; };
 		CC2410DA15DCD82200C680E1 /* back-grid@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC2410D815DCD82200C680E1 /* back-grid@2x.png */; };
 		CC34EE3A15D1763F00820FC8 /* blue-button-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC34EE3815D1763F00820FC8 /* blue-button-active@2x.png */; };
@@ -39,6 +42,9 @@
 		CC63160815D03E81007E8AFC /* GravatarRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = CC63160715D03E81007E8AFC /* GravatarRequest.m */; };
 		CC63160B15D04B6F007E8AFC /* MD5Hasher.m in Sources */ = {isa = PBXBuildFile; fileRef = CC63160A15D04B6F007E8AFC /* MD5Hasher.m */; };
 		CC63160E15D0555E007E8AFC /* GravatarClient.m in Sources */ = {isa = PBXBuildFile; fileRef = CC63160D15D0555E007E8AFC /* GravatarClient.m */; };
+		CC68D4CD15E3E08E002F6A9C /* grip-highlighed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC68D4CB15E3E08E002F6A9C /* grip-highlighed@2x.png */; };
+		CC68D4CE15E3E08E002F6A9C /* grip-highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = CC68D4CC15E3E08E002F6A9C /* grip-highlighted.png */; };
+		CC68D4D215E4430D002F6A9C /* CircularProgressIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC68D4D115E4430D002F6A9C /* CircularProgressIndicatorView.m */; };
 		CC81ED2015DAADB1000DA4F8 /* data.txt in Resources */ = {isa = PBXBuildFile; fileRef = CC81ED1F15DAADB1000DA4F8 /* data.txt */; };
 		CC830B1B15DAB12B008F5552 /* datadict.xml in Resources */ = {isa = PBXBuildFile; fileRef = CC830B1A15DAB12B008F5552 /* datadict.xml */; };
 		CC830B2315DABF90008F5552 /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC830B2215DABF90008F5552 /* AppController.m */; };
@@ -109,6 +115,10 @@
 
 /* Begin PBXFileReference section */
 		80DC29DBD8E0496F99E7258E /* Pods.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		CC11A7DB15E2AFF5006A3C2A /* grip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grip.png; sourceTree = "<group>"; };
+		CC11A7DC15E2AFF5006A3C2A /* grip@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "grip@2x.png"; sourceTree = "<group>"; };
+		CC11A7E015E2B014006A3C2A /* GravatarTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GravatarTitleView.h; sourceTree = "<group>"; };
+		CC11A7E115E2B014006A3C2A /* GravatarTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GravatarTitleView.m; sourceTree = "<group>"; };
 		CC2410D715DCD82200C680E1 /* back-grid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back-grid.png"; sourceTree = "<group>"; };
 		CC2410D815DCD82200C680E1 /* back-grid@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back-grid@2x.png"; sourceTree = "<group>"; };
 		CC34EE3815D1763F00820FC8 /* blue-button-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blue-button-active@2x.png"; sourceTree = "<group>"; };
@@ -147,6 +157,10 @@
 		CC63160A15D04B6F007E8AFC /* MD5Hasher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MD5Hasher.m; sourceTree = "<group>"; };
 		CC63160C15D0555E007E8AFC /* GravatarClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GravatarClient.h; sourceTree = "<group>"; };
 		CC63160D15D0555E007E8AFC /* GravatarClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GravatarClient.m; sourceTree = "<group>"; };
+		CC68D4CB15E3E08E002F6A9C /* grip-highlighed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "grip-highlighed@2x.png"; sourceTree = "<group>"; };
+		CC68D4CC15E3E08E002F6A9C /* grip-highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "grip-highlighted.png"; sourceTree = "<group>"; };
+		CC68D4D015E4430D002F6A9C /* CircularProgressIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircularProgressIndicatorView.h; sourceTree = "<group>"; };
+		CC68D4D115E4430D002F6A9C /* CircularProgressIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircularProgressIndicatorView.m; sourceTree = "<group>"; };
 		CC81ED1F15DAADB1000DA4F8 /* data.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = data.txt; sourceTree = "<group>"; };
 		CC830B1A15DAB12B008F5552 /* datadict.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = datadict.xml; sourceTree = "<group>"; };
 		CC830B2115DABF90008F5552 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
@@ -296,6 +310,10 @@
 				CC34EE6515D1AB6300820FC8 /* LoginPanelView.m */,
 				CCEF5E0715D9861B00761000 /* CropView.h */,
 				CCEF5E0815D9861B00761000 /* CropView.m */,
+				CC11A7E015E2B014006A3C2A /* GravatarTitleView.h */,
+				CC11A7E115E2B014006A3C2A /* GravatarTitleView.m */,
+				CC68D4D015E4430D002F6A9C /* CircularProgressIndicatorView.h */,
+				CC68D4D115E4430D002F6A9C /* CircularProgressIndicatorView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -303,6 +321,10 @@
 		CCA8E63A15D0D83000DE01AF /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				CC68D4CB15E3E08E002F6A9C /* grip-highlighed@2x.png */,
+				CC68D4CC15E3E08E002F6A9C /* grip-highlighted.png */,
+				CC11A7DB15E2AFF5006A3C2A /* grip.png */,
+				CC11A7DC15E2AFF5006A3C2A /* grip@2x.png */,
 				CCAC733915E0018200B88F7E /* Icon.png */,
 				CCAC733B15E0021F00B88F7E /* Icon@2x.png */,
 				CCAC733F15E009C400B88F7E /* Default.png */,
@@ -471,6 +493,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CCFD86BC15CC56AB001D8E25 /* Build configuration list for PBXNativeTarget "Gravatar" */;
 			buildPhases = (
+				CC7E75E815E5F66B00797E79 /* ShellScript */,
 				CCFD868B15CC56AA001D8E25 /* Sources */,
 				CCFD868C15CC56AA001D8E25 /* Frameworks */,
 				CCFD868D15CC56AA001D8E25 /* Resources */,
@@ -581,6 +604,10 @@
 				CCAC733C15E0021F00B88F7E /* Icon@2x.png in Resources */,
 				CCAC734115E009C400B88F7E /* Default.png in Resources */,
 				CCAC734215E009C400B88F7E /* Default@2x.png in Resources */,
+				CC11A7DD15E2AFF5006A3C2A /* grip.png in Resources */,
+				CC11A7DE15E2AFF5006A3C2A /* grip@2x.png in Resources */,
+				CC68D4CD15E3E08E002F6A9C /* grip-highlighed@2x.png in Resources */,
+				CC68D4CE15E3E08E002F6A9C /* grip-highlighted.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -605,6 +632,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		CC7E75E815E5F66B00797E79 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "# Update the CFBundleShortVersionString in the generated Info.plist using the most recent Git tag.\n# Idea taken from http://tinyurl.com/3usjj9d by Joachim Bondo.\n\n# Get the current release description from Git.\nGIT_RELEASE_VERSION=`git describe --tags`\n\n# Set the CFBundleShortVersionString in the generated Info.plist (stripping off the leading \"v\").\ndefaults write \"${BUILT_PRODUCTS_DIR}/${INFOPLIST_PATH%.*}\" \"CFBundleVersion\" \"${GIT_RELEASE_VERSION#*v}\"";
+		};
 		CCFD86A815CC56AB001D8E25 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -631,6 +671,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -658,6 +699,8 @@
 				CCEF5DFE15D301D700761000 /* PhotoEditorViewController.m in Sources */,
 				CCEF5E0915D9861B00761000 /* CropView.m in Sources */,
 				CC830B2315DABF90008F5552 /* AppController.m in Sources */,
+				CC11A7E215E2B014006A3C2A /* GravatarTitleView.m in Sources */,
+				CC68D4D215E4430D002F6A9C /* CircularProgressIndicatorView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -759,6 +802,8 @@
 				GCC_PREFIX_HEADER = "Gravatar/Gravatar-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Gravatar/Gravatar-Info.plist";
+				INFOPLIST_PREFIX_HEADER = InfoPlist.h;
+				INFOPLIST_PREPROCESS = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = app;
@@ -774,6 +819,8 @@
 				GCC_PREFIX_HEADER = "Gravatar/Gravatar-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Gravatar/Gravatar-Info.plist";
+				INFOPLIST_PREFIX_HEADER = InfoPlist.h;
+				INFOPLIST_PREPROCESS = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = app;

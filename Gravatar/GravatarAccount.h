@@ -16,6 +16,7 @@ extern NSString * const GravatarAccountKeychainServiceName;
 
 @property (nonatomic, strong) NSString *email;
 @property (nonatomic, strong, readonly) GravatarClient *client;
+@property (nonatomic, strong, readonly) NSArray *emails;
 
 + (GravatarAccount *)defaultAccount;
 - (id)initWithEmail:(NSString *)email;

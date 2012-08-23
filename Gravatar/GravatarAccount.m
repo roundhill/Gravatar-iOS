@@ -17,6 +17,7 @@ NSString * const GravatarAccountKeychainServiceName = @"GravatarService";
 
 @property (nonatomic, weak) NSString *password;
 @property (nonatomic, strong, readwrite) GravatarClient *client;
+@property (nonatomic, strong, readwrite) NSArray *emails;
 
 - (NSString*)emailHash;
 @end
@@ -53,6 +54,7 @@ NSString * const GravatarAccountKeychainServiceName = @"GravatarService";
         // load password from keychain
         NSError *error;
         self.client.password = [SFHFKeychainUtils getPasswordForUsername:self.emailHash andServiceName:GravatarAccountKeychainServiceName error:&error];
+        
         
     }
     return self;
@@ -92,8 +94,6 @@ NSString * const GravatarAccountKeychainServiceName = @"GravatarService";
     NSLog(@"Saved password: %@", error);
 
 }
-
-
 
 
 @end

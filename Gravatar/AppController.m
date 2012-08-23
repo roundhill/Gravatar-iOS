@@ -10,9 +10,11 @@
 #import "AppController.h"
 #import "AddAccountViewController.h"
 #import "GravatarImageView.h"
+#import "GravatarTitleView.h"
 
 @interface AppController () <PhotoSelectionViewControllerDelegate, PhotoEditorViewControllerDelegate, AddAccountViewControllerDelegate, UINavigationBarDelegate>
 @property (nonatomic, strong) GravatarImageView *gravatarImageView;
+@property (nonatomic, strong) GravatarTitleView *appTitleView;
 @end
 
 @implementation AppController
@@ -22,6 +24,10 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        self.appTitleView = [[GravatarTitleView alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, 44.f)];
+        self.navigationItem.titleView = self.appTitleView;
+        self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-grid"] style:UIBarButtonItemStyleBordered target:nil action:nil];
+
     }
     return self;
 }
@@ -67,35 +73,9 @@
     
     [self.view addSubview:navBar];
     
-    UINavigationItem *appNavigationItem = [[UINavigationItem alloc] initWithTitle:nil];
-    [navBar pushNavigationItem:appNavigationItem animated:NO];
+    [navBar pushNavigationItem:self.navigationItem animated:NO];
         
-    self.gravatarImageView = [[GravatarImageView alloc] initWithFrame:CGRectMake(0.f, 0.f, 30.f, 30.f)];
-    self.gravatarImageView.email = self.account.email;
-    UIView *navAccountButton = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, self.view.bounds.size.width * 0.75f, 30.f)];
-    
-    CGRect labelFrame = navAccountButton.frame;
-    labelFrame.size.width -= self.gravatarImageView.frame.size.width + 5.f;
-    labelFrame.origin.x = self.gravatarImageView.frame.size.width + 5.f;
-    UILabel *accountLabel = [[UILabel alloc] initWithFrame:labelFrame];
-    accountLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    accountLabel.backgroundColor = [UIColor clearColor];
-    accountLabel.textColor = [UIColor whiteColor];
-    accountLabel.shadowColor = [UIColor blackColor];
-    accountLabel.shadowOffset = CGSizeMake(0.f, -1.f);
-    accountLabel.text = self.account.email;
         
-    [navAccountButton addSubview:accountLabel];
-
-    [navAccountButton addSubview:self.gravatarImageView];
-    
-    
-    appNavigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:navAccountButton];
-    appNavigationItem.titleView.hidden = YES;
-    appNavigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-grid"] style:UIBarButtonItemStyleBordered target:nil action:nil];
-    
-    self.accountNavigationItem = appNavigationItem;
-    
     CGRect contentFrame = self.view.bounds;
     CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
 
@@ -116,6 +96,7 @@
     
     self.editorController = [[PhotoEditorViewController alloc] init];
     self.editorController.delegate = self;
+    
         
     [self.view bringSubviewToFront:toolbar];
     [self.view bringSubviewToFront:self.navigationBar];
@@ -126,13 +107,8 @@
     if (!self.account.isConfigured) {
         [self showLoginForm:nil];
     } else {
-        UIBarButtonItem *logOut = [[UIBarButtonItem alloc]
-                                   initWithTitle:NSLocalizedString(@"Log Out", "Log out button")
-                                   style:UIBarButtonItemStyleBordered
-                                   target:self action:@selector(logout:)
-                                   ];
-        [self.accountNavigationItem setRightBarButtonItem:logOut animated:animated];
-
+        
+        
     }
 }
 
@@ -143,8 +119,37 @@
     
 }
 
+//- (GravatarTitleView *)appTitleView {
+//    return (GravatarTitleView *)self.navigationItem.titleView;
+//}
+
+- (void)setAccount:(GravatarAccount *)account {
+    if (account != _account) {
+        _account = account;
+        self.emails = [NSArray array];
+        self.selectedEmailIndexes = [NSIndexSet indexSet];
+        self.appTitleView.account = account;
+        
+        [self refreshEmails];
+        
+    }
+}
+
 - (void)refreshPhotos {
     [self.photosController refreshPhotos];
+}
+
+- (void)refreshEmails {
+    self.appTitleView.descriptionLabel.text = @"Loading emails";
+    [self.account.client addressesOnSuccess:^(GravatarRequest *request, NSArray *params) {
+        NSLog(@"We've got ourselves some emails: %@", [params objectAtIndex:0]);
+        // auto select all emails unless we have a selection already
+        NSDictionary *addressSettings = (NSDictionary *)[params objectAtIndex:0];
+        self.emails = [addressSettings allKeys];
+        
+        self.appTitleView.descriptionLabel.text = [NSString stringWithFormat:@"%d emails selected", [self.emails count]];
+    } onFailure:^(GravatarRequest *request, NSDictionary *fault) {
+    }];
 }
 
 - (void)failedAuth:(NSNotification *)notification {
@@ -186,12 +191,9 @@
 #pragma mark - Delegate Methods
 
 - (void)photoSelector:(PhotoSelectionViewController *)photoSelector didSelectAsset:(ALAsset *)asset atIndexPath:(NSIndexPath *)indexPath {
+        
     
-    UINavigationItem *editorNavItem = [[UINavigationItem alloc] initWithTitle:@"Edit"];
-    editorNavItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Use" style:UIBarButtonItemStyleBordered target:self.editorController action:@selector(cropPhoto:)];
-    
-    
-    [self.navigationBar pushNavigationItem:editorNavItem animated:NO];
+    [self.navigationBar pushNavigationItem:self.editorController.navigationItem animated:NO];
 
     
     [self.contentView addSubview:self.editorController.view];
@@ -221,7 +223,9 @@
     [self.navigationBar popNavigationItemAnimated:NO];
     
     NSData *data = UIImageJPEGRepresentation(image, 0.9f);
-    [self.account.client saveData:data withRating:GravatarClientImageRatingG onSucces:^(GravatarRequest *request, NSArray *params) {
+    [self.account.client saveData:data withRating:GravatarClientImageRatingG onProgress:^(GravatarRequest *request, float progress) {
+        NSLog(@"Uploading: %f", progress);
+    } onSuccess:^(GravatarRequest *request, NSArray *params) {
         NSLog(@"Uploaded data: %@", params);
     } onFailure:^(GravatarRequest *request, NSDictionary *fault) {
         NSLog(@"Failed to upload data: %@", fault);
@@ -237,9 +241,10 @@
 
 - (BOOL)navigationBar:(UINavigationBar *)navigationBar shouldPopItem:(UINavigationItem *)item {
     [self stopEditing:nil];
-    [navigationBar setItems:@[self.accountNavigationItem] animated:NO];
+    [navigationBar setItems:@[self.navigationItem] animated:NO];
     return NO;
 }
+
 
 
 

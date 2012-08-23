@@ -118,7 +118,7 @@
                                                resizableImageWithCapInsets:smallRadius];
     
     // bar button item appearance
-    id barButtonItem = [UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil];
+    id barButtonItem = [UIBarButtonItem appearance];
     [barButtonItem setBackgroundImage:barButtonActiveImage
                              forState:UIControlStateNormal
                                 style:UIBarButtonItemStyleBordered
@@ -168,7 +168,6 @@
     [barButtonItem setBackButtonBackgroundImage:backButtonPressedLandscapeImage
                                        forState:UIControlStateHighlighted
                                      barMetrics:UIBarMetricsLandscapePhone];
-    
     
     
     // UIToolBarAppearance

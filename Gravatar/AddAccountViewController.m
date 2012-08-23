@@ -128,7 +128,7 @@
         
     [self.logInButton addSubview:activity];
     
-    [self.account.client callMethod:@"test" withArguments:nil onSucces:^(GravatarRequest *request, NSArray *params) {
+    [self.account.client callMethod:@"test" withArguments:nil onSuccess:^(GravatarRequest *request, NSArray *params) {
         [self.delegate addAccountViewControllerDidLogIn:self];
     } onFailure:^(GravatarRequest *request, NSDictionary *fault) {
         NSLog(@"Failed log in! %@", fault);

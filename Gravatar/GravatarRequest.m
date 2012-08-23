@@ -56,7 +56,7 @@ NSString * const GravatarURL = @"https://secure.gravatar.com/xmlrpc";
     
     [request setHTTPBody:[RCXMLRPCEncoder dataForRequestMethod:self.methodName andParams:self.params]];
     NSURLConnection *connection = [NSURLConnection connectionWithRequest:request delegate:self];
-    NSLog(@"Sending request to: (%@) %@", self.methodName, request.URL);
+    NSLog(@"Calling remote method: %@ (%@)", self.methodName, request.URL);
     [connection start];
 }
 
@@ -64,8 +64,9 @@ NSString * const GravatarURL = @"https://secure.gravatar.com/xmlrpc";
 
 - (void)connection:(NSURLConnection *)connection didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
     
-    float total = (float) totalBytesWritten;
-    float expected = (float) totalBytesExpectedToWrite;
+    if ([self.delegate respondsToSelector:@selector(request:didSendBodyData:ofExpected:)]) {
+        [self.delegate request:self didSendBodyData:totalBytesWritten ofExpected:totalBytesExpectedToWrite];
+    }
     
 }
 
