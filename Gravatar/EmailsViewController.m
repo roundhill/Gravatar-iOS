@@ -29,7 +29,6 @@
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
     
-    NSLog(@"Ask for the addresses: %@", self.account);
     [self reloadAccount];
 
 }
@@ -47,7 +46,6 @@
         self.emails = emails;
         [self.tableView reloadData];
     } onFailure:^(GravatarRequest *request, NSDictionary *fault) {
-        NSLog(@"Some kind of failure! %@", fault);
     }];
 
 }

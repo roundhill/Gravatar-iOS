@@ -151,10 +151,10 @@ NSString * const GravatarAccountUploadProgressNotification = @"Gravatar Account 
         NSString *userimage = (NSString *)[params objectAtIndex:0];
         NSLog(@"Set for emails: %@", emails);
         [self.client useUserimage:userimage forAddresses:emails onSuccess:^(GravatarRequest *request, NSArray *params) {
-            NSLog(@"Use image: %@", params);
+            NSLog(@"User image: %@", params);
             self.accountState = GravatarAccountStateIdle;
         } onFailure:^(GravatarRequest *request, NSDictionary *fault) {
-            NSLog(@"Fault: %@", fault);
+            NSLog(@"Fault: %@", [fault objectForKey:@"faultString"]);
             self.accountState = GravatarAccountStateIdle;
         }];
     } onFailure:^(GravatarRequest *request, NSDictionary *fault) {

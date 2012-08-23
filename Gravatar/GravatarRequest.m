@@ -55,7 +55,12 @@ NSString * const GravatarURL = @"https://secure.gravatar.com/xmlrpc";
     [request setHTTPMethod:@"POST"];
     
     [request setHTTPBody:[RCXMLRPCEncoder dataForRequestMethod:self.methodName andParams:self.params]];
-    NSURLConnection *connection = [NSURLConnection connectionWithRequest:request delegate:self];
+    NSURLConnection *connection = [[NSURLConnection alloc]
+                                   initWithRequest:request
+                                   delegate:self
+                                   startImmediately:NO];
+    
+    [connection scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
     NSLog(@"Calling remote method: %@ (%@)", self.methodName, request.URL);
     [connection start];
 }

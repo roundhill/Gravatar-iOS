@@ -68,9 +68,6 @@
 
     }
     
-    NSLog(@"Drawing circle with %f", self.percentComplete);
-
-    
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     
     // create the gutter cirlce

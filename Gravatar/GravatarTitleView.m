@@ -140,7 +140,6 @@
 }
 
 - (void)accountStateChanged:(NSNotification *)notification {
-    NSLog(@"State changed: %d", self.account.accountState);
     switch (self.account.accountState) {
         case GravatarAccountStateIdle:
             self.descriptionLabel.text = [NSString stringWithFormat:@"Emails: %d", [self.account.emails count]];
