@@ -144,6 +144,7 @@
         case GravatarAccountStateIdle:
             self.descriptionLabel.text = [NSString stringWithFormat:@"Emails: %d", [self.account.emails count]];
             [self hideProgressView];
+            [self.gravatarImage reload];
             break;
         case GravatarAccountStateLoading:
             self.descriptionLabel.text = @"Loading account";

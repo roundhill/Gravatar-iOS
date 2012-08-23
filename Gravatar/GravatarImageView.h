@@ -12,4 +12,7 @@
 @property (nonatomic, strong) NSString *email;
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, readonly) NSURL *gravatarURL;
+
+- (void)reload;
+
 @end

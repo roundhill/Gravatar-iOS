@@ -34,6 +34,10 @@
     return self;
 }
 
+- (void)reload {
+    [self requestGravatar];
+}
+
 - (void)drawRect:(CGRect)rect {
     self.layer.cornerRadius = 2.f;
     self.layer.masksToBounds = YES;
@@ -49,6 +53,10 @@
 }
 
 - (void)requestGravatar {
+    NSURL *url = self.gravatarURL;
+    if (url == nil) {
+        return;
+    }
     NSURLRequest *request = [NSURLRequest requestWithURL:self.gravatarURL];
     NSURLConnection *connection = [NSURLConnection connectionWithRequest:request delegate:self];
     [UIView animateWithDuration:0.2f animations:^{
