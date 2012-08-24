@@ -15,8 +15,8 @@
 @interface GravatarImageView () <NSURLConnectionDataDelegate>
 
 @property (nonatomic, strong) NSMutableData *imageData;
-- (void)requestGravatar;
-
+- (void)requestImage;
+- (NSURL *)gravatarURLForEmail:(NSString *)email;
 @end
 
 @implementation GravatarImageView
@@ -35,7 +35,8 @@
 }
 
 - (void)reload {
-    [self requestGravatar];
+    NSLog(@"Reloading image");
+    [self requestImage];
 }
 
 - (void)drawRect:(CGRect)rect {
@@ -43,22 +44,32 @@
     self.layer.masksToBounds = YES;
 }
 
-- (NSURL *)gravatarURL {
-    if (self.email == nil) {
+- (NSURL *)gravatarURLForEmail:(NSString *)email {
+    if (email == nil) {
         return nil;
     }
-    NSString *url = [NSString stringWithFormat:kGravatarURLFormat, [MD5Hasher hashForEmail:self.email]];
+    NSString *url = [NSString stringWithFormat:kGravatarURLFormat, [MD5Hasher hashForEmail:email]];
     return [NSURL URLWithString:url];
     
 }
 
-- (void)requestGravatar {
-    NSURL *url = self.gravatarURL;
+- (void)requestImage {
+    NSURL *url = self.imageURL;
     if (url == nil) {
         return;
     }
-    NSURLRequest *request = [NSURLRequest requestWithURL:self.gravatarURL];
-    NSURLConnection *connection = [NSURLConnection connectionWithRequest:request delegate:self];
+    NSURLRequest *request = [NSURLRequest
+                             requestWithURL:url
+                             cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                             timeoutInterval:0.f];
+        
+    NSURLConnection *connection = [[NSURLConnection alloc]
+                                   initWithRequest:request
+                                   delegate:self
+                                   startImmediately:NO];
+    
+    [connection scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
+    
     [UIView animateWithDuration:0.2f animations:^{
         self.imageView.alpha = 0.f;
     }];
@@ -66,9 +77,13 @@
 }
 
 - (void)setEmail:(NSString *)email {
-    if (_email != email) {
-        _email = email;
-        [self requestGravatar];
+    self.imageURL = [self gravatarURLForEmail:email];
+}
+
+- (void)setImageURL:(NSURL *)imageURL {
+    if (![[imageURL absoluteString] isEqualToString:[self.imageURL absoluteString]]) {
+        _imageURL = imageURL;
+        [self requestImage];
     }
 }
 

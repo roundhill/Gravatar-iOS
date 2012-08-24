@@ -9,10 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface GravatarImageView : UIView
-@property (nonatomic, strong) NSString *email;
 @property (nonatomic, strong) UIImageView *imageView;
-@property (nonatomic, readonly) NSURL *gravatarURL;
+@property (nonatomic, strong) NSURL *imageURL;
 
 - (void)reload;
+- (void)setEmail:(NSString *)email;
 
 @end
