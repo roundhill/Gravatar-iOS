@@ -99,7 +99,10 @@
                                                  options:kNilOptions
                                                  metrics:nil
                                                    views:@{@"activity":self.activityView}]];
-                
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(reloadGravatar:)];
+        [self.gravatarImage addGestureRecognizer:tap];
+        [self.gravatarImage setUserInteractionEnabled:YES];
         
     }
     return self;
@@ -143,8 +146,6 @@
     switch (self.account.accountState) {
         case GravatarAccountStateIdle:
             self.descriptionLabel.text = [NSString stringWithFormat:@"Emails: %d", [self.account.emails count]];
-            [self hideProgressView];
-            [self.gravatarImage reload];
             break;
         case GravatarAccountStateLoading:
             self.descriptionLabel.text = @"Loading account";
@@ -152,6 +153,10 @@
         case GravatarAccountStateUploading:
             self.descriptionLabel.text = @"Uploading image";
             [self showProgressView];            
+            break;
+        case GravatarAccountStateImageUpdated:
+            [self hideProgressView];
+            [self.gravatarImage reload];
             break;
         default:
             self.descriptionLabel.text = @"Authenticating";
@@ -205,6 +210,10 @@
         self.gravatarImage.transform = scaleUp;
         self.gravatarImage.alpha = 1.f;
     }];
+}
+
+- (void)reloadGravatar:(id)sender {
+    [self.gravatarImage reload];
 }
 
 
