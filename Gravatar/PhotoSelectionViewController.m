@@ -11,7 +11,7 @@
 
 float const PhotoSelectionViewControllerThumbSize = 76.f;
 
-@interface PhotoSelectionViewController ()
+@interface PhotoSelectionViewController () <UICollectionViewDelegateFlowLayout>
 @property (nonatomic, retain) NSMutableArray *photos;
 @property (nonatomic, retain) ALAssetsLibrary *library;
 @property (nonatomic, retain) UIView *errorView;
@@ -48,6 +48,8 @@ float const PhotoSelectionViewControllerThumbSize = 76.f;
     self.view.backgroundColor = [UIColor blackColor];
     
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"Cell"];
+    
+    [self.collectionView registerClass:[UICollectionViewCell class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"Footer"];
     
     self.library = [[ALAssetsLibrary alloc] init];
         
@@ -142,6 +144,26 @@ float const PhotoSelectionViewControllerThumbSize = 76.f;
     imageView.frame = CGRectMake(0.f,0.f, PhotoSelectionViewControllerThumbSize, PhotoSelectionViewControllerThumbSize);
     [cell.contentView addSubview:imageView];
     cell.clipsToBounds = YES;
+    return cell;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
+    return CGSizeMake(320.f, 40.f);
+}
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"Supplementary view requested");
+    UICollectionReusableView *cell = (UICollectionReusableView *)[collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"Footer" forIndexPath:indexPath];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, 40.f)];
+    label.text = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+    label.textColor = [[UIColor whiteColor] colorWithAlphaComponent:0.1f];
+    label.backgroundColor = [UIColor clearColor];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.font = [UIFont systemFontOfSize:[UIFont smallSystemFontSize]];
+    
+    [cell addSubview:label];
+    
     return cell;
 }
 
