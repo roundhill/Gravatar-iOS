@@ -19,7 +19,8 @@ typedef enum GravatarAccountState : NSInteger  {
     GravatarAccountStateLoggedOut    = 0, // not signed in
     GravatarAccountStateLoading      = 1, // updating emails grav.addresses
     GravatarAccountStateIdle         = 2, // signed in not doing anything
-    GravatarAccountStateUploading    = 3  // uploading gravatar
+    GravatarAccountStateUploading    = 3, // uploading gravatar
+    GravatarAccountStateImageUpdated = 4  // new gravatar
 } GravatarAccountState;
 
 

@@ -130,6 +130,7 @@ NSString * const GravatarAccountUploadProgressNotification = @"Gravatar Account 
     }
     self.accountState = GravatarAccountStateLoading;
     [self.client addressesOnSuccess:^(GravatarRequest *request, NSArray *params) {
+        NSLog(@"Addresses: %@", params);
         NSDictionary *addressSettings = [params objectAtIndex:0];
         self.emails = [addressSettings allKeys];
         self.accountState = GravatarAccountStateIdle;
@@ -152,10 +153,10 @@ NSString * const GravatarAccountUploadProgressNotification = @"Gravatar Account 
         NSLog(@"Set for emails: %@", emails);
         [self.client useUserimage:userimage forAddresses:emails onSuccess:^(GravatarRequest *request, NSArray *params) {
             NSLog(@"User image: %@", params);
-            self.accountState = GravatarAccountStateIdle;
+            self.accountState = GravatarAccountStateImageUpdated;
         } onFailure:^(GravatarRequest *request, NSDictionary *fault) {
             NSLog(@"Fault: %@", [fault objectForKey:@"faultString"]);
-            self.accountState = GravatarAccountStateIdle;
+            self.accountState = GravatarAccountStateImageUpdated;
         }];
     } onFailure:^(GravatarRequest *request, NSDictionary *fault) {
         NSLog(@"Failed to upload data: %@", fault);
