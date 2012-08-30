@@ -52,7 +52,7 @@ NSString * const GravatarAccountUploadProgressNotification = @"Gravatar Account 
     if (self = [super init]) {
         
         self.client = [[GravatarClient alloc] initWithEmail:email andPassword:nil];
-        
+        self.emails = [NSArray array];
         NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
         [nc addObserver:self
                selector:@selector(failedAuth:)
@@ -140,6 +140,7 @@ NSString * const GravatarAccountUploadProgressNotification = @"Gravatar Account 
 
 - (void)saveImage:(UIImage *)image forEmails:(NSArray *)emails {
     NSData *data = UIImageJPEGRepresentation(image, 0.9f);
+    NSLog(@"data: %d", data.length);
     self.accountState = GravatarAccountStateUploading;
     NSLog(@"Saving for emails: %@", emails);
     self.uploadProgressPercent = 0.f;

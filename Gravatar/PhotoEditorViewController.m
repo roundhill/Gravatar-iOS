@@ -10,10 +10,11 @@
 #import <QuartzCore/QuartzCore.h>
 #import "PhotoEditorViewController.h"
 #import "CropView.h"
+#import "FilterPickerView.h"
 
 const float PhotoEditorViewControllerCropInset = 22.f;
 
-@interface PhotoEditorViewController () {
+@interface PhotoEditorViewController () <FilterPickerViewDelegate> {
     BOOL _closing;
 }
 @property (nonatomic, strong) UIImageView *imageView;
@@ -26,6 +27,9 @@ const float PhotoEditorViewControllerCropInset = 22.f;
 @property (nonatomic, strong) UIView *editorView;
 @property (nonatomic) CGRect transitionRect;
 @property (nonatomic) UIView *backgroundView;
+@property (nonatomic) CIContext *filterContext;
+@property (nonatomic) CIFilter *filter;
+@property (nonatomic) FilterPickerView *filterPickerScrollView;
 
 @property (nonatomic) CropView *cropView;
 @end
@@ -60,6 +64,11 @@ const float PhotoEditorViewControllerCropInset = 22.f;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+        
+    self.filterContext = [CIContext contextWithOptions:nil];
+    
+    self.filter = [CIFilter filterWithName:@"CIDotScreen"];
+    [self.filter setDefaults];
     
     self.view.backgroundColor = [UIColor blackColor];
     
@@ -94,6 +103,15 @@ const float PhotoEditorViewControllerCropInset = 22.f;
 
     [self.view bringSubviewToFront:self.cropView];
     
+    CGRect pickerFrame = CGRectMake(0.f, self.view.bounds.size.height - 74.f, self.view.bounds.size.width, 44.f);
+    self.filterPickerScrollView = [[FilterPickerView alloc] initWithFrame:pickerFrame];
+    self.filterPickerScrollView.sampleImage = [UIImage imageNamed:@"filter-sample"];
+
+    self.filterPickerScrollView.filterLibrary = self.filterLibrary;
+    self.filterPickerScrollView.delegate = self;
+    
+    [self.view addSubview:self.filterPickerScrollView];
+
     
     self.imageOrigin = self.editorView.center;
         
@@ -118,6 +136,16 @@ const float PhotoEditorViewControllerCropInset = 22.f;
     
 
 }
+
+#pragma mark - FilterPickerViewDelegate
+
+- (void)filterPickerView:(FilterPickerView *)filterPickerView didSelectFilter:(BaseFilter *)filter {
+    NSLog(@"use this filter: %@", filter);
+    ALAssetRepresentation *rep = [self.asset defaultRepresentation];
+    self.imageView.image = [self.filterLibrary imageWithCGImage:rep.fullScreenImage usingFilter:filter];
+}
+
+#pragma mark - Editor Methods
 
 - (void)addGestures {
     [self.editorView addGestureRecognizer:self.panGesture];
@@ -153,7 +181,11 @@ const float PhotoEditorViewControllerCropInset = 22.f;
             return;
         }
         ALAssetRepresentation *rep = asset.defaultRepresentation;
-        UIImage *fullImage = [UIImage imageWithCGImage:rep.fullScreenImage];
+        
+        UIImage *fullImage = [self.filterLibrary imageWithCGImage:rep.fullScreenImage
+                                                      usingFilter:self.filterPickerScrollView.selectedFilter];
+        
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             if (_closing == YES) {
                 return;
@@ -161,6 +193,8 @@ const float PhotoEditorViewControllerCropInset = 22.f;
             self.imageView.image = fullImage;
         });
     });
+    
+    self.filterPickerScrollView.sampleImage = [UIImage imageWithCGImage:asset.thumbnail];
     
     CGSize assetDimensions = asset.defaultRepresentation.dimensions;
     CGRect imageFrame;
@@ -173,6 +207,7 @@ const float PhotoEditorViewControllerCropInset = 22.f;
     self.imageView.image = [UIImage imageWithCGImage:asset.aspectRatioThumbnail];
     self.imageView.layer.anchorPoint = CGPointMake(0.5f, 0.5f);
     
+    // set up a filter and use it?
     
     self.defaultImageScale = [self scaleToFillDimensions:assetDimensions toSize:cropSize];
         
@@ -415,7 +450,9 @@ const float PhotoEditorViewControllerCropInset = 22.f;
     CGRect cropRect = [self.imageView convertRect:self.editorView.frame fromView:self.view];
     
     ALAssetRepresentation *rep = self.asset.defaultRepresentation;
-    UIImage *image = [UIImage imageWithCGImage:rep.fullResolutionImage scale:rep.scale orientation:rep.orientation];
+    UIImage *filteredImage = [self.filterLibrary imageWithCGImage:rep.fullResolutionImage usingFilter:self.filterPickerScrollView.selectedFilter];
+    UIImage  *image = [UIImage imageWithCGImage:filteredImage.CGImage scale:rep.scale orientation:rep.orientation];
+    
     
     UIGraphicsBeginImageContextWithOptions(image.size, YES, image.scale);
     [image drawAtPoint:CGPointZero];
@@ -427,8 +464,7 @@ const float PhotoEditorViewControllerCropInset = 22.f;
     UIImage *croppedImage = [UIImage imageWithCGImage:cropped];
     
     CGImageRelease(cropped);
-    
-    
+            
     [self.delegate photoEditor:self didFinishEditingImage:croppedImage];
 }
 

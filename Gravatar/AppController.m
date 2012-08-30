@@ -11,11 +11,17 @@
 #import "AddAccountViewController.h"
 #import "GravatarImageView.h"
 #import "GravatarTitleView.h"
+#import "DefaultFilter.h"
+#import "SepiaFilter.h"
+#import "PixelateFilter.h"
+#import "MonochromeFilter.h"
 
 @interface AppController () <PhotoSelectionViewControllerDelegate, PhotoEditorViewControllerDelegate, AddAccountViewControllerDelegate, UINavigationBarDelegate>
 @property (nonatomic, strong) GravatarImageView *gravatarImageView;
 @property (nonatomic, strong) GravatarTitleView *appTitleView;
 @property (nonatomic, strong) id accountStatusListener;
+@property (nonatomic, strong, readwrite) FilterLibrary *filterLibrary;
+
 @end
 
 @implementation AppController
@@ -43,6 +49,15 @@
                                       usingBlock:statusChangeBLock];
         
         self.account = [GravatarAccount defaultAccount];
+        
+        // register the filters
+        [DefaultFilter class];
+        [SepiaFilter class];
+        [PixelateFilter class];
+        [MonochromeFilter class];
+        
+        self.filterLibrary = [[FilterLibrary alloc] initWithDefaultFilters];
+        
 
     }
     return self;
@@ -55,7 +70,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+        
     // we're going to have a toolbar at the top
     CGRect toolbarFrame = self.view.bounds;
     toolbarFrame.size.height = 44.f;
@@ -109,6 +124,7 @@
     
     self.editorController = [[PhotoEditorViewController alloc] init];
     self.editorController.delegate = self;
+    self.editorController.filterLibrary = self.filterLibrary;
     
         
     [self.view bringSubviewToFront:toolbar];
@@ -224,7 +240,7 @@
     
     [self.navigationBar popNavigationItemAnimated:NO];
     
-    [self.account saveImage:image forEmails:[NSArray array]];
+    [self.account saveImage:image forEmails:self.account.emails];
     
 }
 

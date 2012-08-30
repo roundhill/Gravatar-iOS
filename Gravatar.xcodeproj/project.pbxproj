@@ -36,6 +36,15 @@
 		CC3CA27C15D22A49006E8B22 /* EmailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC3CA27B15D22A49006E8B22 /* EmailsViewController.m */; };
 		CC3CA27F15D234C4006E8B22 /* PhotoSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC3CA27E15D234C4006E8B22 /* PhotoSelectionViewController.m */; };
 		CC3CA28115D236BC006E8B22 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC3CA28015D236BC006E8B22 /* AssetsLibrary.framework */; };
+		CC4877E115EEE760008AFA6B /* FilterPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4877E015EEE760008AFA6B /* FilterPickerView.m */; };
+		CC4877E615EFB5A9008AFA6B /* FilterLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4877E515EFB5A9008AFA6B /* FilterLibrary.m */; };
+		CC4877E915EFC566008AFA6B /* DefaultFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4877E815EFC566008AFA6B /* DefaultFilter.m */; };
+		CC4877EC15EFC78C008AFA6B /* BaseFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4877EB15EFC78C008AFA6B /* BaseFilter.m */; };
+		CC4877EF15EFD019008AFA6B /* SepiaFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4877EE15EFD019008AFA6B /* SepiaFilter.m */; };
+		CC4877F615EFE2B4008AFA6B /* filter-sample.png in Resources */ = {isa = PBXBuildFile; fileRef = CC4877F415EFE2B4008AFA6B /* filter-sample.png */; };
+		CC4877F715EFE2B4008AFA6B /* filter-sample@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC4877F515EFE2B4008AFA6B /* filter-sample@2x.png */; };
+		CC4877FA15EFF89E008AFA6B /* PixelateFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4877F915EFF89E008AFA6B /* PixelateFilter.m */; };
+		CC4877FD15EFFC08008AFA6B /* MonochromeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4877FC15EFFC08008AFA6B /* MonochromeFilter.m */; };
 		CC6315FE15CF0F93007E8AFC /* response-complex.xml in Resources */ = {isa = PBXBuildFile; fileRef = CC6315FD15CF0F93007E8AFC /* response-complex.xml */; };
 		CC63160115CF0FB2007E8AFC /* response-fault.xml in Resources */ = {isa = PBXBuildFile; fileRef = CC63160015CF0FB2007E8AFC /* response-fault.xml */; };
 		CC63160415D01D8D007E8AFC /* RCXMLRPCParsingContext.m in Sources */ = {isa = PBXBuildFile; fileRef = CC63160315D01D8C007E8AFC /* RCXMLRPCParsingContext.m */; };
@@ -147,6 +156,22 @@
 		CC3CA27D15D234C4006E8B22 /* PhotoSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoSelectionViewController.h; sourceTree = "<group>"; };
 		CC3CA27E15D234C4006E8B22 /* PhotoSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoSelectionViewController.m; sourceTree = "<group>"; };
 		CC3CA28015D236BC006E8B22 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		CC4877DF15EEE760008AFA6B /* FilterPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterPickerView.h; sourceTree = "<group>"; };
+		CC4877E015EEE760008AFA6B /* FilterPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterPickerView.m; sourceTree = "<group>"; };
+		CC4877E415EFB5A9008AFA6B /* FilterLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterLibrary.h; sourceTree = "<group>"; };
+		CC4877E515EFB5A9008AFA6B /* FilterLibrary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterLibrary.m; sourceTree = "<group>"; };
+		CC4877E715EFC566008AFA6B /* DefaultFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultFilter.h; sourceTree = "<group>"; };
+		CC4877E815EFC566008AFA6B /* DefaultFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultFilter.m; sourceTree = "<group>"; };
+		CC4877EA15EFC78C008AFA6B /* BaseFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseFilter.h; sourceTree = "<group>"; };
+		CC4877EB15EFC78C008AFA6B /* BaseFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseFilter.m; sourceTree = "<group>"; };
+		CC4877ED15EFD019008AFA6B /* SepiaFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SepiaFilter.h; sourceTree = "<group>"; };
+		CC4877EE15EFD019008AFA6B /* SepiaFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SepiaFilter.m; sourceTree = "<group>"; };
+		CC4877F415EFE2B4008AFA6B /* filter-sample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "filter-sample.png"; sourceTree = "<group>"; };
+		CC4877F515EFE2B4008AFA6B /* filter-sample@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "filter-sample@2x.png"; sourceTree = "<group>"; };
+		CC4877F815EFF89E008AFA6B /* PixelateFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PixelateFilter.h; sourceTree = "<group>"; };
+		CC4877F915EFF89E008AFA6B /* PixelateFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PixelateFilter.m; sourceTree = "<group>"; };
+		CC4877FB15EFFC08008AFA6B /* MonochromeFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonochromeFilter.h; sourceTree = "<group>"; };
+		CC4877FC15EFFC08008AFA6B /* MonochromeFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonochromeFilter.m; sourceTree = "<group>"; };
 		CC6315FD15CF0F93007E8AFC /* response-complex.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "response-complex.xml"; sourceTree = "<group>"; };
 		CC63160015CF0FB2007E8AFC /* response-fault.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "response-fault.xml"; sourceTree = "<group>"; };
 		CC63160215D01D8C007E8AFC /* RCXMLRPCParsingContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCXMLRPCParsingContext.h; sourceTree = "<group>"; };
@@ -265,6 +290,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CC4877E315EFB578008AFA6B /* Filters */ = {
+			isa = PBXGroup;
+			children = (
+				CC4877E415EFB5A9008AFA6B /* FilterLibrary.h */,
+				CC4877E515EFB5A9008AFA6B /* FilterLibrary.m */,
+				CC4877E715EFC566008AFA6B /* DefaultFilter.h */,
+				CC4877E815EFC566008AFA6B /* DefaultFilter.m */,
+				CC4877ED15EFD019008AFA6B /* SepiaFilter.h */,
+				CC4877EE15EFD019008AFA6B /* SepiaFilter.m */,
+				CC4877EA15EFC78C008AFA6B /* BaseFilter.h */,
+				CC4877EB15EFC78C008AFA6B /* BaseFilter.m */,
+				CC4877F815EFF89E008AFA6B /* PixelateFilter.h */,
+				CC4877F915EFF89E008AFA6B /* PixelateFilter.m */,
+				CC4877FB15EFFC08008AFA6B /* MonochromeFilter.h */,
+				CC4877FC15EFFC08008AFA6B /* MonochromeFilter.m */,
+			);
+			name = Filters;
+			sourceTree = "<group>";
+		};
 		CC63160515D03E6C007E8AFC /* Gravatar */ = {
 			isa = PBXGroup;
 			children = (
@@ -314,6 +358,8 @@
 				CC11A7E115E2B014006A3C2A /* GravatarTitleView.m */,
 				CC68D4D015E4430D002F6A9C /* CircularProgressIndicatorView.h */,
 				CC68D4D115E4430D002F6A9C /* CircularProgressIndicatorView.m */,
+				CC4877DF15EEE760008AFA6B /* FilterPickerView.h */,
+				CC4877E015EEE760008AFA6B /* FilterPickerView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -321,6 +367,8 @@
 		CCA8E63A15D0D83000DE01AF /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				CC4877F415EFE2B4008AFA6B /* filter-sample.png */,
+				CC4877F515EFE2B4008AFA6B /* filter-sample@2x.png */,
 				CC68D4CB15E3E08E002F6A9C /* grip-highlighed@2x.png */,
 				CC68D4CC15E3E08E002F6A9C /* grip-highlighted.png */,
 				CC11A7DB15E2AFF5006A3C2A /* grip.png */,
@@ -409,6 +457,7 @@
 			isa = PBXGroup;
 			children = (
 				CCA8E63A15D0D83000DE01AF /* Images */,
+				CC4877E315EFB578008AFA6B /* Filters */,
 				CCA8E62115D080CF00DE01AF /* UI */,
 				CC63160515D03E6C007E8AFC /* Gravatar */,
 				CCFD86C215CC56C3001D8E25 /* XMLRPC */,
@@ -608,6 +657,8 @@
 				CC11A7DE15E2AFF5006A3C2A /* grip@2x.png in Resources */,
 				CC68D4CD15E3E08E002F6A9C /* grip-highlighed@2x.png in Resources */,
 				CC68D4CE15E3E08E002F6A9C /* grip-highlighted.png in Resources */,
+				CC4877F615EFE2B4008AFA6B /* filter-sample.png in Resources */,
+				CC4877F715EFE2B4008AFA6B /* filter-sample@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -701,6 +752,13 @@
 				CC830B2315DABF90008F5552 /* AppController.m in Sources */,
 				CC11A7E215E2B014006A3C2A /* GravatarTitleView.m in Sources */,
 				CC68D4D215E4430D002F6A9C /* CircularProgressIndicatorView.m in Sources */,
+				CC4877E115EEE760008AFA6B /* FilterPickerView.m in Sources */,
+				CC4877E615EFB5A9008AFA6B /* FilterLibrary.m in Sources */,
+				CC4877E915EFC566008AFA6B /* DefaultFilter.m in Sources */,
+				CC4877EC15EFC78C008AFA6B /* BaseFilter.m in Sources */,
+				CC4877EF15EFD019008AFA6B /* SepiaFilter.m in Sources */,
+				CC4877FA15EFF89E008AFA6B /* PixelateFilter.m in Sources */,
+				CC4877FD15EFFC08008AFA6B /* MonochromeFilter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,6 +10,7 @@
 #import "GravatarAccount.h"
 #import "PhotoSelectionViewController.h"
 #import "PhotoEditorViewController.h"
+#import "FilterLibrary.h"
 
 @interface AppController : UIViewController
 @property (nonatomic, strong) PhotoSelectionViewController *photosController;
@@ -19,6 +20,7 @@
 @property (nonatomic, strong) UINavigationBar *navigationBar;
 @property (nonatomic, strong) NSArray *emails;
 @property (nonatomic, strong) NSIndexSet *selectedEmailIndexes;
+@property (nonatomic, strong, readonly) FilterLibrary *filterLibrary;
 
 - (void) refreshPhotos;
 @end

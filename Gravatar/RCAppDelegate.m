@@ -171,8 +171,6 @@
     id toolbar = [UIToolbar appearance];
     [toolbar setBackgroundImage:shadowImage forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
     
-    NSLog(@"Info: %@", [[NSBundle mainBundle] infoDictionary]);
-
 }
 
 -(void)logAllFilters {
