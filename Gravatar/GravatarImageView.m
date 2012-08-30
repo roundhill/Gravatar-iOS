@@ -35,7 +35,6 @@
 }
 
 - (void)reload {
-    NSLog(@"Reloading image");
     [self requestImage];
 }
 

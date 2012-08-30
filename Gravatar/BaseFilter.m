@@ -14,7 +14,6 @@
 + (void)initialize {
     // register class with the filter library
     if (self != [BaseFilter class]) {
-        NSLog(@"Hello, I am: %@ %@", self, [self filterName]);
         [FilterLibrary registerFilter:self];
     }
 }
@@ -31,7 +30,6 @@
 
 // hook up whatever filters necessary and return the output image
 - (CIImage *)processCIImage:(CIImage *)image withContext:(CIContext *)context {
-    NSLog(@"Process the image: %@", [self class]);
     return image;
     
 }

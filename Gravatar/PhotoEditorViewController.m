@@ -140,7 +140,6 @@ const float PhotoEditorViewControllerCropInset = 22.f;
 #pragma mark - FilterPickerViewDelegate
 
 - (void)filterPickerView:(FilterPickerView *)filterPickerView didSelectFilter:(BaseFilter *)filter {
-    NSLog(@"use this filter: %@", filter);
     ALAssetRepresentation *rep = [self.asset defaultRepresentation];
     self.imageView.image = [self.filterLibrary imageWithCGImage:rep.fullScreenImage usingFilter:filter];
 }
