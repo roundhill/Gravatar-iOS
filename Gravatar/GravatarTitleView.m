@@ -144,22 +144,30 @@
 
 - (void)accountStateChanged:(NSNotification *)notification {
     switch (self.account.accountState) {
-        case GravatarAccountStateIdle:
+        case GravatarAccountStateIdle: {
             self.descriptionLabel.text = [NSString stringWithFormat:@"Emails: %d", [self.account.emails count]];
+            }
             break;
-        case GravatarAccountStateLoading:
+        case GravatarAccountStateLoading: {
             self.descriptionLabel.text = @"Loading account";
+            }
             break;
-        case GravatarAccountStateUploading:
+        case GravatarAccountStateUploading: {
             self.descriptionLabel.text = @"Uploading image";
-            [self showProgressView];            
+            [self showProgressView];
+            }
             break;
-        case GravatarAccountStateImageUpdated:
+        case GravatarAccountStateImageUpdated: {
             [self hideProgressView];
-            [self.gravatarImage reload];
+            NSDictionary *userimage = [self.account userimageForAccountEmail];
+            NSString *imageURL = [userimage objectForKey:@"userimage_url"];
+            [self.gravatarImage setImageURL:[NSURL URLWithString:imageURL]];
+            self.descriptionLabel.text = [NSString stringWithFormat:@"Emails: %d", [self.account.emails count]];
+            }
             break;
-        default:
+        default: {
             self.descriptionLabel.text = @"Authenticating";
+        }
             break;
     }
 }
