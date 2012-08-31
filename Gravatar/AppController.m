@@ -13,7 +13,7 @@
 #import "GravatarTitleView.h"
 #import "DefaultFilter.h"
 #import "SepiaFilter.h"
-#import "PixelateFilter.h"
+#import "DotScreen.h"
 #import "MonochromeFilter.h"
 
 @interface AppController () <PhotoSelectionViewControllerDelegate, PhotoEditorViewControllerDelegate, AddAccountViewControllerDelegate, UINavigationBarDelegate>
@@ -53,7 +53,7 @@
         // register the filters
         [DefaultFilter class];
         [SepiaFilter class];
-        [PixelateFilter class];
+        [DotScreen class];
         [MonochromeFilter class];
         
         self.filterLibrary = [[FilterLibrary alloc] initWithDefaultFilters];

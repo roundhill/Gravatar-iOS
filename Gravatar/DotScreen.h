@@ -8,6 +8,6 @@
 
 #import "BaseFilter.h"
 
-@interface PixelateFilter : BaseFilter
+@interface DotScreen : BaseFilter
 
 @end
