@@ -248,6 +248,8 @@
     [viewController dismissViewControllerAnimated:YES completion:nil];
     self.account = viewController.account;
     self.gravatarImageView.email = self.account.email;
+    self.appTitleView.account = nil;
+    self.appTitleView.account = self.account;
 }
 
 - (BOOL)navigationBar:(UINavigationBar *)navigationBar shouldPopItem:(UINavigationItem *)item {
