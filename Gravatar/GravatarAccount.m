@@ -20,6 +20,7 @@ NSString * const GravatarAccountUploadProgressNotification = @"Gravatar Account 
 @property (nonatomic, weak) NSString *password;
 @property (nonatomic, strong, readwrite) GravatarClient *client;
 @property (nonatomic, strong, readwrite) NSArray *emails;
+@property (nonatomic, strong, readwrite) NSDictionary *emailimages;
 @property (nonatomic, readwrite) float uploadProgressPercent;
 
 - (NSString*)emailHash;
@@ -53,6 +54,7 @@ NSString * const GravatarAccountUploadProgressNotification = @"Gravatar Account 
         
         self.client = [[GravatarClient alloc] initWithEmail:email andPassword:nil];
         self.emails = [NSArray array];
+        self.emailimages = [NSDictionary dictionary];
         NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
         [nc addObserver:self
                selector:@selector(failedAuth:)
@@ -123,6 +125,14 @@ NSString * const GravatarAccountUploadProgressNotification = @"Gravatar Account 
     }
 }
 
+- (NSDictionary *)userimageForAccountEmail {
+    return (NSDictionary *)[self userimageForEmail:self.email];
+}
+
+- (NSDictionary *)userimageForEmail:(NSString *)email {
+    return (NSDictionary *)[self.emailimages objectForKey:[email lowercaseString]];
+}
+
 - (void)loadEmails {
     if (!self.isConfigured) {
         self.accountState = GravatarAccountStateLoggedOut;
@@ -130,9 +140,9 @@ NSString * const GravatarAccountUploadProgressNotification = @"Gravatar Account 
     }
     self.accountState = GravatarAccountStateLoading;
     [self.client addressesOnSuccess:^(GravatarRequest *request, NSArray *params) {
-        NSLog(@"Addresses: %@", params);
         NSDictionary *addressSettings = [params objectAtIndex:0];
         self.emails = [addressSettings allKeys];
+        self.emailimages = addressSettings;
         self.accountState = GravatarAccountStateIdle;
     } onFailure:nil];
     
@@ -153,8 +163,17 @@ NSString * const GravatarAccountUploadProgressNotification = @"Gravatar Account 
         NSString *userimage = (NSString *)[params objectAtIndex:0];
         NSLog(@"Set for emails: %@", emails);
         [self.client useUserimage:userimage forAddresses:emails onSuccess:^(GravatarRequest *request, NSArray *params) {
-            NSLog(@"User image: %@", params);
-            self.accountState = GravatarAccountStateImageUpdated;
+            // reload the emails
+            [self.client addressesOnSuccess:^(GravatarRequest *request, NSArray *params) {
+                NSDictionary *images = [params objectAtIndex:0];
+                self.emailimages = images;
+                self.emails = [images allKeys];
+                self.accountState = GravatarAccountStateImageUpdated;
+
+            } onFailure:^(GravatarRequest *request, NSDictionary *fault) {
+                NSLog(@"Fault: %@", fault);
+                self.accountState = GravatarAccountStateImageUpdated;
+            }];
         } onFailure:^(GravatarRequest *request, NSDictionary *fault) {
             NSLog(@"Fault: %@", [fault objectForKey:@"faultString"]);
             self.accountState = GravatarAccountStateImageUpdated;

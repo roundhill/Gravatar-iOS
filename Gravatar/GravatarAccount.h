@@ -28,6 +28,7 @@ typedef enum GravatarAccountState : NSInteger  {
 
 @property (nonatomic, strong) NSString *email;
 @property (nonatomic, strong, readonly) NSArray *emails;
+@property (nonatomic, strong, readonly) NSDictionary *emailimages;
 @property (nonatomic, strong, readonly) GravatarClient *client;
 @property (nonatomic) GravatarAccountState accountState;
 @property (nonatomic, readonly) float uploadProgressPercent;
@@ -40,4 +41,7 @@ typedef enum GravatarAccountState : NSInteger  {
 - (void)loadEmails;
 - (void)saveImage:(UIImage *)image forEmails:(NSArray *)emails;
 - (void)saveImage:(UIImage *)image forEmailsAtIndexes:(NSIndexSet *)emailIndexes;
+- (NSDictionary *)userimageForEmail:(NSString *)email;
+- (NSDictionary *)userimageForAccountEmail;
+
 @end
