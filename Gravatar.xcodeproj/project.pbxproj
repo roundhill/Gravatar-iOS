@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		37F4279B15F8FAA0000773C9 /* GrayscaleFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 37F4279A15F8FAA0000773C9 /* GrayscaleFilter.m */; };
 		915F5BABB35B48EB9BB2972D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4AABD77C5324CCD9F149023 /* libPods.a */; };
 		CC11A7DD15E2AFF5006A3C2A /* grip.png in Resources */ = {isa = PBXBuildFile; fileRef = CC11A7DB15E2AFF5006A3C2A /* grip.png */; };
 		CC11A7DE15E2AFF5006A3C2A /* grip@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC11A7DC15E2AFF5006A3C2A /* grip@2x.png */; };
@@ -123,6 +124,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		37F4279915F8FAA0000773C9 /* GrayscaleFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GrayscaleFilter.h; sourceTree = "<group>"; };
+		37F4279A15F8FAA0000773C9 /* GrayscaleFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GrayscaleFilter.m; sourceTree = "<group>"; };
 		80DC29DBD8E0496F99E7258E /* Pods.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		CC11A7DB15E2AFF5006A3C2A /* grip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grip.png; sourceTree = "<group>"; };
 		CC11A7DC15E2AFF5006A3C2A /* grip@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "grip@2x.png"; sourceTree = "<group>"; };
@@ -305,6 +308,8 @@
 				CC4877F915EFF89E008AFA6B /* DotScreen.m */,
 				CC4877FB15EFFC08008AFA6B /* MonochromeFilter.h */,
 				CC4877FC15EFFC08008AFA6B /* MonochromeFilter.m */,
+				37F4279915F8FAA0000773C9 /* GrayscaleFilter.h */,
+				37F4279A15F8FAA0000773C9 /* GrayscaleFilter.m */,
 			);
 			name = Filters;
 			sourceTree = "<group>";
@@ -759,6 +764,7 @@
 				CC4877EF15EFD019008AFA6B /* SepiaFilter.m in Sources */,
 				CC4877FA15EFF89E008AFA6B /* DotScreen.m in Sources */,
 				CC4877FD15EFFC08008AFA6B /* MonochromeFilter.m in Sources */,
+				37F4279B15F8FAA0000773C9 /* GrayscaleFilter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -862,6 +868,7 @@
 				INFOPLIST_FILE = "Gravatar/Gravatar-Info.plist";
 				INFOPLIST_PREFIX_HEADER = InfoPlist.h;
 				INFOPLIST_PREPROCESS = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = app;
@@ -879,6 +886,7 @@
 				INFOPLIST_FILE = "Gravatar/Gravatar-Info.plist";
 				INFOPLIST_PREFIX_HEADER = InfoPlist.h;
 				INFOPLIST_PREPROCESS = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = app;

@@ -15,6 +15,7 @@
 #import "SepiaFilter.h"
 #import "DotScreen.h"
 #import "MonochromeFilter.h"
+#import "GrayscaleFilter.h"
 
 @interface AppController () <PhotoSelectionViewControllerDelegate, PhotoEditorViewControllerDelegate, AddAccountViewControllerDelegate, UINavigationBarDelegate>
 @property (nonatomic, strong) GravatarImageView *gravatarImageView;
@@ -55,6 +56,7 @@
         [SepiaFilter class];
         [DotScreen class];
         [MonochromeFilter class];
+        [GrayscaleFilter class];
         
         self.filterLibrary = [[FilterLibrary alloc] initWithDefaultFilters];
         
